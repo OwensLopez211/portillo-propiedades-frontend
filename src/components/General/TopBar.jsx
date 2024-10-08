@@ -31,7 +31,7 @@ const TopBar = () => {
           <FaEnvelope className="text-red-500 text-xl" />
           <div className="text-center md:text-left">
             <p className="text-sm text-blue-600 font-semibold">Correo</p>
-            <p className="text-sm text-gray-600">Ejemplo@ejemplo.cl</p>
+            <p className="text-sm text-gray-600">Contacto@newlandpropiedades.cl</p>
           </div>
         </div>
       </div>
