@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate para la redirección
 
 const PropertyList = ({ properties }) => {
+    const navigate = useNavigate(); // Inicializa useNavigate
+
     // Función para formatear los precios con separadores de miles
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-CL').format(price);
@@ -58,10 +61,17 @@ const PropertyList = ({ properties }) => {
 
                             {/* Botones */}
                             <div className="flex justify-between items-center mt-6 border-t pt-4">
-                                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                                {/* Botón Ver con funcionalidad de redirección */}
+                                <button
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                                    onClick={() => navigate(`/property/${property.id}`)} // Redirige al detalle de la propiedad
+                                >
                                     Ver
                                 </button>
-                                <button className="text-blue-500 hover:underline transition duration-300">Guardar</button>
+
+                                <button className="text-blue-500 hover:underline transition duration-300">
+                                    Guardar
+                                </button>
                             </div>
                         </div>
                     </div>

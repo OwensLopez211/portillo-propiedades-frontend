@@ -28,21 +28,27 @@ const PropertyDetail = () => {
     fetchProperty();
   }, [id]);
 
-  if (loading) return <div>Cargando...</div>;
-  if (!property) return <div>No se encontró la propiedad</div>;
+  if (loading) return <div className="text-center text-lg py-20">Cargando...</div>;
+  if (!property) return <div className="text-center text-lg py-20">No se encontró la propiedad</div>;
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <TopBar />
       <Navbar />
-      <div className="container mx-auto py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
+      
+      {/* Contenedor principal con layout flex */}
+      <div className="container mx-auto py-10 px-4 flex flex-col lg:flex-row gap-8">
+        
+        {/* Primera columna: Contenido principal */}
+        <div className="lg:w-2/3 space-y-8">
           <PropertyHeader property={property} />
           <ImageGallery images={property.images} />
           <PropertyDescription descripcion={property.descripcion} />
           <PropertyDetails property={property} />
         </div>
-        <div>
+        
+        {/* Segunda columna: Información de contacto (columna lateral derecha) */}
+        <div className="lg:w-1/3 lg:ml-8">  {/* Ajustar el ancho y espaciado con lg:w-1/3 */}
           <ContactInfo agent={property.agent} />
         </div>
       </div>
