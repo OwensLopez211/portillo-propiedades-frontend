@@ -17,8 +17,7 @@ const Footer = () => {
         <div>
           <h3 className="font-bold text-xl mb-4">QUIÉNES SOMOS</h3>
           <p className="text-sm leading-relaxed mb-4">
-            Porque tenemos experiencia en el área inmobiliaria, para Portilla
-            Propiedades lo importante es crear lazos y relaciones comerciales
+            Porque tenemos experiencia en el área inmobiliaria, para Newland Propiedades lo importante es crear lazos y relaciones comerciales
             permanentes con todos sus clientes, para ayudarlos en el camino de
             vender, comprar o invertir en una propiedad.
           </p>
@@ -66,7 +65,7 @@ const Footer = () => {
             <li className="flex items-center">
               <FaEnvelope className="mr-2 text-lg" />
               <a href="mailto:marketing@portillapropiedades.cl" className="hover:underline hover:text-gray-300 transition duration-300">
-                marketing@portillapropiedades.cl
+                Contacto@newlandpropiedades.cl
               </a>
             </li>
             <li className="flex items-center">
@@ -88,7 +87,7 @@ const Footer = () => {
       <div className="text-center mt-8">
         <img
           src="/logo.png"
-          alt="Portilla Propiedades"
+          alt="Newland Propiedades"
           className="h-12 mx-auto opacity-80 hover:opacity-100 transition duration-300"
         />
       </div>
