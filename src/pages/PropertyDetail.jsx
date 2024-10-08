@@ -7,6 +7,7 @@ import ImageGallery from '../components/PropertyDetail/ImageGallery';
 import ContactInfo from '../components/PropertyDetail/ContactInfo';
 import PropertyDescription from '../components/PropertyDetail/PropertyDescription';
 import PropertyDetails from '../components/PropertyDetail/PropertyDetails';
+import Footer from '../components/General/Footer';
 
 const PropertyDetail = () => {
   const { id } = useParams();  
@@ -52,6 +53,7 @@ const PropertyDetail = () => {
           <ContactInfo agent={property.agent} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
