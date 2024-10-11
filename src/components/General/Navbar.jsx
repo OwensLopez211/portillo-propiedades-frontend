@@ -64,13 +64,14 @@ const Navbar = () => {
               Propiedades
             </a>
             <a
-              href="/contacto"
+              href="/entreganos-propiedad"
               className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
-                isActive('/contacto') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
+                isActive('/honorarios') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
-              Trabaja con Nosotros
+              Entreganos tu propiedad
             </a>
+            
             <a
               href="/honorarios"
               className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
@@ -94,6 +95,14 @@ const Navbar = () => {
               }`}
             >
               News
+            </a>
+            <a
+              href="/contacto"
+              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+                isActive('/contacto') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
+              }`}
+            >
+              Trabaja con Nosotros
             </a>
           </div>
         </div>

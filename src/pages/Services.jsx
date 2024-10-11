@@ -4,7 +4,7 @@ import Topbar from '../components/General/TopBar';
 import Navbar from '../components/General/Navbar';
 import SecondaryHero from '../components/General/SecundaryHero';
 import Footer from '../components/General/Footer';
-import ServiceSection from '../components/General/ServiceSection';
+import ServiceSection from '../components/ServicePage/ServiceSection';
 
 const Services = () => {
   return (
