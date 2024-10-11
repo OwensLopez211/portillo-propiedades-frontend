@@ -4,8 +4,6 @@ import TopBar from '../components/General/TopBar';
 import Navbar from '../components/General/Navbar';
 import HeroSection from '../components/Homepage/HeroSection';
 import FeaturedProperties from '../components/Homepage/FeaturedProperties';
-import ServicesSection from '../components/Homepage/ServicesSection';
-import AgentsCarousel from '../components/Homepage/AgentsCarousel';
 import WhatsAppBar from '../components/Homepage/WhatsappBar';
 import Footer from '../components/General/Footer';
 import PropertySearchBar from '../components/General/PropertySearchBar'; // Importa el componente de búsqueda
@@ -29,8 +27,6 @@ const HomePage = () => {
       <PropertySearchBar page="home" setFilters={handleFilters} />
 
       <FeaturedProperties />
-      <ServicesSection />
-      <AgentsCarousel />
       <WhatsAppBar />
       <Footer />
     </>

@@ -17,9 +17,7 @@ const Footer = () => {
         <div>
           <h3 className="font-bold text-xl mb-4">QUIÉNES SOMOS</h3>
           <p className="text-sm leading-relaxed mb-4">
-            Porque tenemos experiencia en el área inmobiliaria, para Newland Propiedades lo importante es crear lazos y relaciones comerciales
-            permanentes con todos sus clientes, para ayudarlos en el camino de
-            vender, comprar o invertir en una propiedad.
+            Nuestra experiencia y compromiso junto con soluciones a tu medida y objetivos reales te garantizan tranquilidad y satisfacción en cada etapa, desde la búsqueda de la propiedad ideal hasta la gestión de todos los trámites.
           </p>
           <div>
             <span className="font-bold">Síguenos en:</span>
@@ -45,12 +43,12 @@ const Footer = () => {
           <h3 className="font-bold text-xl mb-4">MENÚ</h3>
           <ul className="space-y-3">
             <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Inicio</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Propiedades</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Quiénes somos</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Servicios</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Blog</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Contacto</a></li>
-            <li><a href="/" className="hover:underline hover:text-gray-300 transition duration-300">Amoblados</a></li>
+            <li><a href="/quienes-somos" className="hover:underline hover:text-gray-300 transition duration-300">Nosotros</a></li>
+            <li><a href="/propiedades" className="hover:underline hover:text-gray-300 transition duration-300">Propiedades</a></li>
+            <li><a href="/contacto" className="hover:underline hover:text-gray-300 transition duration-300">Trabaja con Nosotros</a></li>
+            <li><a href="/honorarios" className="hover:underline hover:text-gray-300 transition duration-300">Honorarios</a></li>
+            <li><a href="/servicios" className="hover:underline hover:text-gray-300 transition duration-300">Servicios</a></li>
+            <li><a href="/news" className="hover:underline hover:text-gray-300 transition duration-300">News</a></li>
           </ul>
         </div>
 
@@ -72,12 +70,6 @@ const Footer = () => {
               <FaPhoneAlt className="mr-2 text-lg" />
               <a href="tel:+56229857495" className="hover:underline hover:text-gray-300 transition duration-300">
                 +56 22 985 7495
-              </a>
-            </li>
-            <li className="flex items-center">
-              <FaPhoneAlt className="mr-2 text-lg" />
-              <a href="tel:+56982667512" className="hover:underline hover:text-gray-300 transition duration-300">
-                +56 9 8266 7512
               </a>
             </li>
           </ul>

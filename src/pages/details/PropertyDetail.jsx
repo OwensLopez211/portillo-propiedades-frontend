@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import TopBar from '../components/General/TopBar';
-import Navbar from '../components/General/Navbar';
-import PropertyHeader from '../components/PropertyDetail/PropertyHeader';
-import ImageGallery from '../components/PropertyDetail/ImageGallery';
-import ContactInfo from '../components/PropertyDetail/ContactInfo';
-import PropertyDescription from '../components/PropertyDetail/PropertyDescription';
-import PropertyDetails from '../components/PropertyDetail/PropertyDetails';
-import Footer from '../components/General/Footer';
+import TopBar from '../../components/General/TopBar';
+import Navbar from '../../components/General/Navbar';
+import PropertyHeader from '../../components/PropertyDetail/PropertyHeader';
+import ImageGallery from '../../components/PropertyDetail/ImageGallery';
+import ContactInfo from '../../components/PropertyDetail/ContactInfo';
+import PropertyDescription from '../../components/PropertyDetail/PropertyDescription';
+import PropertyDetails from '../../components/PropertyDetail/PropertyDetails';
+import Footer from '../../components/General/Footer';
 
 const PropertyDetail = () => {
   const { id } = useParams();  

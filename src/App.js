@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
-import Contact from './pages/Contact';
-import PropertyDetail from './pages/PropertyDetail';
+import WorkWithUs from './pages/WorkWithUs';
+import PropertyDetail from './pages/details/PropertyDetail';
 import PropertiesPage from './pages/PropertiesPage';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path="/quienes-somos" element={<AboutUs />} />
         <Route path="/propiedades" element={<PropertiesPage/>} />  
         <Route path="/servicios" element={<Services/>} />
-        <Route path="/contacto" element={<Contact/>} />
+        <Route path="/contacto" element={<WorkWithUs/>} />
         <Route path="/property/:id" element={<PropertyDetail />} />
       </Routes>
     </Router>
