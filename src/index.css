@@ -1,8 +1,8 @@
 /* src/index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 /* Aplicar la fuente Poppins como fuente global */
 body {
@@ -11,9 +11,22 @@ body {
   -moz-osx-font-smoothing: grayscale; /* Suaviza el texto en Firefox */
 }
 
+/* Ocultar la barra de desplazamiento pero permitir el desplazamiento */
+::-webkit-scrollbar {
+  display: none; /* Oculta la barra de desplazamiento */
+}
 
+html {
+  overflow: -moz-hidden; /* Para Firefox */
+}
+
+/* Para Safari */
+body {
+  overflow-y: scroll; /* Permite el desplazamiento vertical */
+}
+
+/* Estilos de código */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-

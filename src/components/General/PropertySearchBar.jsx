@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa'; // Importar iconos para mejorar el diseño
 
-const PropertySearchBar = ({ setFilters }) => {
+const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
     const [localFilters, setLocalFilters] = useState({
         operation: '',
         propertyType: '',
@@ -9,6 +9,13 @@ const PropertySearchBar = ({ setFilters }) => {
         priceMin: '',
         priceMax: ''
     });
+
+    // Sincroniza los filtros iniciales al cargar el componente
+    useEffect(() => {
+        if (initialFilters) {
+            setLocalFilters(initialFilters); // Actualiza los filtros locales con los iniciales
+        }
+    }, [initialFilters]);
 
     // Actualiza el estado local de los filtros
     const handleChange = (e) => {
@@ -29,18 +36,21 @@ const PropertySearchBar = ({ setFilters }) => {
         setFilters(validatedFilters);
     };
 
+    // Estilos condicionales basados en la página
+    const containerClass = page === 'home' ? 'p-6 bg-gray-500 bg-opacity-30 backdrop-blur-lg shadow-xl' : 'p-6 bg-white rounded-lg shadow-md';
+
     return (
-        <div className="property-search-bar p-6 bg-white rounded-lg shadow-md flex flex-col lg:flex-row gap-4 items-center justify-center mx-auto max-w-5xl my-8">
+        <div className={`${containerClass} flex flex-col lg:flex-row gap-4 items-center justify-center w-full mx-auto my-0`}>
             {/* Barra de búsqueda */}
-            <div className="flex items-center border rounded-lg overflow-hidden w-full lg:w-auto">
-                <FaSearch className="text-gray-500 mx-2" />
+            <div className="flex items-center border rounded-lg overflow-hidden w-full lg:w-auto bg-white shadow-md">
+                <FaSearch className="text-gray-400 mx-3" />
                 <input 
                     type="text" 
                     name="comuna" 
                     placeholder="Buscar por comuna, código postal o estado" 
                     onChange={handleChange} 
                     value={localFilters.comuna}
-                    className="p-2 focus:outline-none w-full"
+                    className="p-2 focus:outline-none w-full text-gray-800"
                 />
             </div>
 
@@ -49,7 +59,7 @@ const PropertySearchBar = ({ setFilters }) => {
                 name="operation" 
                 onChange={handleChange} 
                 value={localFilters.operation}
-                className="p-2 border rounded-lg focus:outline-none w-full lg:w-auto"
+                className="p-2 border bg-white rounded-lg shadow-md focus:outline-none text-gray-800 w-full lg:w-auto"
             >
                 <option value="">Todas</option>
                 <option value="venta">Venta</option>
@@ -60,7 +70,7 @@ const PropertySearchBar = ({ setFilters }) => {
                 name="propertyType" 
                 onChange={handleChange} 
                 value={localFilters.propertyType}
-                className="p-2 border rounded-lg focus:outline-none w-full lg:w-auto"
+                className="p-2 border bg-white rounded-lg shadow-md focus:outline-none text-gray-800 w-full lg:w-auto"
             >
                 <option value="">Tipo de propiedad</option>
                 <option value="casa">Casa</option>
@@ -68,25 +78,27 @@ const PropertySearchBar = ({ setFilters }) => {
                 <option value="oficina">Oficina</option>
             </select>
 
-            {/* Select de precio */}
-            <div className="flex items-center gap-2 w-full lg:w-auto">
-                <input 
-                    type="number" 
-                    name="priceMin" 
-                    placeholder="Precio mínimo" 
-                    onChange={handleChange} 
-                    value={localFilters.priceMin}
-                    className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
-                />
-                <input 
-                    type="number" 
-                    name="priceMax" 
-                    placeholder="Precio máximo" 
-                    onChange={handleChange} 
-                    value={localFilters.priceMax}
-                    className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
-                />
-            </div>
+            {/* Select de precio (solo en propiedades) */}
+            {page === 'properties' && (
+                <div className="flex items-center gap-2 w-full lg:w-auto">
+                    <input 
+                        type="number" 
+                        name="priceMin" 
+                        placeholder="Precio mínimo" 
+                        onChange={handleChange} 
+                        value={localFilters.priceMin}
+                        className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
+                    />
+                    <input 
+                        type="number" 
+                        name="priceMax" 
+                        placeholder="Precio máximo" 
+                        onChange={handleChange} 
+                        value={localFilters.priceMax}
+                        className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
+                    />
+                </div>
+            )}
 
             {/* Botón de aplicar filtros */}
             <button 
