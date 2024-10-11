@@ -58,7 +58,7 @@ const Footer = () => {
           <ul className="space-y-3">
             <li className="flex items-center">
               <FaMapMarkerAlt className="mr-2 text-lg" />
-              <span>El Director 6000, of. 108, Las Condes</span>
+              <span>Calle, Comuna</span>
             </li>
             <li className="flex items-center">
               <FaEnvelope className="mr-2 text-lg" />
@@ -68,8 +68,8 @@ const Footer = () => {
             </li>
             <li className="flex items-center">
               <FaPhoneAlt className="mr-2 text-lg" />
-              <a href="tel:+56229857495" className="hover:underline hover:text-gray-300 transition duration-300">
-                +56 22 985 7495
+              <a href="tel:+12345678" className="hover:underline hover:text-gray-300 transition duration-300">
+                +56 12 3456 7893
               </a>
             </li>
           </ul>
