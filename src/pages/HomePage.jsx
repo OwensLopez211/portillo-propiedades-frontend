@@ -8,6 +8,7 @@ import ServicesSection from '../components/Homepage/ServicesSection';
 import AgentsCarousel from '../components/Homepage/AgentsCarousel';
 import WhatsAppBar from '../components/Homepage/WhatsappBar';
 import Footer from '../components/General/Footer';
+import HomeSearchBar from '../components/Homepage/HomeSearchBar';
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
       <TopBar />
       <Navbar />
       <HeroSection />
+      <HomeSearchBar />
       <FeaturedProperties />
       <ServicesSection />
       <AgentsCarousel />

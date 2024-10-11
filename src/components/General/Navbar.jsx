@@ -1,12 +1,5 @@
-// Navbar.jsx
 import React, { useState } from 'react';
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-  FaPhoneAlt,
-  FaEnvelope,
   FaBars,
   FaTimes,
 } from 'react-icons/fa';
@@ -16,12 +9,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#175EA5] shadow-lg w-full z-50 relative">
-      <div className="container mx-auto flex justify-between items-center py-4 px-4 lg:px-0">
-        {/* Logo */}
-        <div className="text-white font-bold text-xl">
-          <a href="/">NewLand</a>
-        </div>
-
+      <div className="container mx-auto flex justify-center items-center py-4 px-4 lg:px-0">
+        
         {/* Navbar Links Container */}
         <div
           className={`fixed top-0 right-0 h-full w-64 bg-[#175EA5] shadow-lg lg:static lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none transition-transform transform ${
@@ -44,16 +33,28 @@ const Navbar = () => {
               Inicio
             </a>
             <a
+              href="/quienes-somos"
+              className="block lg:inline-block text-white font-semibold hover:underline py-2 px-4 lg:px-0"
+            >
+              Nosotros
+            </a>
+            <a
               href="/propiedades"
               className="block lg:inline-block text-white font-semibold hover:underline py-2 px-4 lg:px-0"
             >
               Propiedades
             </a>
             <a
-              href="/quienes-somos"
+              href="/contacto"
               className="block lg:inline-block text-white font-semibold hover:underline py-2 px-4 lg:px-0"
             >
-              Quiénes somos
+              Trabaja con Nosotros
+            </a>
+            <a
+              href="/contacto"
+              className="block lg:inline-block text-white font-semibold hover:underline py-2 px-4 lg:px-0"
+            >
+              Honorarios
             </a>
             <a
               href="/servicios"
@@ -65,81 +66,9 @@ const Navbar = () => {
               href="/contacto"
               className="block lg:inline-block text-white font-semibold hover:underline py-2 px-4 lg:px-0"
             >
-              Contacto
+              News
             </a>
-
-            {/* Icons Container - Visible only in mobile */}
-            <div className="lg:hidden mt-8 flex flex-col items-center space-y-4">
-              <div className="flex space-x-4">
-                <a
-                  href="tel:+56 2 2985 7495"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaPhoneAlt />
-                </a>
-                <a
-                  href="mailto:marketing@ejemplo.cl"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaEnvelope />
-                </a>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="/"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  href="/"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaInstagram />
-                </a>
-                <a
-                  href="/"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaLinkedinIn />
-                </a>
-                <a
-                  href="/"
-                  className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-                >
-                  <FaWhatsapp />
-                </a>
-              </div>
-            </div>
           </div>
-        </div>
-
-        {/* Social Media Links - Always on the right side */}
-        <div className="hidden lg:flex lg:space-x-2">
-          <a
-            href="/"
-            className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-          >
-            <FaFacebookF />
-          </a>
-          <a
-            href="/"
-            className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="/"
-            className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-          >
-            <FaLinkedinIn />
-          </a>
-          <a
-            href="/"
-            className="text-white border-2 border-white p-2 rounded-full hover:bg-white hover:text-[#175EA5] transition duration-300"
-          >
-            <FaWhatsapp />
-          </a>
         </div>
 
         {/* Hamburger Menu - Visible on small screens */}
