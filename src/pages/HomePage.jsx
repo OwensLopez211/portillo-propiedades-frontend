@@ -7,6 +7,7 @@ import FeaturedProperties from '../components/Homepage/FeaturedProperties';
 import WhatsAppBar from '../components/Homepage/WhatsappBar';
 import Footer from '../components/General/Footer';
 import PropertySearchBar from '../components/General/PropertySearchBar'; // Importa el componente de búsqueda
+import SectionBar from '../components/Homepage/SectionBar';
 
 const HomePage = () => {
   const navigate = useNavigate(); // Hook para redirigir
@@ -27,6 +28,7 @@ const HomePage = () => {
       <PropertySearchBar page="home" setFilters={handleFilters} />
 
       <FeaturedProperties />
+      <SectionBar />
       <WhatsAppBar />
       <Footer />
     </>
