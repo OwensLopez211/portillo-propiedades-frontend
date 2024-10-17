@@ -36,6 +36,10 @@ const FeaturedProperties = () => {
     speed: 500,
     slidesToShow: 3,  // Número de tarjetas visibles a la vez
     slidesToScroll: 1,  // Número de tarjetas que se desplazan al hacer clic
+    centerMode: true,  // Activa el modo de centrado para ver tarjetas parcialmente
+    centerPadding: '50px',  // Ajusta el espacio visible de las tarjetas en los bordes
+    autoplay: true,  // Activa la reproducción automática
+    autoplaySpeed: 6000,  // Tiempo en milisegundos entre movimientos automáticos (6 segundos)
     responsive: [
       {
         breakpoint: 1024,
@@ -44,6 +48,10 @@ const FeaturedProperties = () => {
           slidesToScroll: 1,
           infinite: true,
           dots: true,
+          centerMode: true,
+          centerPadding: '40px',
+          autoplay: true,
+          autoplaySpeed: 6000,
         },
       },
       {
@@ -51,23 +59,34 @@ const FeaturedProperties = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '30px',
+          autoplay: true,
+          autoplaySpeed: 6000,
         },
       },
     ],
   };
 
   return (
-    <section className="py-8">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-4">Propiedades destacadas</h2>
-        <p className="text-gray-600 mb-8">Las mejores de todo Chile</p>
-        <Slider {...settings}>
-          {properties.map((property) => (
-            <div key={property.id} className="px-2"> {/* Añade padding horizontal */}
-              <PropertyCard property={property} />
-            </div>
-          ))}
-        </Slider>
+    <section className="py-8 w-full relative">
+      <div className="w-full mx-auto text-center relative">
+        <h2 className="text-3xl font-bold mb-4 text-[#175EA5]">Propiedades destacadas</h2> {/* Cambio de color */}
+        <p className="text-gray-600 mb-8 text-[#175EA5]">Las mejores de todo Chile</p> {/* Cambio de color */}
+        
+        {/* Contenedor del carrusel con desenfoque en los bordes */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white/50 to-transparent backdrop-blur-sm pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/50 to-transparent backdrop-blur-sm pointer-events-none"></div>
+          
+          <Slider {...settings} className="w-full">
+            {properties.map((property) => (
+              <div key={property.id} className="px-2">
+                <PropertyCard property={property} />
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
     </section>
   );

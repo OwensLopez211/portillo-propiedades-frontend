@@ -2,23 +2,15 @@ import React from 'react';
 
 const SectionBar = () => {
   return (
-    <div className="bg-gray-800 text-white py-4">
-      <div className="container mx-auto grid grid-cols-4 gap-4">
-        <div className="flex justify-center items-center">
-          {/* Contenido para la sección 1 */}
-          <p>Sección 1</p>
-        </div>
-        <div className="flex justify-center items-center">
-          {/* Contenido para la sección 2 */}
-          <p>Sección 2</p>
-        </div>
-        <div className="flex justify-center items-center">
-          {/* Contenido para la sección 3 */}
-          <p>Sección 3</p>
-        </div>
-        <div className="flex justify-center items-center">
-          {/* Contenido para la sección 4 */}
-          <p>Sección 4</p>
+    <div className="bg-white border-b py-4">
+      <div className="container mx-auto flex justify-center">
+        {/* Enlaces de navegación */}
+        <div className="flex justify-between space-x-16 w-full max-w-4xl">
+          <a href="/" className="text-gray-600 hover:text-black hover:font-bold transition duration-300">CLP | UF | USD | EURO</a>
+          <a href="/" className="text-gray-600 hover:text-black hover:font-bold transition duration-300">Simulador Hipotecario</a>
+          <a href="/" className="text-gray-600 hover:text-black hover:font-bold transition duration-300">Notaría Virtual</a>
+          <a href="/" className="text-gray-600 hover:text-black hover:font-bold transition duration-300">Bancos</a>
+          <a href="/" className="text-gray-600 hover:text-black hover:font-bold transition duration-300">Redes Sociales</a>
         </div>
       </div>
     </div>

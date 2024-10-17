@@ -37,20 +37,20 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
     };
 
     // Estilos condicionales basados en la página
-    const containerClass = page === 'home' ? 'p-6 bg-gray-500 bg-opacity-30 backdrop-blur-lg shadow-xl' : 'p-6 bg-white rounded-lg shadow-md';
+    const containerClass = page === 'home' ? 'p-4 bg-gray-500 bg-opacity-30 backdrop-blur-lg shadow-lg' : 'p-6 bg-white rounded-lg shadow-md';
 
     return (
-        <div className={`${containerClass} flex flex-col lg:flex-row gap-4 items-center justify-center w-full mx-auto my-0`}>
+        <div className={`${containerClass} flex flex-col lg:flex-row gap-2 items-center justify-center w-full mx-auto`}>
             {/* Barra de búsqueda */}
-            <div className="flex items-center border rounded-lg overflow-hidden w-full lg:w-auto bg-white shadow-md">
-                <FaSearch className="text-gray-400 mx-3" />
+            <div className="flex items-center border rounded-lg overflow-hidden w-full lg:w-auto bg-white shadow-sm">
+                <FaSearch className="text-gray-400 mx-2" />
                 <input 
                     type="text" 
                     name="comuna" 
                     placeholder="Buscar por comuna, código postal o estado" 
                     onChange={handleChange} 
                     value={localFilters.comuna}
-                    className="p-2 focus:outline-none w-full text-gray-800"
+                    className="p-1 focus:outline-none w-full text-gray-800 text-sm"
                 />
             </div>
 
@@ -59,7 +59,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 name="operation" 
                 onChange={handleChange} 
                 value={localFilters.operation}
-                className="p-2 border bg-white rounded-lg shadow-md focus:outline-none text-gray-800 w-full lg:w-auto"
+                className="p-1 border bg-white rounded-lg shadow-sm focus:outline-none text-gray-800 w-full lg:w-auto text-sm"
             >
                 <option value="">Todas</option>
                 <option value="venta">Venta</option>
@@ -70,7 +70,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 name="propertyType" 
                 onChange={handleChange} 
                 value={localFilters.propertyType}
-                className="p-2 border bg-white rounded-lg shadow-md focus:outline-none text-gray-800 w-full lg:w-auto"
+                className="p-1 border bg-white rounded-lg shadow-sm focus:outline-none text-gray-800 w-full lg:w-auto text-sm"
             >
                 <option value="">Tipo de propiedad</option>
                 <option value="casa">Casa</option>
@@ -87,7 +87,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                         placeholder="Precio mínimo" 
                         onChange={handleChange} 
                         value={localFilters.priceMin}
-                        className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
+                        className="p-1 border rounded-lg focus:outline-none w-full lg:w-20 text-sm"
                     />
                     <input 
                         type="number" 
@@ -95,7 +95,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                         placeholder="Precio máximo" 
                         onChange={handleChange} 
                         value={localFilters.priceMax}
-                        className="p-2 border rounded-lg focus:outline-none w-full lg:w-28"
+                        className="p-1 border rounded-lg focus:outline-none w-full lg:w-20 text-sm"
                     />
                 </div>
             )}
@@ -103,7 +103,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
             {/* Botón de aplicar filtros */}
             <button 
                 onClick={applyFilters}
-                className="flex items-center p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 w-full lg:w-auto justify-center"
+                className="flex items-center p-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 w-full lg:w-auto justify-center text-sm"
             >
                 Buscar
             </button>

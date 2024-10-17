@@ -22,13 +22,13 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#175EA5] shadow-lg w-full z-50 relative">
-      <div className="container mx-auto flex justify-center items-center py-4 px-4 lg:px-0">
+      <div className="container mx-auto flex justify-center items-center py-3 px-2 lg:px-4"> {/* Reducción de padding */}
         
         {/* Navbar Links Container */}
         <div
           className={`fixed top-0 right-0 h-full w-64 bg-[#175EA5] shadow-lg lg:static lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none transition-transform transform ${
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          } lg:translate-x-0 z-40 lg:flex lg:items-center lg:space-x-6`}
+          } lg:translate-x-0 z-40 lg:flex lg:items-center lg:space-x-4` /* Reducción de espacios */ }
         >
           {/* Close button for mobile */}
           <button
@@ -38,10 +38,10 @@ const Navbar = () => {
             <FaTimes />
           </button>
 
-          <div className="flex flex-col lg:flex-row lg:space-x-6 items-center mt-16 lg:mt-0 space-y-4 lg:space-y-0">
+          <div className="flex flex-col lg:flex-row lg:space-x-4 items-center mt-16 lg:mt-0 space-y-4 lg:space-y-0"> {/* Ajuste del espacio entre elementos */}
             <a
               href="/"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -49,7 +49,7 @@ const Navbar = () => {
             </a>
             <a
               href="/quienes-somos"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/quienes-somos') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -57,7 +57,7 @@ const Navbar = () => {
             </a>
             <a
               href="/propiedades"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/propiedades') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -65,8 +65,8 @@ const Navbar = () => {
             </a>
             <a
               href="/entreganos-propiedad"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
-                isActive('/honorarios') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+                isActive('/entreganos-propiedad') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
               Entreganos tu propiedad
@@ -74,7 +74,7 @@ const Navbar = () => {
             
             <a
               href="/honorarios"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/honorarios') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -82,7 +82,7 @@ const Navbar = () => {
             </a>
             <a
               href="/servicios"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/servicios') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -90,7 +90,7 @@ const Navbar = () => {
             </a>
             <a
               href="/news"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/news') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
@@ -98,7 +98,7 @@ const Navbar = () => {
             </a>
             <a
               href="/contacto"
-              className={`block lg:inline-block font-semibold py-2 px-4 lg:px-5 rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
+              className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/contacto') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >

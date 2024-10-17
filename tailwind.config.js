@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        neumorph: '8px 8px 16px #bebebe, -8px -8px 16px #ffffff',
+      },
+    },
   },
   plugins: [],
+  
 }

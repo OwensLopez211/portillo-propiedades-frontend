@@ -11,8 +11,7 @@ const Contact = () => {
       <Topbar />
       <Navbar />
       <SecondaryHero 
-        title="Trabaja con Nosotros" 
-        subtitle="Nos encantaría saber de ti. ¡Ponte en contacto con nosotros!" 
+        title="Entreganos tu propiedad" 
         backgroundImage="/path/to/your/background-image.jpg" // Cambia a la ruta de tu imagen
       />
 

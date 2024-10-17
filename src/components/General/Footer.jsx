@@ -1,9 +1,5 @@
 import React from 'react';
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
   FaMapMarkerAlt,
   FaEnvelope,
   FaPhoneAlt,
@@ -16,27 +12,10 @@ const Footer = () => {
         
         {/* Quiénes Somos - Izquierda */}
         <div className="lg:w-1/3 mb-8 lg:mb-0 text-center lg:text-left">
-          <h3 className="font-bold text-xl mb-4">QUIÉNES SOMOS</h3>
+          <h3 className="font-bold text-xl mb-4">Nuestro servicio "texto de ejemplo"</h3>
           <p className="text-sm leading-relaxed mb-4 text-justify">
-            Nuestra experiencia y compromiso junto con soluciones a tu medida y objetivos reales te garantizan tranquilidad y satisfacción en cada etapa, desde la búsqueda de la propiedad ideal hasta la gestión de todos los trámites.
+            Nuestro objetivo es brindar un servicio seguro y confiable para todos. "Esto es un texto de ejemplo"
           </p>
-          <div>
-            <span className="font-bold">Síguenos en:</span>
-            <div className="flex justify-center lg:justify-start space-x-4 mt-2">
-              <a href="/" aria-label="Facebook" className="text-white hover:text-gray-300 transition duration-300">
-                <FaFacebookF size={20} />
-              </a>
-              <a href="/" aria-label="Instagram" className="text-white hover:text-gray-300 transition duration-300">
-                <FaInstagram size={20} />
-              </a>
-              <a href="/" aria-label="LinkedIn" className="text-white hover:text-gray-300 transition duration-300">
-                <FaLinkedinIn size={20} />
-              </a>
-              <a href="/" aria-label="WhatsApp" className="text-white hover:text-gray-300 transition duration-300">
-                <FaWhatsapp size={20} />
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* Contacto - Derecha */}

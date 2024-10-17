@@ -1,5 +1,4 @@
 /* src/index.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +17,10 @@ body {
 
 html {
   overflow: -moz-hidden; /* Para Firefox */
+  scroll-behavior: smooth;
 }
+
+
 
 /* Para Safari */
 body {

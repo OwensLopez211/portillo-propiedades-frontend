@@ -7,7 +7,7 @@ import Services from './pages/Services';
 import WorkWithUs from './pages/WorkWithUs';
 import PropertyDetail from './pages/details/PropertyDetail';
 import PropertiesPage from './pages/PropertiesPage';
-
+import PropertyFormPage from './pages/PropertyFormPage'
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/servicios" element={<Services/>} />
         <Route path="/contacto" element={<WorkWithUs/>} />
         <Route path="/property/:id" element={<PropertyDetail />} />
+        <Route path="/entreganos-propiedad" element={<PropertyFormPage />} />
       </Routes>
     </Router>
   );

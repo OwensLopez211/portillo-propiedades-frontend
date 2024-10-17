@@ -4,10 +4,9 @@ import TopBar from '../components/General/TopBar';
 import Navbar from '../components/General/Navbar';
 import HeroSection from '../components/Homepage/HeroSection';
 import FeaturedProperties from '../components/Homepage/FeaturedProperties';
-import WhatsAppBar from '../components/Homepage/WhatsappBar';
 import Footer from '../components/General/Footer';
 import PropertySearchBar from '../components/General/PropertySearchBar'; // Importa el componente de búsqueda
-import SectionBar from '../components/Homepage/SectionBar';
+import FloatingSocialButtons from '../components/General/FloatingSocialButtons';
 
 const HomePage = () => {
   const navigate = useNavigate(); // Hook para redirigir
@@ -26,10 +25,9 @@ const HomePage = () => {
       
       {/* Barra de búsqueda para el HomePage */}
       <PropertySearchBar page="home" setFilters={handleFilters} />
+      <FloatingSocialButtons />
 
       <FeaturedProperties />
-      <SectionBar />
-      <WhatsAppBar />
       <Footer />
     </>
   );
