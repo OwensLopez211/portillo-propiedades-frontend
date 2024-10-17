@@ -8,6 +8,8 @@ import WorkWithUs from './pages/WorkWithUs';
 import PropertyDetail from './pages/details/PropertyDetail';
 import PropertiesPage from './pages/PropertiesPage';
 import PropertyFormPage from './pages/PropertyFormPage'
+import FeePage from './pages/FeePage'
+
 function App() {
   return (
     <Router>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/contacto" element={<WorkWithUs/>} />
         <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/entreganos-propiedad" element={<PropertyFormPage />} />
+        <Route path="/honorarios" element={<FeePage />} />
       </Routes>
     </Router>
   );
