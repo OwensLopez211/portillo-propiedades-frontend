@@ -25,6 +25,7 @@ html {
 /* Para Safari */
 body {
   overflow-y: scroll; /* Permite el desplazamiento vertical */
+    background-color: #f7fafc; /* Un gris claro similar a bg-gray-100 */
 }
 
 /* Estilos de código */
