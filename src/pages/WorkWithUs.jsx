@@ -21,7 +21,7 @@ const Contact = () => {
       <SecondaryHero 
         title="Trabaja con Nosotros" 
         subtitle="Nos encantaría saber de ti. ¡Ponte en contacto con nosotros!" 
-        backgroundImage="/path/to/your/background-image.jpg" // Cambia a la ruta de tu imagen
+        backgroundImage="/WorkWithUsBanner.jpg" // Cambia a la ruta de tu imagen
       />
 
       {/* Agregar el componente JoinUs aquí */}

@@ -20,7 +20,7 @@ const EntreganosTuPropiedad = () => {
       <Navbar />
       <SecondaryHero 
         title="Entréganos tu propiedad" 
-        backgroundImage="/path/to/your/background-image.jpg" // Cambia a la ruta de tu imagen
+        backgroundImage="/BannerTuPropiedad.jpg" // Cambia a la ruta de tu imagen
       />
 
       {/* Agregar el componente JoinUs aquí */}
