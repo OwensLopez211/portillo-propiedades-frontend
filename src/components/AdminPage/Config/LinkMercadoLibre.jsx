@@ -1,15 +1,45 @@
 import React from 'react';
 
-// Usa variables de entorno para mayor seguridad
+// Función para generar un code_verifier aleatorio
+const generateCodeVerifier = () => {
+  const array = new Uint32Array(56);  // El tamaño recomendado para el code_verifier es entre 43 y 128 caracteres
+  window.crypto.getRandomValues(array);
+  return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+};
+
+// Función para convertir el resultado de SHA-256 en base64url
+const base64urlencode = (str) => {
+  return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+};
+
+// Función para generar el code_challenge basado en el code_verifier
+const generateCodeChallenge = async (codeVerifier) => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(codeVerifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return base64urlencode(digest);
+};
+
 const LinkMercadoLibre = () => {
   const clientId = process.env.REACT_APP_MERCADOLIBRE_CLIENT_ID;
-  const redirectUri = process.env.REACT_APP_MERCADOLIBRE_REDIRECT_URI;
-  const state = 'random_state_string'; // Puedes generar un estado aleatorio para mayor seguridad
+  const redirectUri = encodeURIComponent(process.env.REACT_APP_MERCADOLIBRE_REDIRECT_URI);
+  const state = 'random_state_string';  // Puedes generar un estado aleatorio para evitar CSRF
 
-  // URL de autenticación de MercadoLibre
-  const mercadoLibreAuthURL = `https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}`;
+  const handleClick = async () => {
+    // Genera el code_verifier
+    const codeVerifier = generateCodeVerifier();
+    // Guarda el code_verifier en localStorage para usarlo más tarde
+    localStorage.setItem('code_verifier', codeVerifier);
 
-  const handleClick = () => {
+    // Genera el code_challenge
+    const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+    // Crea la URL de autenticación de MercadoLibre con PKCE
+    const mercadoLibreAuthURL = `https://auth.mercadolibre.cl/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+
     // Redirige al usuario a la página de autenticación de MercadoLibre
     window.location.href = mercadoLibreAuthURL;
   };
