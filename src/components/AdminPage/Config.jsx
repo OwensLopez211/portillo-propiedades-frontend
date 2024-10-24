@@ -1,3 +1,4 @@
+import React from 'react';
 import LinkMercadoLibre from './Config/LinkMercadoLibre';
 import UnlinkMercadoLibre from './Config/UnlinkMercadoLibre';  // Importa el nuevo componente
 
