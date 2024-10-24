@@ -1,6 +1,6 @@
 const handleUnlink = () => {
     // Realizar una solicitud al backend si es necesario
-    fetch('https://your-backend-api.com/mercadolibre/unlink', {
+    fetch('https://portillo-propiedades-backend.onrender.com/mercadolibre/unlink', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

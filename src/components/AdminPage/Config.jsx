@@ -1,5 +1,5 @@
 import LinkMercadoLibre from './Config/LinkMercadoLibre';
-import UnlinkMercadoLibre from './Config/UnlinkMercadoLibre';
+import UnlinkMercadoLibre from './Config/UnlinkMercadoLibre';  // Importa el nuevo componente
 
 const Config = () => {
   return (
@@ -12,7 +12,7 @@ const Config = () => {
         <LinkMercadoLibre />
       </div>
       <div>
-        <UnlinkMercadoLibre /> {/* Añade el botón de desincronización */}
+        <UnlinkMercadoLibre /> 
       </div>
     </div>
   );
