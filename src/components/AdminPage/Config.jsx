@@ -1,6 +1,5 @@
 import React from 'react';
-import LinkMercadoLibre from './Config/LinkMercadoLibre';
-import UnlinkMercadoLibre from './Config/UnlinkMercadoLibre';  // Importa el nuevo componente
+import MercadoLibreAccount from './Config/MercadoLibreAccount';  // Importa el nuevo componente
 
 const Config = () => {
   return (
@@ -10,10 +9,7 @@ const Config = () => {
         <p></p>
       </div>
       <div>
-        <LinkMercadoLibre />
-      </div>
-      <div>
-        <UnlinkMercadoLibre /> 
+        <MercadoLibreAccount />  {/* Mostrar el componente que maneja la vinculación/desvinculación */}
       </div>
     </div>
   );
