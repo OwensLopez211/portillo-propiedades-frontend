@@ -33,6 +33,7 @@ const LinkMercadoLibre = () => {
     const codeVerifier = generateCodeVerifier();
     // Guarda el code_verifier en localStorage para usarlo más tarde
     localStorage.setItem('code_verifier', codeVerifier);
+    console.log('Code Verifier stored:', codeVerifier);  // Agrega esto para verificar
 
     // Genera el code_challenge
     const codeChallenge = await generateCodeChallenge(codeVerifier);
