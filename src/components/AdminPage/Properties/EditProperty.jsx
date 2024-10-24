@@ -34,7 +34,7 @@ const EditProperty = () => {
     const fetchProperty = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get(`http://localhost:8000/api/properties/${id}/`, {
+        const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/properties/${id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +70,7 @@ const EditProperty = () => {
     const fetchAgents = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get('http://localhost:8000/api/agents/', {
+        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/agents/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -150,7 +150,7 @@ const EditProperty = () => {
     const token = localStorage.getItem('authToken');
 
     try {
-      const response = await fetch(`http://localhost:8000/api/properties/${id}/`, {
+      const response = await fetch(`https://portillo-propiedades-backend.onrender.com/api/properties/${id}/`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
