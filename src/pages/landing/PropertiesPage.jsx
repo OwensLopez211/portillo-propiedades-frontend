@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom'; // Hook para obtener la ubicación actual
 import axios from 'axios';
-import PropertyList from '../components/PropertiesPage/PropertyList'; 
-import PropertySearchBar from '../components/General/PropertySearchBar'; 
-import TopBar from '../components/General/TopBar'; 
-import Navbar from '../components/General/Navbar'; 
-import Footer from '../components/General/Footer';
-import SecondaryHero from '../components/General/SecundaryHero';
+import PropertyList from '../../components/PropertiesPage/PropertyList'; 
+import PropertySearchBar from '../../components/General/PropertySearchBar'; 
+import TopBar from '../../components/General/TopBar'; 
+import Navbar from '../../components/General/Navbar'; 
+import Footer from '../../components/General/Footer';
+import SecondaryHero from '../../components/General/SecundaryHero';
 
 const PropertiesPage = () => {
   const [properties, setProperties] = useState([]);

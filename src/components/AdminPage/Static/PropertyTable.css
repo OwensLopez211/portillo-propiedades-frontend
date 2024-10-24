@@ -1,0 +1,60 @@
+/* Estilos para hacer la tabla más compacta */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 0.4rem; /* Reducimos el padding */
+    text-align: center; /* Centramos todo */
+  }
+  
+  th {
+    background-color: #111827;
+    color: white;
+  }
+  
+  td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Estilos para botones en la columna de acciones */
+  .editBtn, .deleteBtn {
+    width: 35px; /* Reducimos el tamaño de los botones */
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(93, 93, 116);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 0.3rem;
+    transition: all 0.3s;
+  }
+  
+  .editBtn:hover, .deleteBtn:hover {
+    background-color: rgb(80, 80, 100); /* Cambio de color al hover */
+  }
+  
+  /* Para que la tabla tenga scroll horizontal en pantallas pequeñas */
+  @media screen and (max-width: 768px) {
+    .table-responsive {
+      overflow-x: auto; /* Habilita el scroll horizontal */
+    }
+  
+    /* Reducir aún más el padding en pantallas pequeñas */
+    th, td {
+      padding: 0.2rem;
+    }
+  
+    .editBtn, .deleteBtn {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir
-import TopBar from '../components/General/TopBar';
-import Navbar from '../components/General/Navbar';
-import HeroSection from '../components/Homepage/HeroSection';
-import FeaturedProperties from '../components/Homepage/FeaturedProperties';
-import Footer from '../components/General/Footer';
-import PropertySearchBar from '../components/General/PropertySearchBar'; // Importa el componente de búsqueda
-import FloatingSocialButtons from '../components/General/FloatingSocialButtons';
+import TopBar from '../../components/General/TopBar';
+import Navbar from '../../components/General/Navbar';
+import HeroSection from '../../components/Homepage/HeroSection';
+import FeaturedProperties from '../../components/Homepage/FeaturedProperties';
+import Footer from '../../components/General/Footer';
+import PropertySearchBar from '../../components/General/PropertySearchBar'; // Importa el componente de búsqueda
+import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
 const HomePage = () => {
   const navigate = useNavigate(); // Hook para redirigir
