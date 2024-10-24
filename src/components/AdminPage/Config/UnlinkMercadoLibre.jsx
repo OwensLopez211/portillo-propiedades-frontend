@@ -2,13 +2,23 @@ import React from 'react';
 
 const UnlinkMercadoLibre = () => {
   const handleUnlink = () => {
-    // Elimina el access_token y cualquier otro dato relacionado de localStorage
+    // Elimina los tokens del localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('code_verifier');
 
     console.log('Desincronizado de MercadoLibre.');
-    alert('Se ha desincronizado de MercadoLibre exitosamente.');
+
+    // Redirigir al usuario al flujo de autenticación de MercadoLibre
+    const clientId = process.env.REACT_APP_MERCADOLIBRE_CLIENT_ID;
+    const redirectUri = encodeURIComponent(process.env.REACT_APP_MERCADOLIBRE_REDIRECT_URI);
+    const state = 'random_state_string';  // Puedes generar un estado aleatorio
+
+    // Genera la URL de autenticación de MercadoLibre
+    const mercadoLibreAuthURL = `https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+
+    // Redirige al usuario a la página de autenticación de MercadoLibre
+    window.location.href = mercadoLibreAuthURL;
   };
 
   return (
