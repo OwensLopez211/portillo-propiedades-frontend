@@ -1,24 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // Para la redirección
+import { useNavigate } from 'react-router-dom';
 
 const UnlinkMercadoLibre = () => {
-  const navigate = useNavigate();  // Hook para navegar a otra página
+  const navigate = useNavigate();
 
   const handleUnlink = () => {
-    // Elimina los tokens relacionados a MercadoLibre
+    // Eliminar los tokens de localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('code_verifier');
 
-    console.log('Desincronizado de MercadoLibre.');
+    // Mostrar mensaje de éxito
+    alert('Se ha desvinculado exitosamente de MercadoLibre.');
 
-    // Redirigir al usuario al logout de MercadoLibre
-    window.location.href = 'https://www.mercadolibre.com/jms/mlc/lgz/logout';
-
-    // Después de unos segundos, redirigir al usuario manualmente a tu plataforma
-    setTimeout(() => {
-      navigate('/admin/configuracion');  // Redirige a la página de configuración en tu plataforma
-    }, 3000);  // Espera 3 segundos para que se complete el logout
+    // Redirigir a la página de configuración
+    navigate('/admin/configuracion');
   };
 
   return (
