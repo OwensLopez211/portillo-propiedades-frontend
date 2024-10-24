@@ -1,24 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';  // Para la redirección
 
 const UnlinkMercadoLibre = () => {
+  const navigate = useNavigate();  // Hook para navegar a otra página
+
   const handleUnlink = () => {
-    // Elimina los tokens del localStorage
+    // Elimina los tokens relacionados a MercadoLibre
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('code_verifier');
 
     console.log('Desincronizado de MercadoLibre.');
 
-    // Redirigir al usuario al flujo de autenticación de MercadoLibre
-    const clientId = process.env.REACT_APP_MERCADOLIBRE_CLIENT_ID;
-    const redirectUri = encodeURIComponent(process.env.REACT_APP_MERCADOLIBRE_REDIRECT_URI);
-    const state = 'random_state_string';  // Puedes generar un estado aleatorio
-
-    // Genera la URL de autenticación de MercadoLibre
-    const mercadoLibreAuthURL = `https://auth.mercadolibre.cl/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
-
-    // Redirige al usuario a la página de autenticación de MercadoLibre
-    window.location.href = mercadoLibreAuthURL;
+    // Redirige al usuario a la página de configuración
+    navigate('/admin/configuracion');
   };
 
   return (
@@ -27,7 +22,7 @@ const UnlinkMercadoLibre = () => {
         onClick={handleUnlink}
         className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md"
       >
-        Desincronizar MercadoLibre
+        Desvincular MercadoLibre
       </button>
     </div>
   );

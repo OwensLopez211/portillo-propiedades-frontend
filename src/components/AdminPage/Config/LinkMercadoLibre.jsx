@@ -29,20 +29,31 @@ const LinkMercadoLibre = () => {
   const state = 'random_state_string';  // Puedes generar un estado aleatorio para evitar CSRF
 
   const handleClick = async () => {
-    // Genera el code_verifier
-    const codeVerifier = generateCodeVerifier();
-    // Guarda el code_verifier en localStorage para usarlo más tarde
-    localStorage.setItem('code_verifier', codeVerifier);
-    console.log('Code Verifier stored:', codeVerifier);  // Agrega esto para verificar
+    // Verificar si ya existe el access_token en el localStorage
+    const accessToken = localStorage.getItem('access_token');
+    
+    if (accessToken) {
+      // Si ya existe el token, mostrar un mensaje y no redirigir
+      alert('Ya estás vinculado con MercadoLibre.');
+      console.log('Access token encontrado:', accessToken);  // Agrega esto para verificar
+    } else {
+      // Si no existe, proceder con la generación del code_verifier y la autenticación
 
-    // Genera el code_challenge
-    const codeChallenge = await generateCodeChallenge(codeVerifier);
+      // Genera el code_verifier
+      const codeVerifier = generateCodeVerifier();
+      // Guarda el code_verifier en localStorage para usarlo más tarde
+      localStorage.setItem('code_verifier', codeVerifier);
+      console.log('Code Verifier stored:', codeVerifier);  // Agrega esto para verificar
 
-    // Crea la URL de autenticación de MercadoLibre con PKCE
-    const mercadoLibreAuthURL = `https://auth.mercadolibre.cl/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+      // Genera el code_challenge
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
 
-    // Redirige al usuario a la página de autenticación de MercadoLibre
-    window.location.href = mercadoLibreAuthURL;
+      // Crea la URL de autenticación de MercadoLibre con PKCE
+      const mercadoLibreAuthURL = `https://auth.mercadolibre.cl/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+
+      // Redirige al usuario a la página de autenticación de MercadoLibre
+      window.location.href = mercadoLibreAuthURL;
+    }
   };
 
   return (
