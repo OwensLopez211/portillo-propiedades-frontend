@@ -12,11 +12,13 @@ const UnlinkMercadoLibre = () => {
 
     console.log('Desincronizado de MercadoLibre.');
 
-    // Redirigir al usuario al logout de MercadoLibre con parámetro de redirección a tu plataforma
-    const mercadoLibreLogoutURL = `https://www.mercadolibre.com/jms/mlc/lgz/logout?go=${encodeURIComponent('https://portillo-propiedades-frontend.vercel.app/admin/configuracion')}`;
+    // Redirigir al usuario al logout de MercadoLibre
+    window.location.href = 'https://www.mercadolibre.com/jms/mlc/lgz/logout';
 
-    // Redirigir al usuario al logout de MercadoLibre con la redirección a tu plataforma
-    window.location.href = mercadoLibreLogoutURL;
+    // Después de unos segundos, redirigir al usuario manualmente a tu plataforma
+    setTimeout(() => {
+      navigate('/admin/configuracion');  // Redirige a la página de configuración en tu plataforma
+    }, 3000);  // Espera 3 segundos para que se complete el logout
   };
 
   return (
