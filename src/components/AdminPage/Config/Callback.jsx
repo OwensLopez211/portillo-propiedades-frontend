@@ -27,7 +27,7 @@ const Callback = () => {
             // Guardar el token en el localStorage o en un estado global
             localStorage.setItem('access_token', data.access_token);
             // Redirigir al panel de administración
-            navigate('/admin');
+            navigate('/admin/inicio');
           } else {
             console.error('Error en la autenticación:', data);
           }
