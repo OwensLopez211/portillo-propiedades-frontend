@@ -15,7 +15,7 @@ const UnlinkMercadoLibre = () => {
     const state = 'random_state_string';  // Puedes generar un estado aleatorio
 
     // Genera la URL de autenticación de MercadoLibre
-    const mercadoLibreAuthURL = `https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+    const mercadoLibreAuthURL = `https://auth.mercadolibre.cl/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
     // Redirige al usuario a la página de autenticación de MercadoLibre
     window.location.href = mercadoLibreAuthURL;
