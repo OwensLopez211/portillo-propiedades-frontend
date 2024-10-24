@@ -1,5 +1,5 @@
 import React from 'react';
-import MercadoLibreAccount from './Config/MercadoLibreAccount';  // Importa el nuevo componente
+import MercadoLibreAuth from './Config/MercadolibreAuth';  // Importa el nuevo componente
 
 const Config = () => {
   return (
@@ -9,7 +9,7 @@ const Config = () => {
         <p></p>
       </div>
       <div>
-        <MercadoLibreAccount />  {/* Mostrar el componente que maneja la vinculación/desvinculación */}
+        <MercadoLibreAuth />  {/* Mostrar el componente que maneja la vinculación/desvinculación */}
       </div>
     </div>
   );

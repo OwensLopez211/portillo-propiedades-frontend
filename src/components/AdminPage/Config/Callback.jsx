@@ -7,7 +7,6 @@ const Callback = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');
-    const state = urlParams.get('state');
 
     if (authorizationCode) {
       // Enviar el código al backend para intercambiarlo por el token
