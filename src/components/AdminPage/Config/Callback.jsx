@@ -12,8 +12,8 @@ const Callback = () => {
     // Recupera el code_verifier del localStorage
     const codeVerifier = localStorage.getItem('code_verifier');
 
-    // Envía el código de autorización al backend para obtener el token de acceso
-    fetch('https://portillo-propiedades-backend.onrender.com/api/get-token/', {
+    // Envía el código de autorización y el code_verifier al backend para obtener el token de acceso
+    fetch('https://portillo-propiedades-backend.onrender.com/mercadolibre/get-token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

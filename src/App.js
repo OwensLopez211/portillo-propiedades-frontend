@@ -45,6 +45,8 @@ function App() {
           <Route path="propiedades/agregar" element={<AddProperty />} />
           <Route path="propiedades/editar/:id" element={<EditProperty />} /> {/* Ruta corregida */}
           <Route path="configuracion" element={<Config />} /> {/* Ruta corregida */}
+          <Route path="/callback" component={Callback} />
+
         </Route>
       </Routes>
     </Router>
