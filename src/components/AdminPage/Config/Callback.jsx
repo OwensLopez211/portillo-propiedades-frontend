@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // Cambiar useHistory por useNavigate
 
 const Callback = () => {
-  const history = useHistory();
+  const navigate = useNavigate();  // Cambia useHistory() por useNavigate()
 
   useEffect(() => {
     // Captura el código de autorización desde la URL
@@ -27,12 +27,12 @@ const Callback = () => {
       .then(data => {
         console.log('Token obtenido:', data);
         // Redirige al usuario al panel de administración
-        history.push('/admin');
+        navigate('/admin');  // Cambiar history.push() por navigate()
       })
       .catch(error => {
         console.error('Error al obtener el token:', error);
       });
-  }, [history]);
+  }, [navigate]);  // Cambiar la dependencia a navigate
 
   return <div>Procesando la autenticación...</div>;
 };

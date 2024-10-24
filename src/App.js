@@ -16,6 +16,7 @@ import AdminLayout from './components/AdminPage/AdminLayout';
 import AddProperty from './components/AdminPage/Properties/AddProperty';
 import EditProperty from './components/AdminPage/Properties/EditProperty';
 import Config from './components/AdminPage/Config';
+import Callback from './components/AdminPage/Config/Callback';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
         <Route path="/entreganos-propiedad" element={<PropertyFormPage />} />
         <Route path="/honorarios" element={<FeePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/callback" element={<Callback />} />
+
         
         {/* Ruta protegida con AdminLayout */}
         <Route 
@@ -45,7 +48,6 @@ function App() {
           <Route path="propiedades/agregar" element={<AddProperty />} />
           <Route path="propiedades/editar/:id" element={<EditProperty />} /> {/* Ruta corregida */}
           <Route path="configuracion" element={<Config />} /> {/* Ruta corregida */}
-          <Route path="/callback" component={Callback} />
 
         </Route>
       </Routes>
