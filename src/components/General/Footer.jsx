@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FaMapMarkerAlt,
   FaEnvelope,
   FaPhoneAlt,
 } from 'react-icons/fa';
@@ -12,9 +11,9 @@ const Footer = () => {
         
         {/* Quiénes Somos - Izquierda */}
         <div className="lg:w-1/3 mb-8 lg:mb-0 text-center lg:text-left">
-          <h3 className="font-bold text-xl mb-4">Nuestro servicio "texto de ejemplo"</h3>
+          <h3 className="font-bold text-xl mb-4">Nuestro servicio, tu tranquilidad asegurada</h3>
           <p className="text-sm leading-relaxed mb-4 text-justify">
-            Nuestro objetivo es brindar un servicio seguro y confiable para todos. "Esto es un texto de ejemplo"
+            En Newland Propiedades, trabajamos para ofrecerte una experiencia inmobiliaria confiable y personalizada. Nos comprometemos a acompañarte en cada paso, asegurando que encuentres el lugar ideal para ti.
           </p>
         </div>
 
@@ -22,10 +21,10 @@ const Footer = () => {
         <div className="lg:w-1/3 text-center lg:text-right">
           <h3 className="font-bold text-xl mb-4">CONTACTO</h3>
           <ul className="space-y-3">
-            <li className="flex justify-start lg:justify-end items-center">
+{/*             <li className="flex justify-start lg:justify-end items-center">
               <FaMapMarkerAlt className="mr-2 text-lg" />
               <span className="ml-2">Calle, Comuna</span>
-            </li>
+            </li> */}
             <li className="flex justify-start lg:justify-end items-center">
               <FaEnvelope className="mr-2 text-lg" />
               <a href="mailto:marketing@portillapropiedades.cl" className="hover:underline hover:text-gray-300 transition duration-300 ml-2">
@@ -34,8 +33,8 @@ const Footer = () => {
             </li>
             <li className="flex justify-start lg:justify-end items-center">
               <FaPhoneAlt className="mr-2 text-lg" />
-              <a href="tel:+12345678" className="hover:underline hover:text-gray-300 transition duration-300 ml-2">
-                +56 12 3456 7893
+              <a href="tel:+56 9 9847 2202" className="hover:underline hover:text-gray-300 transition duration-300 ml-2">
+                +56 9 9847 2202
               </a>
             </li>
           </ul>

@@ -55,7 +55,7 @@ const PropertiesPage = () => {
       <Navbar />
       <SecondaryHero 
         title="Nuestras Propiedades"
-        backgroundImage="/64.jpg"
+        backgroundImage="/65.jpg"
         overlayColor="rgba(0, 0, 0, 0.6)"
         height="h-60"
       />

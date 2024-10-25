@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaFacebookF } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 
 const Topbar = () => {
   return (
@@ -29,7 +29,7 @@ const Topbar = () => {
           {/* WhatsApp and Phone Number */}
           <div className="flex items-center space-x-1">
             <FaWhatsapp className="text-xl text-[#175EA5]" />
-            <span className="text-sm font-medium">+123 456 7890</span>
+            <span className="text-sm font-medium">+56 9 9847 2202</span>
           </div>
 
           {/* Email and Address */}
@@ -40,7 +40,7 @@ const Topbar = () => {
             </a>
           </div>
 
-          {/* Facebook */}
+{/*           Facebook
           <a
             href="https://www.facebook.com/newland_propiedades"
             target="_blank"
@@ -49,7 +49,7 @@ const Topbar = () => {
           >
             <FaFacebookF className="text-xl text-[#175EA5]" />
             <span className="text-sm font-medium">Síguenos en Facebook</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

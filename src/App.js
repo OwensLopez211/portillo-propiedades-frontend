@@ -17,6 +17,7 @@ import AddProperty from './components/AdminPage/Properties/AddProperty';
 import EditProperty from './components/AdminPage/Properties/EditProperty';
 import Config from './components/AdminPage/Config';
 import Callback from './components/AdminPage/Config/Callback';
+import NewsPage from './pages/landing/NewsPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/honorarios" element={<FeePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/callback" element={<Callback />} />
+        <Route path="/News" element={<NewsPage />} />
 
         
         {/* Ruta protegida con AdminLayout */}
