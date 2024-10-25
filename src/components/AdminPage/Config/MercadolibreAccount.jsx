@@ -65,29 +65,37 @@ const MercadoLibreAccount = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-8">
-      <div className="toggle-wrapper">
-        <input
-          type="checkbox"
-          className="toggle-checkbox"
-          checked={isLinked}
-          onChange={handleToggle} // Este evento cambia el estado y redirige o desvincula
-        />
-        <div className="toggle-container">
-          <div className="toggle-button">
-            <div className="toggle-button-circles-container">
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
-              <div className="toggle-button-circle"></div>
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Autenticación con MercadoLibre</h2>
+      <p className="text-gray-700 mb-6">
+        Este toggle te permite vincular o desvincular tu cuenta de MercadoLibre con la plataforma. Al activar, serás redirigido para autorizar la conexión.
+      </p>
+
+      <div className="flex items-center justify-between">
+        <span className="text-lg font-medium text-gray-900">Vinculación con MercadoLibre</span>
+        <div className="toggle-wrapper">
+          <input
+            type="checkbox"
+            className="toggle-checkbox"
+            checked={isLinked}
+            onChange={handleToggle} // Este evento cambia el estado y redirige o desvincula
+          />
+          <div className="toggle-container">
+            <div className="toggle-button">
+              <div className="toggle-button-circles-container">
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+                <div className="toggle-button-circle"></div>
+              </div>
             </div>
           </div>
         </div>
