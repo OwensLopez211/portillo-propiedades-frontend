@@ -61,10 +61,6 @@ const PropertyPageCard = ({ property }) => {
                     >
                         Ver
                     </button>
-
-                    <button className="text-blue-500 hover:underline transition duration-300">
-                        Guardar
-                    </button>
                 </div>
             </div>
         </div>

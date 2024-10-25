@@ -9,13 +9,13 @@ const PropertyHeader = ({ property }) => {
       {/* En la vista móvil, el código a la izquierda y los enlaces a la derecha */}
       <div className="w-full flex justify-between items-center mb-4">
         <div>
-          <span className="bg-blue-600 text-white px-2 py-1 rounded text-sm font-semibold">
+          <span className="bg-[#175EA5] text-white px-2 py-1 rounded text-sm font-semibold">
             Cód.: {property.id}
           </span>
         </div>
 
         <div className="flex space-x-2 text-sm">
-          <Link to="/listado" className="text-gray-600 hover:underline">Listado</Link>
+          <Link to="/propiedades" className="text-gray-600 hover:underline">Listado</Link>
           <span className="text-gray-600">|</span>
           <Link to="#" className="text-gray-600 hover:underline">Anterior</Link>
           <span className="text-gray-600">|</span>
