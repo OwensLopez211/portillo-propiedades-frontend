@@ -48,6 +48,11 @@ const PropertyCard = ({ property }) => {
     prevArrow: <PrevArrow />,
   };
 
+  // Verificación de datos del agente
+  const agent = property.agent || {};
+
+  console.log("Agente:", agent); // Verifica qué datos tiene el agente
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="relative">
@@ -75,7 +80,7 @@ const PropertyCard = ({ property }) => {
       </div>
 
       <div className="bg-blue-600 text-white text-center py-2">
-        <p className="font-semibold">{property.tipo_propiedad.toUpperCase()}</p>
+        <p className="font-semibold">{property.tipo_propiedad?.toUpperCase()}</p>
       </div>
 
       <div className="p-4">
@@ -91,13 +96,13 @@ const PropertyCard = ({ property }) => {
         <div className="flex items-center mt-4 justify-between">
           <div className="flex items-center">
             <img
-              src={property.agent?.profile_image_url || 'https://via.placeholder.com/40'}
+              src={agent.profile_image_url || 'https://via.placeholder.com/40'}
               alt="Agent"
               className="w-10 h-10 rounded-full mr-3 border-2 border-blue-500"
             />
             <div>
-              <p className="text-gray-800 font-semibold">{property.agent?.name || 'Agent Name'}</p>
-              <p className="text-gray-600 text-sm">{property.agent?.phone || 'Contact Info'}</p>
+              <p className="text-gray-800 font-semibold">{agent.name || 'Agent Name'}</p>
+              <p className="text-gray-600 text-sm">{agent.phone || 'Contact Info'}</p>
             </div>
           </div>
           <button
