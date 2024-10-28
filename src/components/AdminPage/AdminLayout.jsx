@@ -1,8 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import NavbarSimple from './General/Sidebar'; // Asegúrate de que es el navbar y no el sidebar
+import NavbarSimple from './General/Sidebar'; // Cambiar a Navbar si es necesario
 
 const AdminLayout = () => {
+  console.log('NavbarSimple rendering...'); // Añadir log para ver si se está llamando
+
   return (
     <div className="flex flex-col h-screen">
       {/* Navbar */}
