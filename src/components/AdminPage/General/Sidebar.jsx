@@ -1,24 +1,25 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { HomeIcon, BuildingOfficeIcon, Cog6ToothIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Inicio', href: '/admin/inicio', icon: HomeIcon, current: true },
-  { name: 'Propiedades', href: '/admin/propiedades', icon: BuildingOfficeIcon, current: false, subItems: [
+  { name: 'Inicio', href: '/admin/inicio', icon: HomeIcon },
+  { name: 'Propiedades', href: '/admin/propiedades', icon: BuildingOfficeIcon, subItems: [
       { name: 'Agregar Propiedad', href: '/admin/propiedades/agregar' },
       { name: 'Subir Masivamente', href: '/admin/propiedades/subir-masivamente', icon: ArrowUpOnSquareIcon }
     ]
   },
-  { name: 'Configuración', href: '/admin/configuracion', icon: Cog6ToothIcon, current: false },
+  { name: 'Configuración', href: '/admin/configuracion', icon: Cog6ToothIcon },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const navigate = useNavigate();
+  const location = useLocation(); // Para obtener la ruta actual
 
   // Función para cerrar sesión
   const handleLogout = () => {
@@ -26,15 +27,25 @@ export default function Navbar() {
     navigate('/login');
   };
 
+  // Función para determinar si un enlace está "activo"
+  const isActive = (href) => location.pathname.startsWith(href);
+
+  // Verificar si el usuario y el agente existen, o usar una imagen predeterminada
+  const agentImage = user?.agent?.profile_image_url || 'https://via.placeholder.com/40';
+
+  // Agregar un log para verificar el contenido del objeto user y agent
+  console.log('User:', user);
+  console.log('Agent:', user?.agent);
+
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-white">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-200 hover:text-blue-600">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -53,7 +64,7 @@ export default function Navbar() {
                       <Link
                         to={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          isActive(item.href) ? 'bg-blue-600 text-white' : 'text-blue-600 hover:bg-gray-200 hover:text-blue-800',
                           'flex items-center px-3 py-2 rounded-md text-sm font-medium'
                         )}
                       >
@@ -63,12 +74,12 @@ export default function Navbar() {
 
                       {/* Submenu for "Propiedades" */}
                       {item.subItems && (
-                        <div className="absolute hidden group-hover:block bg-gray-800 rounded-md mt-2 z-10">
+                        <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transform transition-all duration-150 ease-in-out origin-top">
                           {item.subItems.map(subItem => (
                             <Link
                               key={subItem.name}
                               to={subItem.href}
-                              className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                              className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-200 hover:text-blue-800"
                             >
                               {subItem.icon && <subItem.icon className="h-5 w-5 mr-2 inline" />}
                               {subItem.name}
@@ -85,7 +96,7 @@ export default function Navbar() {
                 {/* Notification button */}
                 <button
                   type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="bg-white p-1 rounded-full text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -94,12 +105,12 @@ export default function Navbar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
-                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        src={agentImage} // Imagen del agente obtenida del usuario autenticado
+                        alt="Agent Profile"
                       />
                     </Menu.Button>
                   </div>
@@ -116,7 +127,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <button
                             onClick={handleLogout}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-200' : '', 'block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-200 hover:text-blue-800')}
                           >
                             Cerrar sesión
                           </button>
@@ -133,17 +144,34 @@ export default function Navbar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as={Link}
-                  to={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
+                <div key={item.name}>
+                  <Disclosure.Button
+                    as={Link}
+                    to={item.href}
+                    className={classNames(
+                      isActive(item.href) ? 'bg-blue-600 text-white' : 'text-blue-600 hover:bg-gray-200 hover:text-blue-800',
+                      'block px-3 py-2 rounded-md text-base font-medium'
+                    )}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+
+                  {/* Submenu items for mobile */}
+                  {item.subItems && (
+                    <Disclosure.Panel className="ml-4">
+                      {item.subItems.map((subItem) => (
+                        <Disclosure.Button
+                          key={subItem.name}
+                          as={Link}
+                          to={subItem.href}
+                          className="block px-3 py-2 rounded-md text-sm text-blue-600 hover:bg-gray-200 hover:text-blue-800"
+                        >
+                          {subItem.name}
+                        </Disclosure.Button>
+                      ))}
+                    </Disclosure.Panel>
                   )}
-                >
-                  {item.name}
-                </Disclosure.Button>
+                </div>
               ))}
             </div>
           </Disclosure.Panel>

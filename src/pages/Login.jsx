@@ -35,7 +35,7 @@ const Login = () => {
       localStorage.setItem('authToken', data.access);  // Guardamos el token de acceso
 
       // Redirige al panel de administración
-      navigate('/admin');
+      navigate('/admin/inicio');
     } catch (err) {
       setError(err.message);
     }
