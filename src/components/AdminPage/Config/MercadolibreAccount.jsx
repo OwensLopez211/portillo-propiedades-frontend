@@ -68,7 +68,7 @@ const MercadoLibreAccount = () => {
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Autenticación con MercadoLibre</h2>
       <p className="text-gray-700 mb-6">
-        Este toggle te permite vincular o desvincular tu cuenta de MercadoLibre con la plataforma. Al activar, serás redirigido para autorizar la conexión.
+        Este apartado te permite vincular o desvincular tu cuenta de MercadoLibre con la plataforma. Al activar, serás redirigido para autorizar la conexión.
       </p>
 
       <div className="flex items-center justify-between">
