@@ -4,10 +4,12 @@ const MassPropertyUploadForm = () => {
   const [csvFile, setCsvFile] = useState(null);
   const [message, setMessage] = useState('');
 
+  // Maneja el cambio de archivo CSV
   const handleFileChange = (e) => {
     setCsvFile(e.target.files[0]);
   };
 
+  // Maneja la subida del archivo CSV
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!csvFile) {
@@ -18,9 +20,15 @@ const MassPropertyUploadForm = () => {
     const formData = new FormData();
     formData.append('csv', csvFile);
 
+    // Obtener el token del localStorage
+    const token = localStorage.getItem('authToken');  // Asegúrate de que 'authToken' sea la clave correcta donde guardas el token
+
     try {
-      const response = await fetch('/api/upload-mass-properties/', {
+      const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/upload-mass-properties/', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,  // Enviar el token en el encabezado
+        },
         body: formData,
       });
 
