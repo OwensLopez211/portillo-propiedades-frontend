@@ -25,7 +25,11 @@ const MassPropertyUploadForm = () => {
       });
 
       if (response.ok) {
-        setMessage('Propiedades subidas exitosamente');
+        // Intentar obtener la respuesta JSON solo si está disponible
+        const data = await response.json().catch(() => {
+          return { message: "Propiedades subidas exitosamente" }; // Mensaje predeterminado si no hay JSON
+        });
+        setMessage(data.message || "Propiedades subidas exitosamente");
       } else {
         const errorData = await response.json();
         setMessage(`Error al subir propiedades: ${errorData.error}`);
