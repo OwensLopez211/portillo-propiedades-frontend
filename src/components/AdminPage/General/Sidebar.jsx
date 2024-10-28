@@ -33,9 +33,6 @@ export default function Navbar({ user }) {
   // Verificar si el usuario y el agente existen, o usar una imagen predeterminada
   const agentImage = user?.agent?.profile_image_url || 'https://via.placeholder.com/40';
 
-  // Agregar un log para verificar el contenido del objeto user y agent
-  console.log('User:', user);
-  console.log('Agent:', user?.agent);
 
   return (
     <Disclosure as="nav" className="bg-white">
