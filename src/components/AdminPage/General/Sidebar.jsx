@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { HomeIcon, BuildingOfficeIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, BuildingOfficeIcon, Cog6ToothIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline';
 import '../Static/Sidebar.css'; // Asegúrate de tener tus estilos CSS
 
 const Sidebar = () => {
@@ -37,6 +37,12 @@ const Sidebar = () => {
             <li>
               <Link to="/admin/propiedades/agregar" className="flex items-center p-2 hover:bg-gray-600 rounded-lg text-gray-200">
                 Agregar Propiedad
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/propiedades/subir-masivamente" className="flex items-center p-2 hover:bg-gray-600 rounded-lg text-gray-200">
+                <ArrowUpOnSquareIcon className="h-5 w-5 mr-2" />
+                Subir Masivamente
               </Link>
             </li>
           </ul>

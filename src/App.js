@@ -18,6 +18,7 @@ import EditProperty from './components/AdminPage/Properties/EditProperty';
 import Config from './components/AdminPage/Config';
 import Callback from './components/AdminPage/Config/Callback';
 import NewsPage from './pages/landing/NewsPage';
+import MassPropertyUploadForm from './components/AdminPage/Properties/MassPropertyUploadForm';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="propiedades/agregar" element={<AddProperty />} />
           <Route path="propiedades/editar/:id" element={<EditProperty />} /> {/* Ruta corregida */}
           <Route path="configuracion" element={<Config />} /> {/* Ruta corregida */}
+          <Route path="propiedades/subir-masivamente" element={<MassPropertyUploadForm />} /> {/* Nueva ruta */}
 
         </Route>
       </Routes>
