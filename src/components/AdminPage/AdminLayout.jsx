@@ -1,12 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './General/Sidebar';
+import NavbarSimple from './General/Sidebar'; // Asegúrate de que es el navbar y no el sidebar
 
 const AdminLayout = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-grow p-6 bg-gray-100 ml-64">
+    <div className="flex flex-col h-screen">
+      {/* Navbar */}
+      <NavbarSimple />
+
+      {/* Contenido principal */}
+      <div className="flex-grow p-6 bg-gray-100">
         <Outlet />
       </div>
     </div>

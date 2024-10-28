@@ -1,9 +1,23 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { HomeIcon, BuildingOfficeIcon, Cog6ToothIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline';
-import '../Static/Sidebar.css'; // Asegúrate de tener tus estilos CSS
+import { Link, useNavigate } from 'react-router-dom';
 
-const Sidebar = () => {
+const navigation = [
+  { name: 'Inicio', href: '/admin/inicio', icon: HomeIcon, current: true },
+  { name: 'Propiedades', href: '/admin/propiedades', icon: BuildingOfficeIcon, current: false, subItems: [
+      { name: 'Agregar Propiedad', href: '/admin/propiedades/agregar' },
+      { name: 'Subir Masivamente', href: '/admin/propiedades/subir-masivamente', icon: ArrowUpOnSquareIcon }
+    ]
+  },
+  { name: 'Configuración', href: '/admin/configuracion', icon: Cog6ToothIcon, current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+export default function Navbar() {
   const navigate = useNavigate();
 
   // Función para cerrar sesión
@@ -13,59 +27,128 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar p-5 flex flex-col bg-gray-800">
-      {/* Logo */}
-      <div className="mb-10 flex items-center">
-        <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="Logo" className="h-8 w-8 mr-3" />
-        <span className="text-xl font-bold text-gray-200">NewLand Propiedades</span>
-      </div>
+    <Disclosure as="nav" className="bg-gray-800">
+      {({ open }) => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button */}
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
 
-      {/* Menú */}
-      <ul className="flex-grow">
-        <li>
-          <Link to="/admin/inicio" className="flex items-center p-2 mb-3 hover:bg-gray-700 rounded-lg text-gray-200">
-            <HomeIcon className="h-6 w-6" />
-            <span className="ml-4">Inicio</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/propiedades" className="flex items-center p-2 mb-3 hover:bg-gray-700 rounded-lg text-gray-200">
-            <BuildingOfficeIcon className="h-6 w-6" />
-            <span className="ml-4">Propiedades</span>
-          </Link>
-          <ul className="pl-10 mt-2">
-            <li>
-              <Link to="/admin/propiedades/agregar" className="flex items-center p-2 hover:bg-gray-600 rounded-lg text-gray-200">
-                Agregar Propiedad
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/propiedades/subir-masivamente" className="flex items-center p-2 hover:bg-gray-600 rounded-lg text-gray-200">
-                <ArrowUpOnSquareIcon className="h-5 w-5 mr-2" />
-                Subir Masivamente
-              </Link>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <Link to="/admin/configuracion" className="flex items-center p-2 mb-3 hover:bg-gray-700 rounded-lg text-gray-200">
-            <Cog6ToothIcon className="h-6 w-6" />
-            <span className="ml-4">Configuración</span>
-          </Link>
-        </li>
-      </ul>
+              <div className="flex items-center justify-center sm:items-stretch sm:justify-start">
 
-      {/* Logout */}
-      <button className="Btn mt-auto" onClick={handleLogout}>
-        <div className="sign">
-          <svg viewBox="0 0 512 512">
-            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
-          </svg>
-        </div>
-        <div className="text">Logout</div>
-      </button>
-    </div>
+                {/* Links */}
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-4">
+                  {navigation.map((item) => (
+                    <div key={item.name} className="relative group">
+                      <Link
+                        to={item.href}
+                        className={classNames(
+                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'flex items-center px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                      >
+                        <item.icon className="h-6 w-6 mr-2" />
+                        {item.name}
+                      </Link>
+
+                      {/* Submenu for "Propiedades" */}
+                      {item.subItems && (
+                        <div className="absolute hidden group-hover:block bg-gray-800 rounded-md mt-2 z-10">
+                          {item.subItems.map(subItem => (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                            >
+                              {subItem.icon && <subItem.icon className="h-5 w-5 mr-2 inline" />}
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {/* Notification button */}
+                <button
+                  type="button"
+                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                {/* Profile dropdown */}
+                <Menu as="div" className="ml-3 relative">
+                  <div>
+                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <span className="sr-only">Open user menu</span>
+                      <img
+                        className="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={handleLogout}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Cerrar sesión
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pt-2 pb-3">
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as={Link}
+                  to={item.href}
+                  className={classNames(
+                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block px-3 py-2 rounded-md text-base font-medium'
+                  )}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
-};
-
-export default Sidebar;
+}
