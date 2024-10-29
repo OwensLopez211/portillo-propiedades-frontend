@@ -14,11 +14,15 @@ const AddProperty = () => {
     habitaciones: '',
     baños: '',
     superficie_total: '',
+    superficie_cubierta: '',  // Campo nuevo
     direccion: '',
     region: '',
     comuna: '',
-    latitud: '',
-    longitud: '',
+    latitud: '',               // Campo nuevo
+    longitud: '',              // Campo nuevo
+    gastos_comunes: '',        // Campo nuevo
+    contribuciones: '',        // Campo nuevo
+    expensas: '',             // Campo nuevo
     is_featured: false,
     agent: '',
     images: [],
@@ -85,6 +89,13 @@ const AddProperty = () => {
     formDataToSend.append('direccion', formData.direccion);
     formDataToSend.append('habitaciones', formData.habitaciones);
     formDataToSend.append('baños', formData.baños);
+    formDataToSend.append('superficie_total', formData.superficie_total);
+    formDataToSend.append('superficie_cubierta', formData.superficie_cubierta); // Campo nuevo
+    formDataToSend.append('gastos_comunes', formData.gastos_comunes); // Campo nuevo
+    formDataToSend.append('contribuciones', formData.contribuciones); // Campo nuevo
+    formDataToSend.append('expensas', formData.expensas); // Campo nuevo
+    formDataToSend.append('latitud', formData.latitud); // Campo nuevo
+    formDataToSend.append('longitud', formData.longitud); // Campo nuevo
     formDataToSend.append('precio_venta', formData.precio_venta);
     formDataToSend.append('tipo_operacion', formData.tipo_operacion);
     formDataToSend.append('is_featured', formData.is_featured);
@@ -264,11 +275,51 @@ const AddProperty = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700">Área (m²)</label>
+                  <label className="block text-gray-700">Área Total (m²)</label>
                   <input
                     type="number"
                     name="superficie_total"
                     value={formData.superficie_total}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Superficie Cubierta (m²)</label>
+                  <input
+                    type="number"
+                    name="superficie_cubierta"
+                    value={formData.superficie_cubierta}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Gastos Comunes</label>
+                  <input
+                    type="number"
+                    name="gastos_comunes"
+                    value={formData.gastos_comunes}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Contribuciones</label>
+                  <input
+                    type="number"
+                    name="contribuciones"
+                    value={formData.contribuciones}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Expensas</label>
+                  <input
+                    type="number"
+                    name="expensas"
+                    value={formData.expensas}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
@@ -306,6 +357,26 @@ const AddProperty = () => {
                     type="text"
                     name="comuna"
                     value={formData.comuna}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Latitud</label>
+                  <input
+                    type="text"
+                    name="latitud"
+                    value={formData.latitud}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Longitud</label>
+                  <input
+                    type="text"
+                    name="longitud"
+                    value={formData.longitud}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />

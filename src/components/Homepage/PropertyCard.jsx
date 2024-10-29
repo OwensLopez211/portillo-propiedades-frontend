@@ -51,8 +51,6 @@ const PropertyCard = ({ property }) => {
   // Verificación de datos del agente
   const agent = property.agent || {};
 
-  console.log("Agente:", agent); // Verifica qué datos tiene el agente
-
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="relative">
@@ -87,6 +85,12 @@ const PropertyCard = ({ property }) => {
         <p className="text-gray-700 mb-2">
           Operación: <span className="font-medium">{property.tipo_operacion}</span>
         </p>
+        
+        {/* Nuevo campo Comuna */}
+        <p className="text-gray-700 mb-2">
+          Comuna: <span className="font-medium">{property.comuna}</span>
+        </p>
+
         <p className="text-gray-700 mb-4">
           Precio: <span className="font-bold">
             {property.precio_venta ? formatPrice(property.precio_venta) : formatPrice(property.precio_renta)}

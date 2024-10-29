@@ -38,6 +38,10 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
 
     // Estilos condicionales basados en la página
     const containerClass = page === 'home' ? 'p-4 bg-gray-500 bg-opacity-30 backdrop-blur-lg shadow-lg' : 'p-6 bg-white rounded-lg shadow-md';
+    
+    // Estilos personalizados para el placeholder y selectores en la página 'home'
+    const placeholderClass = page === 'home' ? 'placeholder-[#175EA5] font-bold' : 'placeholder-gray-400';
+    const selectTextClass = page === 'home' ? 'text-[#175EA5] font-bold' : 'text-gray-800';
 
     return (
         <div className={`${containerClass} flex flex-col lg:flex-row gap-2 items-center justify-center w-full mx-auto`}>
@@ -50,7 +54,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                     placeholder="Buscar por comuna, código postal o estado" 
                     onChange={handleChange} 
                     value={localFilters.comuna}
-                    className="p-1 focus:outline-none w-full text-gray-800 text-sm"
+                    className={`p-1 focus:outline-none w-full text-gray-800 text-sm ${placeholderClass}`}
                 />
             </div>
 
@@ -59,23 +63,23 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 name="operation" 
                 onChange={handleChange} 
                 value={localFilters.operation}
-                className="p-1 border bg-white rounded-lg shadow-sm focus:outline-none text-gray-800 w-full lg:w-auto text-sm"
+                className={`p-1 border bg-white rounded-lg shadow-sm focus:outline-none ${selectTextClass} w-full lg:w-auto text-sm`}
             >
-                <option value="">Todas</option>
-                <option value="venta">Venta</option>
-                <option value="arriendo">Arriendo</option>
+                <option value="" className={selectTextClass}>Todas</option>
+                <option value="venta" className={selectTextClass}>Venta</option>
+                <option value="arriendo" className={selectTextClass}>Arriendo</option>
             </select>
 
             <select 
                 name="propertyType" 
                 onChange={handleChange} 
                 value={localFilters.propertyType}
-                className="p-1 border bg-white rounded-lg shadow-sm focus:outline-none text-gray-800 w-full lg:w-auto text-sm"
+                className={`p-1 border bg-white rounded-lg shadow-sm focus:outline-none ${selectTextClass} w-full lg:w-auto text-sm`}
             >
-                <option value="">Tipo de propiedad</option>
-                <option value="casa">Casa</option>
-                <option value="departamento">Departamento</option>
-                <option value="oficina">Oficina</option>
+                <option value="" className={selectTextClass}>Tipo de propiedad</option>
+                <option value="casa" className={selectTextClass}>Casa</option>
+                <option value="departamento" className={selectTextClass}>Departamento</option>
+                <option value="oficina" className={selectTextClass}>Oficina</option>
             </select>
 
             {/* Select de precio (solo en propiedades) */}

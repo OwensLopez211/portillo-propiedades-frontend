@@ -72,7 +72,7 @@ const FeaturedProperties = () => {
     <section className="py-8 w-full relative">
       <div className="w-full mx-auto text-center relative">
         <h2 className="text-3xl font-bold mb-4 text-[#175EA5]">Propiedades destacadas</h2> {/* Cambio de color */}
-        <p className="text-gray-600 mb-8 text-[#175EA5]">Las mejores de todo Chile</p> {/* Cambio de color */}
+        <p className="mb-8 text-[#175EA5]">Las mejores de todo Chile</p> {/* Cambio de color */}
         
         {/* Contenedor del carrusel con desenfoque en los bordes */}
         <div className="relative">

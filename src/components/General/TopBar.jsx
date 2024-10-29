@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagram, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhoneAlt, FaFacebookF, FaTiktok, FaFacebookMessenger } from 'react-icons/fa';
 
 const Topbar = () => {
   return (
@@ -13,43 +13,79 @@ const Topbar = () => {
           </a>
         </div>
 
-        {/* Social Icons with Text - Right side */}
-        <div className="flex flex-col space-y-1 text-[#175EA5]">
-          {/* Instagram and Follow Text */}
-          <a
-            href="https://www.instagram.com/newland_propiedades_/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1 text-[#175EA5]"
-          >
-            <FaInstagram className="text-xl text-[#175EA5]" />
-            <span className="text-sm font-medium">Síguenos</span>
-          </a>
+        {/* Social Icons with Text - Right side in two columns */}
+        <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 text-[#175EA5]">
+          
+          {/* Column 1: WhatsApp, Phone Number, Email */}
+          <div className="flex flex-col space-y-1 items-start">
+            {/* WhatsApp */}
+            <div className="flex items-center space-x-2">
+              <FaWhatsapp className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">+56 9 9847 2202</span>
+            </div>
 
-          {/* WhatsApp and Phone Number */}
-          <div className="flex items-center space-x-1">
-            <FaWhatsapp className="text-xl text-[#175EA5]" />
-            <span className="text-sm font-medium">+56 9 9847 2202</span>
+            {/* Phone Number for Calls */}
+            <div className="flex items-center space-x-2">
+              <FaPhoneAlt className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">+56 2 2345 6789</span>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center space-x-2">
+              <FaEnvelope className="text-xl text-[#175EA5]" />
+              <a href="mailto:contacto@newlandpropiedades.cl" className="text-sm font-medium text-[#175EA5]">
+                contacto@newlandpropiedades.cl
+              </a>
+            </div>
           </div>
 
-          {/* Email and Address */}
-          <div className="flex items-center space-x-1">
-            <FaEnvelope className="text-xl text-[#175EA5]" />
-            <a href="mailto:contacto@newlandpropiedades.cl" className="text-sm font-medium text-[#175EA5]">
-              contacto@newlandpropiedades.cl
+          {/* Column 2: Instagram, Facebook, TikTok, Messenger */}
+          <div className="flex flex-col space-y-1 lg:ml-6 items-start">
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/newland_propiedades_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-[#175EA5]"
+            >
+              <FaInstagram className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">Síguenos</span>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="https://www.facebook.com/newland_propiedades"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-[#175EA5]"
+            >
+              <FaFacebookF className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">Síguenos en Facebook</span>
+            </a>
+
+            {/* TikTok */}
+            <a
+              href="https://www.tiktok.com/@newland_propiedades"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-[#175EA5]"
+            >
+              <FaTiktok className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">Síguenos en TikTok</span>
+            </a>
+
+            {/* Messenger */}
+            <a
+              href="https://www.messenger.com/t/newland_propiedades"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-[#175EA5]"
+            >
+              <FaFacebookMessenger className="text-xl text-[#175EA5]" />
+              <span className="text-sm font-medium">Contáctanos en Messenger</span>
             </a>
           </div>
-
-{/*           Facebook
-          <a
-            href="https://www.facebook.com/newland_propiedades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1 text-[#175EA5]"
-          >
-            <FaFacebookF className="text-xl text-[#175EA5]" />
-            <span className="text-sm font-medium">Síguenos en Facebook</span>
-          </a> */}
+          
         </div>
       </div>
     </div>
