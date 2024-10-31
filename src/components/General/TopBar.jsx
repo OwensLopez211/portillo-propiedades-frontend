@@ -7,11 +7,16 @@ const Topbar = () => {
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-0">
         
         {/* Logo - Left side */}
-        <div className="flex items-center">
+        <div className="flex items-center pl-0 sm:pl-4">
           <a href="/">
-            <img src="/logo.png" alt="NewLand Logo" className="h-32 w-auto" />
+            <img
+              src="/logo.png"
+              alt="NewLand Logo"
+              className="h-32 w-auto sm:h-32 md:h-36 lg:h-36"
+            />
           </a>
         </div>
+
 
         {/* Social Icons with Text - Right side in two columns */}
         <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 text-[#175EA5]">
@@ -20,20 +25,20 @@ const Topbar = () => {
           <div className="flex flex-col space-y-1 items-start">
             {/* WhatsApp */}
             <div className="flex items-center space-x-2">
-              <FaWhatsapp className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">+56 9 9847 2202</span>
+              <FaWhatsapp className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">+56 9 9847 2202</span>
             </div>
 
             {/* Phone Number for Calls */}
             <div className="flex items-center space-x-2">
-              <FaPhoneAlt className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">+56 2 2345 6789</span>
+              <FaPhoneAlt className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">+56 2 2345 6789</span>
             </div>
 
             {/* Email */}
             <div className="flex items-center space-x-2">
-              <FaEnvelope className="text-xl text-[#175EA5]" />
-              <a href="mailto:contacto@newlandpropiedades.cl" className="text-sm font-medium text-[#175EA5]">
+              <FaEnvelope className="text-lg sm:text-xl text-[#175EA5]" />
+              <a href="mailto:contacto@newlandpropiedades.cl" className="text-xs sm:text-sm font-medium text-[#175EA5]">
                 contacto@newlandpropiedades.cl
               </a>
             </div>
@@ -48,8 +53,8 @@ const Topbar = () => {
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-[#175EA5]"
             >
-              <FaInstagram className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">Síguenos</span>
+              <FaInstagram className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">Síguenos</span>
             </a>
 
             {/* Facebook */}
@@ -59,8 +64,8 @@ const Topbar = () => {
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-[#175EA5]"
             >
-              <FaFacebookF className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">Síguenos en Facebook</span>
+              <FaFacebookF className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">Síguenos en Facebook</span>
             </a>
 
             {/* TikTok */}
@@ -70,8 +75,8 @@ const Topbar = () => {
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-[#175EA5]"
             >
-              <FaTiktok className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">Síguenos en TikTok</span>
+              <FaTiktok className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">Síguenos en TikTok</span>
             </a>
 
             {/* Messenger */}
@@ -81,11 +86,10 @@ const Topbar = () => {
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-[#175EA5]"
             >
-              <FaFacebookMessenger className="text-xl text-[#175EA5]" />
-              <span className="text-sm font-medium">Contáctanos en Messenger</span>
+              <FaFacebookMessenger className="text-lg sm:text-xl text-[#175EA5]" />
+              <span className="text-xs sm:text-sm font-medium">Contáctanos en Messenger</span>
             </a>
           </div>
-          
         </div>
       </div>
     </div>
