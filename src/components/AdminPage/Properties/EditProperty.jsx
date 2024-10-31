@@ -18,14 +18,16 @@ const EditProperty = () => {
     direccion: '',
     region: '',
     comuna: '',
-    latitud: '',
-    longitud: '',
+/*     latitud: '',
+    longitud: '', */
     is_featured: false,
     agent: '',  // Asegúrate de que este campo esté listo para recibir el ID del agente
     images: [], 
   });
 
   const [agents, setAgents] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [comunas, setComunas] = useState([]); 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true); 
   const [imagesToDelete, setImagesToDelete] = useState([]); // Imágenes marcadas para eliminar
@@ -81,10 +83,30 @@ const EditProperty = () => {
         console.error('Error al obtener los agentes:', err);
       }
     };
-  
+    const fetchRegions = async () => {
+      try {
+        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/');
+        setRegions(response.data);
+      } catch (err) {
+        console.error('Error al cargar regiones:', err);
+      }
+    };
+
+    fetchRegions();
     fetchProperty();
     fetchAgents();
   }, [id]);
+
+  const handleRegionChange = async (e) => {
+    const selectedRegionId = e.target.value;
+    setFormData({ ...formData, region: selectedRegionId, comuna: '' });
+    try {
+      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`);
+      setComunas(response.data);
+    } catch (err) {
+      console.error('Error al cargar comunas:', err);
+    }
+  };
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -225,6 +247,17 @@ const EditProperty = () => {
                     step="0.01"
                   />
                 </div>
+                <div>
+                  <label className="block text-gray-700">Precio Renta</label>
+                  <input
+                    type="number"
+                    name="precio_renta"
+                    value={formData.precio_renta}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                    step="0.01"
+                  />
+                </div>
 
                 <div>
                   <label className="block text-gray-700">¿Propiedad destacada?</label>
@@ -253,6 +286,7 @@ const EditProperty = () => {
                             </option>
                         ))}
                     </select>
+                </div>
                 </div>
               </div>
             </div>
@@ -313,11 +347,31 @@ const EditProperty = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700">Área (m²)</label>
+                  <label className="block text-gray-700">Área Total (m²)</label>
                   <input
                     type="number"
                     name="superficie_total"
                     value={formData.superficie_total}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Superficie Cubierta (m²)</label>
+                  <input
+                    type="number"
+                    name="superficie_cubierta"
+                    value={formData.superficie_cubierta}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Gastos Comunes</label>
+                  <input
+                    type="number"
+                    name="gastos_comunes"
+                    value={formData.gastos_comunes}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
@@ -338,26 +392,48 @@ const EditProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
                 <div>
-                  <label className="block text-gray-700">Ciudad</label>
+                  <label className="block text-gray-700">Ubicación de referencia</label>
                   <input
                     type="text"
-                    name="region"
-                    value={formData.region}
+                    name="ubicacion_referencia"
+                    value={formData.ubicacion_referencia}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700">Barrio</label>
-                  <input
-                    type="text"
+                  <label className="block text-gray-700">Región</label>
+                  <select
+                    name="region"
+                    value={formData.region}
+                    onChange={handleRegionChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  >
+                    <option value="">Seleccione una región</option>
+                    {regions.map((region) => (
+                      <option key={region.id} value={region.id}>
+                        {region.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-gray-700">Comuna</label>
+                  <select
                     name="comuna"
                     value={formData.comuna}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
+                    disabled={!formData.region}
+                  >
+                    <option value="">Seleccione una comuna</option>
+                    {comunas.map((comuna) => (
+                      <option key={comuna.id} value={comuna.id}>
+                        {comuna.nombre}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>

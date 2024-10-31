@@ -238,7 +238,6 @@ const handleRegionChange = async (e) => {
                     step="0.01"
                   />
                 </div>
-
                 <div>
                   <label className="block text-gray-700">¿Propiedad destacada?</label>
                   <input
@@ -403,7 +402,7 @@ const handleRegionChange = async (e) => {
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
                 </div>
-                <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-gray-700">Región</label>
@@ -438,7 +437,7 @@ const handleRegionChange = async (e) => {
                     ))}
                   </select>
                 </div>
-                </div>
+              </div>
             </div>
 {/*                 <div>
                   <label className="block text-gray-700">Ciudad</label>
