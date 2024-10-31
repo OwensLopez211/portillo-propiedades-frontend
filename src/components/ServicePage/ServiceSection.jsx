@@ -7,8 +7,8 @@ const ServiceSection = ({ image, title, description }) => {
         <img src={image} alt={title} className="w-full h-full object-cover md:object-contain" />
       </div>
       <div className="p-4 md:w-3/4">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
-        <p className="text-gray-700 text-sm text-justify">{description}</p>
+        <h3 className="text-xl font-semibold text-[#175EA5] mb-2">{title}</h3>
+        <p className="text-[#175EA5] text-sm text-justify">{description}</p>
       </div>
     </div>
   );

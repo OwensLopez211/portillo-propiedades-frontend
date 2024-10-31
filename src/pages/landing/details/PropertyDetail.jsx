@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa'; // Importa el icono de carga
 import TopBar from '../../../components/General/TopBar';
 import Navbar from '../../../components/General/Navbar';
 import PropertyHeader from '../../../components/PropertiesPage/PropertyDetail/PropertyHeader';
@@ -17,21 +18,38 @@ const PropertyDetail = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
+        setLoading(true); // Activa la animación de carga
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${id}/`);
         const data = await response.json();
         setProperty(data);
       } catch (error) {
         console.error('Error fetching property details:', error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Desactiva la animación de carga
       }
     };
     fetchProperty();
   }, [id]);
 
-  if (loading) return <div className="text-center text-lg py-20">Cargando...</div>;
-  if (!property) return <div className="text-center text-lg py-20">No se encontró la propiedad</div>;
+  // Mostrar animación de carga mientras se obtienen los datos
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+        <FaSpinner className="text-white text-4xl animate-spin" />
+      </div>
+    );
+  }
 
+  // Mostrar mensaje de error si la propiedad no se encuentra
+  if (!property) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-center text-lg font-semibold text-red-500">No se encontró la propiedad</p>
+      </div>
+    );
+  }
+
+  // Contenido de la propiedad
   return (
     <div className="bg-gray-100 min-h-screen">
       <TopBar />
@@ -49,10 +67,11 @@ const PropertyDetail = () => {
         </div>
         
         {/* Segunda columna: Información de contacto (columna lateral derecha) */}
-        <div className="lg:w-1/3 lg:ml-8">  {/* Ajustar el ancho y espaciado con lg:w-1/3 */}
+        <div className="lg:w-1/3 lg:ml-8">
           <ContactInfo agent={property.agent} />
         </div>
       </div>
+      
       <Footer />
     </div>
   );

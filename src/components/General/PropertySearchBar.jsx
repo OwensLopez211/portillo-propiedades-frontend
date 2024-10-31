@@ -107,7 +107,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
             {/* Botón de aplicar filtros */}
             <button 
                 onClick={applyFilters}
-                className="flex items-center p-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 w-full lg:w-auto justify-center text-sm"
+                className="flex items-center p-1 bg-[#175EA5] text-white rounded-lg hover:bg-[#175EA5] transition duration-300 w-full lg:w-auto justify-center text-sm"
             >
                 Buscar
             </button>

@@ -77,21 +77,21 @@ const PropertyCard = ({ property }) => {
         </div>
       </div>
 
-      <div className="bg-blue-600 text-white text-center py-2">
+      <div className="bg-[#175EA5] text-white text-center py-2">
         <p className="font-semibold">{property.tipo_propiedad?.toUpperCase()}</p>
       </div>
 
       <div className="p-4">
-        <p className="text-gray-700 mb-2">
+        <p className="text-[#175EA5] mb-2">
           Operación: <span className="font-medium">{property.tipo_operacion}</span>
         </p>
         
         {/* Nuevo campo Comuna */}
-        <p className="text-gray-700 mb-2">
+        <p className="text-[#175EA5] mb-2">
           Comuna: <span className="font-medium">{property.comuna}</span>
         </p>
 
-        <p className="text-gray-700 mb-4">
+        <p className="text-[#175EA5] mb-4">
           Precio: <span className="font-bold">
             {property.precio_venta ? formatPrice(property.precio_venta) : formatPrice(property.precio_renta)}
           </span>
@@ -105,12 +105,12 @@ const PropertyCard = ({ property }) => {
               className="w-10 h-10 rounded-full mr-3 border-2 border-blue-500"
             />
             <div>
-              <p className="text-gray-800 font-semibold">{agent.name || 'Agent Name'}</p>
-              <p className="text-gray-600 text-sm">{agent.phone || 'Contact Info'}</p>
+              <p className="text-[#175EA5] font-semibold">{agent.name || 'Agent Name'}</p>
+              <p className="text-[#175EA5] text-sm">{agent.phone || 'Contact Info'}</p>
             </div>
           </div>
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 ml-auto"
+            className="bg-[#175EA5] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 ml-auto"
             onClick={handleViewClick}
           >
             Ver

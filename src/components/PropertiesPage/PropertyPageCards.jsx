@@ -1,8 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para la redirección
+import { useNavigate } from 'react-router-dom';
 
 const PropertyPageCard = ({ property }) => {
-    const navigate = useNavigate(); // Inicializa useNavigate
+    const navigate = useNavigate();
 
     // Función para formatear los precios con separadores de miles
     const formatPrice = (price) => {
@@ -22,20 +22,20 @@ const PropertyPageCard = ({ property }) => {
                     className="w-full h-56 object-cover"
                 />
                 <div className="absolute bottom-0 left-0 bg-gradient-to-t from-black to-transparent text-white p-4 w-full">
-                    <h2 className="text-lg font-bold">{property.title}</h2>
+                    <h2 className="text-lg font-bold text-center">{property.title}</h2> {/* Clase text-center añadida */}
                     <p className="text-sm">{property.location}</p>
                 </div>
             </div>
 
             {/* Barra de título colorida */}
-            <div className="bg-blue-600 text-white text-center py-2">
+            <div className="bg-[#175EA5] text-white text-center py-2">
                 <p className="font-semibold">{property.tipo_propiedad.toUpperCase()}</p>
             </div>
 
             {/* Información de la propiedad */}
             <div className="p-6">
-                <p className="text-gray-700 mb-2">Operación: <span className="font-medium">{property.tipo_operacion}</span></p>
-                <p className="text-gray-700 mb-4">
+                <p className="text-[#175EA5] mb-2">Operación: <span className="font-medium">{property.tipo_operacion}</span></p>
+                <p className="text-[#175EA5] mb-4">
                     Precio: <span className="font-bold">{property.precio_venta ? `$${formatPrice(property.precio_venta)}` : `$${formatPrice(property.precio_renta)}`}</span>
                 </p>
 
@@ -44,11 +44,11 @@ const PropertyPageCard = ({ property }) => {
                     <img 
                         src={property.agent?.profile_image_url || 'https://via.placeholder.com/40'} 
                         alt="Agent" 
-                        className="w-12 h-12 rounded-full mr-4 border-2 border-blue-500"
+                        className="w-12 h-12 rounded-full mr-4 border-2 border-[#175EA5]"
                     />
                     <div>
-                        <p className="text-gray-800 font-semibold">{property.agent?.name || 'Agent Name'}</p>
-                        <p className="text-gray-600 text-sm">{property.agent?.phone || 'Número de teléfono no disponible'}</p>
+                        <p className="text-[#175EA5] font-semibold">{property.agent?.name || 'Agent Name'}</p>
+                        <p className="text-[#175EA5] text-sm">{property.agent?.phone || 'Número de teléfono no disponible'}</p>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@ const PropertyPageCard = ({ property }) => {
                 <div className="flex justify-between items-center mt-6 border-t pt-4">
                     {/* Botón Ver con funcionalidad de redirección */}
                     <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                        className="bg-[#175EA5] text-white px-4 py-2 rounded-lg hover:bg-[#175EA5] transition duration-300"
                         onClick={() => navigate(`/property/${property.id}`)} // Redirige al detalle de la propiedad
                     >
                         Ver

@@ -1,8 +1,8 @@
 import React from 'react';
-import Topbar from '../../components/General/TopBar';
-import Navbar from '../../components/General/Navbar';
-import SecondaryHero from '../../components/General/SecundaryHero';
-import Footer from '../../components/General/Footer';
+import Topbar from '../../../components/General/TopBar';
+import Navbar from '../../../components/General/Navbar';
+import SecondaryHero from '../../../components/General/SecundaryHero';
+import Footer from '../../../components/General/Footer';
 
 const Fee = () => {
   return (
