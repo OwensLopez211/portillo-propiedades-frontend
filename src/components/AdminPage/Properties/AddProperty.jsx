@@ -57,8 +57,13 @@ const AddProperty = () => {
   // Obtener la lista de regiones al cargar el componente
   useEffect(() => {
     const fetchRegions = async () => {
+      const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/');
+        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setRegions(response.data);
       } catch (err) {
         console.error('Error al cargar regiones:', err);
