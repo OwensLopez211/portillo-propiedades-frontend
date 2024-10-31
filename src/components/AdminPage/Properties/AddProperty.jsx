@@ -9,28 +9,32 @@ const AddProperty = () => {
     title: '',
     description: '',
     precio_venta: '',
+    precio_renta: '',
     tipo_operacion: '',
     tipo_propiedad: '', 
     habitaciones: '',
     baños: '',
     superficie_total: '',
-    superficie_cubierta: '',  // Campo nuevo
+    superficie_cubierta: '',
     direccion: '',
     region: '',
     comuna: '',
-    latitud: '',               // Campo nuevo
-    longitud: '',              // Campo nuevo
-    gastos_comunes: '',        // Campo nuevo
-    contribuciones: '',        // Campo nuevo
-    expensas: '',             // Campo nuevo
+    ubicacion_referencia: '',
+    latitud: '',
+    longitud: '',
+    gastos_comunes: '',
+    contribuciones: '',
+    expensas: '',
     is_featured: false,
     agent: '',
     images: [],
   });
 
   const [agents, setAgents] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Estado de carga
+  const [isLoading, setIsLoading] = useState(false);
 
   // Obtener la lista de agentes
   useEffect(() => {
@@ -47,9 +51,34 @@ const AddProperty = () => {
         console.error('Error al obtener los agentes:', err);
       }
     };
-
     fetchAgents();
   }, []);
+
+  // Obtener la lista de regiones al cargar el componente
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/');
+        setRegions(response.data);
+      } catch (err) {
+        console.error('Error al cargar regiones:', err);
+      }
+    };
+    fetchRegions();
+  }, []);
+
+  // Cargar comunas al seleccionar una región
+  const handleRegionChange = async (e) => {
+    const selectedRegionId = e.target.value;
+    setFormData({ ...formData, region: selectedRegionId, comuna: '' });
+
+    try {
+      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`);
+      setComunas(response.data);
+    } catch (err) {
+      console.error('Error al cargar comunas:', err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -68,9 +97,8 @@ const AddProperty = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Iniciar carga
+    setIsLoading(true);
 
-    // Verifica si los campos requeridos están llenos
     if (!formData.title || !formData.description || !formData.direccion || !formData.habitaciones || !formData.baños) {
       setError({
         title: ['Este campo es requerido'],
@@ -79,7 +107,7 @@ const AddProperty = () => {
         habitaciones: ['Este campo es requerido'],
         baños: ['Este campo es requerido']
       });
-      setIsLoading(false); // Terminar carga
+      setIsLoading(false);
       return;
     }
 
@@ -90,18 +118,22 @@ const AddProperty = () => {
     formDataToSend.append('habitaciones', formData.habitaciones);
     formDataToSend.append('baños', formData.baños);
     formDataToSend.append('superficie_total', formData.superficie_total);
-    formDataToSend.append('superficie_cubierta', formData.superficie_cubierta); // Campo nuevo
-    formDataToSend.append('gastos_comunes', formData.gastos_comunes); // Campo nuevo
-    formDataToSend.append('contribuciones', formData.contribuciones); // Campo nuevo
-    formDataToSend.append('expensas', formData.expensas); // Campo nuevo
-    formDataToSend.append('latitud', formData.latitud); // Campo nuevo
-    formDataToSend.append('longitud', formData.longitud); // Campo nuevo
+    formDataToSend.append('superficie_cubierta', formData.superficie_cubierta);
+    formDataToSend.append('gastos_comunes', formData.gastos_comunes);
+    formDataToSend.append('contribuciones', formData.contribuciones);
+    formDataToSend.append('expensas', formData.expensas);
+    formDataToSend.append('latitud', formData.latitud);
+    formDataToSend.append('longitud', formData.longitud);
     formDataToSend.append('precio_venta', formData.precio_venta);
+    formDataToSend.append('precio_renta', formData.precio_renta);
+    formDataToSend.append('ubicacion_referencia', formData.ubicacion_referencia);
+    formDataToSend.append('region', formData.region);
+    formDataToSend.append('comuna', formData.comuna);
     formDataToSend.append('tipo_operacion', formData.tipo_operacion);
+    formDataToSend.append('tipo_propiedad', formData.tipo_propiedad);
     formDataToSend.append('is_featured', formData.is_featured);
     formDataToSend.append('agent', formData.agent);
 
-    // Añadir imágenes a FormData
     for (let i = 0; i < formData.images.length; i++) {
       formDataToSend.append('images', formData.images[i]);
     }
@@ -118,17 +150,15 @@ const AddProperty = () => {
       });
 
       if (response.ok) {
-        console.log('Propiedad agregada con éxito');
         navigate('/admin/propiedades');
       } else {
         const errorData = await response.json();
-        console.error('Error al agregar propiedad:', errorData);
         setError(errorData);
       }
     } catch (error) {
       console.error('Error en la conexión:', error);
     }
-    setIsLoading(false); // Terminar carga
+    setIsLoading(false);
   };
 
   return (
@@ -181,6 +211,17 @@ const AddProperty = () => {
                     type="number"
                     name="precio_venta"
                     value={formData.precio_venta}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                    step="0.01"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Precio Renta</label>
+                  <input
+                    type="number"
+                    name="precio_renta"
+                    value={formData.precio_renta}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                     step="0.01"
@@ -304,7 +345,7 @@ const AddProperty = () => {
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
                 </div>
-                <div>
+{/*                 <div>
                   <label className="block text-gray-700">Contribuciones</label>
                   <input
                     type="number"
@@ -313,8 +354,8 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
-                <div>
+                </div> */}
+{/*                 <div>
                   <label className="block text-gray-700">Expensas</label>
                   <input
                     type="number"
@@ -323,7 +364,7 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -342,6 +383,53 @@ const AddProperty = () => {
                   />
                 </div>
                 <div>
+                  <label className="block text-gray-700">Ubicación de referencia</label>
+                  <input
+                    type="text"
+                    name="ubicacion_referencia"
+                    value={formData.ubicacion_referencia}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  />
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <label className="block text-gray-700">Región</label>
+                  <select
+                    name="region"
+                    value={formData.region}
+                    onChange={handleRegionChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                  >
+                    <option value="">Seleccione una región</option>
+                    {regions.map((region) => (
+                      <option key={region.id} value={region.id}>
+                        {region.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-gray-700">Comuna</label>
+                  <select
+                    name="comuna"
+                    value={formData.comuna}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+                    disabled={!formData.region}
+                  >
+                    <option value="">Seleccione una comuna</option>
+                    {comunas.map((comuna) => (
+                      <option key={comuna.id} value={comuna.id}>
+                        {comuna.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                </div>
+            </div>
+{/*                 <div>
                   <label className="block text-gray-700">Ciudad</label>
                   <input
                     type="text"
@@ -350,8 +438,8 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
-                <div>
+                </div> */}
+{/*                 <div>
                   <label className="block text-gray-700">Barrio</label>
                   <input
                     type="text"
@@ -360,8 +448,8 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
-                <div>
+                </div> */}
+{/*                 <div>
                   <label className="block text-gray-700">Latitud</label>
                   <input
                     type="text"
@@ -370,8 +458,8 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
-                <div>
+                </div> */}
+{/*                 <div>
                   <label className="block text-gray-700">Longitud</label>
                   <input
                     type="text"
@@ -380,7 +468,7 @@ const AddProperty = () => {
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
