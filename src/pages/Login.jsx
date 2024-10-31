@@ -10,7 +10,7 @@ const Login = () => {
   // Si el usuario ya está autenticado, redirigir al panel de administración
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate('/admin/login'); // Si ya está logueado, lo redirige automáticamente al panel
+      navigate('/admin/inicio'); // Si ya está logueado, lo redirige automáticamente al panel
     }
   }, [navigate]);
 

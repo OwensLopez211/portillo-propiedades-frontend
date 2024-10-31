@@ -1,110 +1,120 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const EditProperty = () => {
-  const { id } = useParams(); // Obtener el ID de la propiedad desde la URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     precio_venta: '',
+    precio_renta: '', // Precio renta añadido
     tipo_operacion: '',
     tipo_propiedad: '', 
     habitaciones: '',
     baños: '',
-    superficie_total: '', 
+    superficie_total: '',
+    superficie_cubierta: '', // Superficie cubierta añadida
     direccion: '',
     region: '',
     comuna: '',
-/*     latitud: '',
-    longitud: '', */
     is_featured: false,
-    agent: '',  // Asegúrate de que este campo esté listo para recibir el ID del agente
-    images: [], 
+    agent: '',
+    images: [],
+    gastos_comunes: '', // Gastos comunes añadido
+    ubicacion_referencia: '', // Ubicación de referencia añadido
   });
 
   const [agents, setAgents] = useState([]);
   const [regions, setRegions] = useState([]);
-  const [comunas, setComunas] = useState([]); 
+  const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true); 
-  const [imagesToDelete, setImagesToDelete] = useState([]); // Imágenes marcadas para eliminar
+  const [imagesToDelete, setImagesToDelete] = useState([]);
 
-  useEffect(() => {
-    const fetchProperty = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/properties/${id}/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("Datos de la propiedad:", response.data);  // Verifica que contiene el ID del agente
-  
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          title: response.data.title || '',
-          description: response.data.descripcion || '',
-          precio_venta: response.data.precio_venta || '',
-          tipo_operacion: response.data.tipo_operacion || '',
-          tipo_propiedad: response.data.tipo_propiedad || '',
-          habitaciones: response.data.habitaciones || '',
-          baños: response.data.baños || '',
-          superficie_total: response.data.superficie_total || '',
-          direccion: response.data.direccion || '',
-          region: response.data.region?.nombre || '',  
-          comuna: response.data.comuna?.nombre || '', 
-          latitud: response.data.latitud || '',
-          longitud: response.data.longitud || '',
-          is_featured: response.data.is_featured || false,
-          agent: response.data.agent || '',
-          images: response.data.images.map((img) => ({ id: img.id, image_url: img.image_url })) || [],
-        }));
-        setIsLoading(false); 
-      } catch (err) {
-        console.error('Error al obtener la propiedad:', err);
-        setIsLoading(false); 
-      }
-    };
-  
-    const fetchAgents = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/agents/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAgents(response.data);
-        console.log("Agentes:", response.data);  // Verificar que se están cargando los agentes correctamente
-      } catch (err) {
-        console.error('Error al obtener los agentes:', err);
-      }
-    };
-    const fetchRegions = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setRegions(response.data);
-      } catch (err) {
-        console.error('Error al cargar regiones:', err);
-      }
-    };
+  const fetchProperty = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/properties/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const propertyData = response.data;
+      
+      setFormData({
+        title: propertyData.title || '',
+        description: propertyData.descripcion || '',
+        precio_venta: propertyData.precio_venta || '',
+        precio_renta: propertyData.precio_renta || '', // Asignación de precio renta
+        tipo_operacion: propertyData.tipo_operacion || '',
+        tipo_propiedad: propertyData.tipo_propiedad || '',
+        habitaciones: propertyData.habitaciones || '',
+        baños: propertyData.baños || '',
+        superficie_total: propertyData.superficie_total || '',
+        superficie_cubierta: propertyData.superficie_cubierta || '', // Asignación de superficie cubierta
+        direccion: propertyData.direccion || '',
+        region: propertyData.region?.id || '',
+        comuna: propertyData.comuna?.id || '',
+        is_featured: propertyData.is_featured || false,
+        agent: propertyData.agent?.id || '',
+        images: propertyData.images.map((img) => ({ id: img.id, image_url: img.image_url })) || [],
+        gastos_comunes: propertyData.gastos_comunes || '', // Asignación de gastos comunes
+        ubicacion_referencia: propertyData.ubicacion_referencia || '', // Asignación de ubicación de referencia
+      });
 
-    fetchRegions();
-    fetchProperty();
-    fetchAgents();
-  }, [id]);
+      // Cargar comunas en base a la región seleccionada
+      if (propertyData.region) {
+        await handleRegionChange({ target: { value: propertyData.region.id } }, true);
+      }
 
-  const handleRegionChange = async (e) => {
+      setIsLoading(false);
+    } catch (err) {
+      console.error('Error al obtener la propiedad:', err);
+      setIsLoading(false); 
+    }
+  };
+
+  const fetchAgents = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/agents/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setAgents(response.data);
+    } catch (err) {
+      console.error('Error al obtener los agentes:', err);
+    }
+  };
+
+  const fetchRegions = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setRegions(response.data);
+    } catch (err) {
+      console.error('Error al cargar regiones:', err);
+    }
+  };
+
+  // Memorizar handleRegionChange para evitar recrearla en cada renderizado
+  const handleRegionChange = useCallback(async (e, skipSetFormData = false) => {
     const selectedRegionId = e.target.value;
-    setFormData({ ...formData, region: selectedRegionId, comuna: '' });
+    if (!skipSetFormData) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        region: selectedRegionId,
+        comuna: '',
+      }));
+    }
 
     const token = localStorage.getItem('authToken');
     try {
@@ -117,8 +127,14 @@ const EditProperty = () => {
     } catch (err) {
       console.error('Error al cargar comunas:', err);
     }
-  };
-  
+  }, []);
+
+  useEffect(() => {
+    fetchRegions();
+    fetchProperty();
+    fetchAgents();
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -134,12 +150,8 @@ const EditProperty = () => {
     });
   };
 
-  // Eliminar la imagen visualmente y agregarla a la lista de imágenes a eliminar
   const handleDeleteImage = (imageId) => {
-    // Añadir la imagen a eliminar en imagesToDelete
     setImagesToDelete([...imagesToDelete, imageId]);
-
-    // Eliminar la imagen del array local
     setFormData({
       ...formData,
       images: formData.images.filter((image) => image.id !== imageId), 
@@ -170,14 +182,12 @@ const EditProperty = () => {
     formDataToSend.append('is_featured', formData.is_featured);
     formDataToSend.append('agent', formData.agent);
 
-    // Agregar imágenes nuevas (si las hay)
     formData.images.forEach((image) => {
       if (image instanceof File) {
         formDataToSend.append('images', image);
       }
     });
 
-    // Incluir las imágenes a eliminar
     formDataToSend.append('imagesToDelete', JSON.stringify(imagesToDelete));
 
     const token = localStorage.getItem('authToken');
@@ -192,11 +202,9 @@ const EditProperty = () => {
       });
 
       if (response.ok) {
-        console.log('Propiedad actualizada con éxito');
         navigate('/admin/propiedades');
       } else {
         const errorData = await response.json();
-        console.error('Error al actualizar propiedad:', errorData);
         setError(errorData);
       }
     } catch (error) {
