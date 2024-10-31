@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
-import { FaInstagram } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaTiktok, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa';
 
 const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedSubject, onSubmit }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        phone: '', // Campo de celular
-        subject: lockedSubject || '', // Campo de asunto bloqueado si se pasa
-        message: '', // Campo de mensaje
+        phone: '',
+        subject: lockedSubject || '',
+        message: '',
     });
 
-    const [messageCharsLeft, setMessageCharsLeft] = useState(200); // Carácteres restantes para el mensaje
+    const [messageCharsLeft, setMessageCharsLeft] = useState(200);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "message") {
-            // Limita el número de caracteres a 200
             if (value.length <= 200) {
                 setFormData({
                     ...formData,
                     [name]: value
                 });
-                setMessageCharsLeft(200 - value.length); // Actualiza el contador
+                setMessageCharsLeft(200 - value.length);
             }
         } else {
             setFormData({
@@ -34,46 +33,71 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Llama a la función de submit que se pasa como prop
         onSubmit(formData);
         setFormData({ name: '', email: '', phone: '', subject: lockedSubject || '', message: '' });
-        setMessageCharsLeft(200); // Reinicia el contador
+        setMessageCharsLeft(200);
     };
 
     return (
-        <div className="container mx-auto my-8 p-8 bg-gray-50 rounded-lg shadow-lg flex flex-col lg:flex-row">
+        <div className="container mx-auto my-8 p-8 bg-gray-50 rounded-lg shadow-lg flex flex-col lg:flex-row items-center">
             {/* Texto informativo */}
-            <div className="lg:w-1/2 pr-8">
-                <h2 className="text-4xl font-bold mb-4 text-center text-[#175EA5]">{title}</h2>
-                <p className="text-lg mb-6 text-justify text-[#175EA5]">{description}</p>
+            <div className="lg:w-1/2 pr-8 text-center">
+                <h2 className="text-4xl font-bold mb-4 text-[#175EA5]">{title}</h2>
                 
-                <h3 className="text-xl font-semibold text-center text-[#175EA5]">Déjanos tus datos y te contactaremos de inmediato.</h3>
+                {/* Renderizado de líneas con saltos */}
+                <p className="text-lg mb-6 text-[#175EA5]">
+                    {Array.isArray(description) ? description.map((line, index) => (
+                        <span key={index}>
+                            {line}
+                            <br />
+                        </span>
+                    )) : description}
+                </p>
+                
+                <h3 className="text-xl font-semibold text-[#175EA5]">Déjanos tus datos y te contactaremos de inmediato.</h3>
                 
                 {/* Sección de Correo electrónico */}
-                <div className="mt-4 text-center">
+                <div className="mt-4">
                     <h4 className="text-lg font-bold text-[#175EA5]">Correo electrónico</h4>
-                    <p className="text-gray-600">{emailText}</p>
+                    <p className="text-[#175EA5] font-semibold">{emailText}</p>
                 </div>
                 
                 {/* Sección de Redes sociales */}
-                <div className="mt-2 text-center">
+                <div className="mt-4">
                     <h4 className="text-lg font-bold text-[#175EA5]">Redes sociales</h4>
-                    <div className="flex items-center justify-center space-x-2 mt-2">
+                    <div className="flex items-center justify-center space-x-4 mt-2">
                         <FaInstagram 
-                            className="text-blue-500 hover:text-blue-700 transition duration-300 cursor-pointer"
+                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
                             size={30} 
                             onClick={() => window.open('https://www.instagram.com/newland_propiedades_/', '_blank')}
                         />
-                        <span className="text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => window.open('https://instagram.com', '_blank')}>
-                            Síguenos
-                        </span>
+                        <FaFacebookF 
+                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
+                            size={30} 
+                            onClick={() => window.open('https://www.facebook.com/newland_propiedades', '_blank')}
+                        />
+                        <FaTiktok 
+                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
+                            size={30} 
+                            onClick={() => window.open('https://www.tiktok.com/@newland_propiedades', '_blank')}
+                        />
+                        <FaFacebookMessenger 
+                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
+                            size={30} 
+                            onClick={() => window.open('https://www.messenger.com/t/newland_propiedades', '_blank')}
+                        />
+                        <FaWhatsapp 
+                            className="text-[#175EA5] hover:text-green-600 transition duration-300 cursor-pointer"
+                            size={30} 
+                            onClick={() => window.open('https://wa.me/56912345678', '_blank')}
+                        />
                     </div>
                 </div>
             </div>
 
             {/* Formulario */}
-            <div className="lg:w-1/2 mt-6 lg:mt-0">
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+            <div className="lg:w-1/2 mt-6 lg:mt-0 flex justify-center">
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md text-center">
                     <input 
                         type="text" 
                         name="name" 
@@ -127,10 +151,9 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                             onChange={handleChange} 
                             className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows="4"
-                            maxLength={200} // Esto asegura que no supere los 200 caracteres
-                            style={{ width: '100%', height: '150px', resize: 'none' }} // Tamaño fijo y sin redimensionar
+                            maxLength={200}
+                            style={{ width: '100%', height: '150px', resize: 'none' }}
                         />
-                        {/* Indicador de caracteres restantes */}
                         <span className="absolute bottom-2 right-2 text-gray-500 text-sm">
                             {messageCharsLeft} caracteres restantes
                         </span>

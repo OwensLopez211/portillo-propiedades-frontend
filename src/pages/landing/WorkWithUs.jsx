@@ -26,13 +26,17 @@ const Contact = () => {
 
       {/* Agregar el componente JoinUs aquí */}
       <JoinUs
-        title="¡Únete a nuestro equipo!"
-        description="No importa si tienes o no experiencia. Lo que sí nos importa es que seas dinámico, proactivo, y apasionado."
-        emailText="Contacto@newlandpropiedades.cl"
-        lockedSubject="Postulación a trabajar con Newland Propiedades" // El asunto está bloqueado
-        buttonText="Enviar"
-        onSubmit={handleFormSubmit}
+          title="¡Únete a nuestro equipo!"
+          description={[
+              "No importa si tienes o no experiencia.",
+              "Lo que sí nos importa es que seas dinámico, proactivo, y apasionado."
+          ]}
+          emailText="contacto@newlandpropiedades.cl"
+          lockedSubject="Postulación a trabajar con Newland Propiedades"
+          buttonText="Enviar"
+          onSubmit={handleFormSubmit}
       />
+
       <Footer />
     </div>
   );
