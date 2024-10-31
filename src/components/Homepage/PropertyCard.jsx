@@ -85,10 +85,13 @@ const PropertyCard = ({ property }) => {
         <p className="text-[#175EA5] mb-2">
           Operación: <span className="font-medium">{property.tipo_operacion}</span>
         </p>
-        
-        {/* Nuevo campo Comuna */}
+
+        {/* Muestra la Comuna y Ubicación de Referencia */}
         <p className="text-[#175EA5] mb-2">
-          Comuna: <span className="font-medium">{property.comuna}</span>
+          Comuna: <span className="font-medium">{property.comuna?.nombre || 'No disponible'}</span>
+        </p>
+        <p className="text-[#175EA5] mb-2">
+          Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'No disponible'}</span>
         </p>
 
         <p className="text-[#175EA5] mb-4">
