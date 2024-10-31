@@ -84,8 +84,13 @@ const EditProperty = () => {
       }
     };
     const fetchRegions = async () => {
+      const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/');
+        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setRegions(response.data);
       } catch (err) {
         console.error('Error al cargar regiones:', err);
@@ -100,8 +105,14 @@ const EditProperty = () => {
   const handleRegionChange = async (e) => {
     const selectedRegionId = e.target.value;
     setFormData({ ...formData, region: selectedRegionId, comuna: '' });
+
+    const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`);
+      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setComunas(response.data);
     } catch (err) {
       console.error('Error al cargar comunas:', err);
