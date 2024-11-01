@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhoneAlt, FaFacebookF, FaTiktok, FaFacebookMessenger } from 'react-icons/fa';
+import { /* FaInstagram, */ FaWhatsapp, FaEnvelope, FaPhoneAlt, /* FaFacebookF, FaTiktok, FaFacebookMessenger */ } from 'react-icons/fa';
 
 const Topbar = () => {
   return (
@@ -47,7 +47,7 @@ const Topbar = () => {
           {/* Column 2: Instagram, Facebook, TikTok, Messenger */}
           <div className="flex flex-col space-y-1 lg:ml-6 items-start">
             {/* Instagram */}
-            <a
+{/*             <a
               href="https://www.instagram.com/newland_propiedades_/"
               target="_blank"
               rel="noopener noreferrer"
@@ -55,10 +55,10 @@ const Topbar = () => {
             >
               <FaInstagram className="text-lg sm:text-xl text-[#175EA5]" />
               <span className="text-xs sm:text-sm font-medium">Síguenos</span>
-            </a>
+            </a> */}
 
             {/* Facebook */}
-            <a
+{/*             <a
               href="https://www.facebook.com/newland_propiedades"
               target="_blank"
               rel="noopener noreferrer"
@@ -66,10 +66,10 @@ const Topbar = () => {
             >
               <FaFacebookF className="text-lg sm:text-xl text-[#175EA5]" />
               <span className="text-xs sm:text-sm font-medium">Síguenos en Facebook</span>
-            </a>
+            </a> */}
 
             {/* TikTok */}
-            <a
+{/*             <a
               href="https://www.tiktok.com/@newland_propiedades"
               target="_blank"
               rel="noopener noreferrer"
@@ -77,10 +77,10 @@ const Topbar = () => {
             >
               <FaTiktok className="text-lg sm:text-xl text-[#175EA5]" />
               <span className="text-xs sm:text-sm font-medium">Síguenos en TikTok</span>
-            </a>
+            </a> */}
 
             {/* Messenger */}
-            <a
+{/*             <a
               href="https://www.messenger.com/t/newland_propiedades"
               target="_blank"
               rel="noopener noreferrer"
@@ -88,7 +88,7 @@ const Topbar = () => {
             >
               <FaFacebookMessenger className="text-lg sm:text-xl text-[#175EA5]" />
               <span className="text-xs sm:text-sm font-medium">Contáctanos en Messenger</span>
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
