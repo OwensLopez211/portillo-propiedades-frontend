@@ -1,5 +1,5 @@
 import React from 'react';
-import { /* FaInstagram, */ FaWhatsapp, FaEnvelope, FaPhoneAlt, /* FaFacebookF, FaTiktok, FaFacebookMessenger */ } from 'react-icons/fa';
+import { FaWhatsapp, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
 const Topbar = () => {
   return (
@@ -17,7 +17,6 @@ const Topbar = () => {
           </a>
         </div>
 
-
         {/* Social Icons with Text - Right side in two columns */}
         <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 text-[#175EA5]">
           
@@ -26,25 +25,40 @@ const Topbar = () => {
             {/* WhatsApp */}
             <div className="flex items-center space-x-2">
               <FaWhatsapp className="text-lg sm:text-xl text-[#175EA5]" />
-              <span className="text-xs sm:text-sm font-medium">+56 9 9847 2202</span>
+              <a 
+                href="https://wa.me/56998472202" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-xs sm:text-sm font-medium"
+              >
+                +56 9 9847 2202
+              </a>
             </div>
 
             {/* Phone Number for Calls */}
             <div className="flex items-center space-x-2">
               <FaPhoneAlt className="text-lg sm:text-xl text-[#175EA5]" />
-              <span className="text-xs sm:text-sm font-medium">+56 2 2345 6789</span>
+              <a 
+                href="tel:+56223456789" 
+                className="text-xs sm:text-sm font-medium"
+              >
+                +56 2 2345 6789
+              </a>
             </div>
 
             {/* Email */}
             <div className="flex items-center space-x-2">
               <FaEnvelope className="text-lg sm:text-xl text-[#175EA5]" />
-              <a href="mailto:contacto@newlandpropiedades.cl" className="text-xs sm:text-sm font-medium text-[#175EA5]">
+              <a 
+                href="mailto:contacto@newlandpropiedades.cl" 
+                className="text-xs sm:text-sm font-medium text-[#175EA5]"
+              >
                 contacto@newlandpropiedades.cl
               </a>
             </div>
           </div>
 
-          {/* Column 2: Instagram, Facebook, TikTok, Messenger */}
+          {/* Column 2 (Other Social Links) */}
           <div className="flex flex-col space-y-1 lg:ml-6 items-start">
             {/* Instagram */}
 {/*             <a
