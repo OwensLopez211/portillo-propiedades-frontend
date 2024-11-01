@@ -10,21 +10,21 @@ const EditProperty = () => {
     title: '',
     description: '',
     precio_venta: '',
-    precio_renta: '', // Precio renta añadido
+    precio_renta: '',
     tipo_operacion: '',
     tipo_propiedad: '', 
     habitaciones: '',
     baños: '',
     superficie_total: '',
-    superficie_cubierta: '', // Superficie cubierta añadida
+    superficie_cubierta: '',
     direccion: '',
     region: '',
     comuna: '',
     is_featured: false,
     agent: '',
     images: [],
-    gastos_comunes: '', // Gastos comunes añadido
-    ubicacion_referencia: '', // Ubicación de referencia añadido
+    gastos_comunes: '',
+    ubicacion_referencia: '',
   });
 
   const [agents, setAgents] = useState([]);
@@ -34,6 +34,7 @@ const EditProperty = () => {
   const [isLoading, setIsLoading] = useState(true); 
   const [imagesToDelete, setImagesToDelete] = useState([]);
 
+  // Función para obtener datos de la propiedad
   const fetchProperty = async () => {
     const token = localStorage.getItem('authToken');
     try {
@@ -43,40 +44,74 @@ const EditProperty = () => {
         },
       });
       const propertyData = response.data;
-      
+  
       setFormData({
         title: propertyData.title || '',
         description: propertyData.descripcion || '',
         precio_venta: propertyData.precio_venta || '',
-        precio_renta: propertyData.precio_renta || '', // Asignación de precio renta
+        precio_renta: propertyData.precio_renta || '',
         tipo_operacion: propertyData.tipo_operacion || '',
         tipo_propiedad: propertyData.tipo_propiedad || '',
         habitaciones: propertyData.habitaciones || '',
         baños: propertyData.baños || '',
         superficie_total: propertyData.superficie_total || '',
-        superficie_cubierta: propertyData.superficie_cubierta || '', // Asignación de superficie cubierta
+        superficie_cubierta: propertyData.superficie_cubierta || '',
         direccion: propertyData.direccion || '',
-        region: propertyData.region?.id || '',
-        comuna: propertyData.comuna?.id || '',
+        region: propertyData.region || '', // ID de la región
+        comuna: propertyData.comuna || '', // ID de la comuna
         is_featured: propertyData.is_featured || false,
-        agent: propertyData.agent?.id || '',
+        agent: propertyData.agent || '',
         images: propertyData.images.map((img) => ({ id: img.id, image_url: img.image_url })) || [],
-        gastos_comunes: propertyData.gastos_comunes || '', // Asignación de gastos comunes
-        ubicacion_referencia: propertyData.ubicacion_referencia || '', // Asignación de ubicación de referencia
+        gastos_comunes: propertyData.gastos_comunes || '',
+        ubicacion_referencia: propertyData.ubicacion_referencia || '',
       });
-
-      // Cargar comunas en base a la región seleccionada
+  
+      // Cargar comunas basadas en la región seleccionada
       if (propertyData.region) {
-        await handleRegionChange({ target: { value: propertyData.region.id } }, true);
+        await loadComunas(propertyData.region);
       }
-
+  
       setIsLoading(false);
     } catch (err) {
       console.error('Error al obtener la propiedad:', err);
-      setIsLoading(false); 
+      setIsLoading(false);
+    }
+  };
+  
+
+  // Función para cargar comunas según la región seleccionada
+  const loadComunas = async (regionId) => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get(
+        `https://portillo-propiedades-backend.onrender.com/api/regions/${regionId}/comunas/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setComunas(response.data);
+    } catch (err) {
+      console.error('Error al cargar comunas:', err);
     }
   };
 
+  // Manejar el cambio de región
+  const handleRegionChange = useCallback(async (e) => {
+    const selectedRegionId = e.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      region: selectedRegionId,
+      comuna: '', // Limpiar la comuna cuando se cambia la región
+    }));
+    
+    if (selectedRegionId) {
+      await loadComunas(selectedRegionId);
+    }
+  }, []);
+
+  // Funciones para obtener datos de agentes y regiones
   const fetchAgents = async () => {
     const token = localStorage.getItem('authToken');
     try {
@@ -105,30 +140,7 @@ const EditProperty = () => {
     }
   };
 
-  // Memorizar handleRegionChange para evitar recrearla en cada renderizado
-  const handleRegionChange = useCallback(async (e, skipSetFormData = false) => {
-    const selectedRegionId = e.target.value;
-    if (!skipSetFormData) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        region: selectedRegionId,
-        comuna: '',
-      }));
-    }
-
-    const token = localStorage.getItem('authToken');
-    try {
-      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setComunas(response.data);
-    } catch (err) {
-      console.error('Error al cargar comunas:', err);
-    }
-  }, []);
-
+  // Cargar datos iniciales
   useEffect(() => {
     fetchRegions();
     fetchProperty();
