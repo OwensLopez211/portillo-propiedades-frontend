@@ -48,8 +48,9 @@ const PropertyCard = ({ property }) => {
     prevArrow: <PrevArrow />,
   };
 
-  // Verificación de datos del agente
-  const agent = property.agent || {};
+  // Verificación de datos del agente y comuna
+  const agent = property.agent_detail || {};  // Accede a los datos detallados del agente
+  const comuna = property.comuna_detail || {};  // Accede a los datos detallados de la comuna
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -88,7 +89,7 @@ const PropertyCard = ({ property }) => {
 
         {/* Muestra la Comuna y Ubicación de Referencia */}
         <p className="text-[#175EA5] mb-2">
-          Comuna: <span className="font-medium">{property.comuna?.nombre || 'No disponible'}</span>
+          Comuna: <span className="font-medium">{comuna.nombre || 'No disponible'}</span>
         </p>
         <p className="text-[#175EA5] mb-2">
           Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'No disponible'}</span>
@@ -108,8 +109,8 @@ const PropertyCard = ({ property }) => {
               className="w-10 h-10 rounded-full mr-3 border-2 border-blue-500"
             />
             <div>
-              <p className="text-[#175EA5] font-semibold">{agent.name || 'Agent Name'}</p>
-              <p className="text-[#175EA5] text-sm">{agent.phone || 'Contact Info'}</p>
+              <p className="text-[#175EA5] font-semibold">{agent.name || 'Nombre no disponible'}</p>
+              <p className="text-[#175EA5] text-sm">{agent.phone || 'Contacto no disponible'}</p>
             </div>
           </div>
           <button
