@@ -68,7 +68,7 @@ const PropertyDetail = () => {
         
         {/* Segunda columna: Información de contacto (columna lateral derecha) */}
         <div className="lg:w-1/3 lg:ml-8">
-          <ContactInfo agent={property.agent} />
+          <ContactInfo agent={property.agent_detail} />
         </div>
       </div>
       
