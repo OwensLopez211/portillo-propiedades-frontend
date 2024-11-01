@@ -1,39 +1,60 @@
 import React from 'react';
-import { FaWhatsapp, FaInstagram, FaFacebookF } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaFacebookF, FaFacebookMessenger, FaTiktok } from 'react-icons/fa';
 
 const FloatingSocialButtons = () => {
   return (
-    <div className="fixed right-4 bottom-4 z-50">
-      {/* Contenedor tipo pestaña con transparencia y efecto blur */}
-      <div className="bg-transparent backdrop-blur-lg bg-opacity-30 p-4 rounded-lg shadow-lg flex space-x-4 items-center">
-        {/* WhatsApp Button */}
+    <div className="fixed top-1/3 right-0 z-50 flex items-center">
+      {/* Contenedor de la tarjeta flotante con efecto blur y transparencia */}
+      <div className="bg-white bg-opacity-30 backdrop-blur-lg shadow-xl rounded-l-lg p-2 flex flex-col items-center space-y-2" style={{ width: '60px' }}>
+        
+        {/* Botón de WhatsApp */}
         <a
-          href="https://wa.me/56998472202" 
+          href="https://wa.me/56998472202"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-110"
+          className="flex items-center justify-center w-10 h-10 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition duration-300"
         >
-          <FaWhatsapp className="text-xl" />
+          <FaWhatsapp className="text-lg" />
         </a>
 
-        {/* Instagram Button */}
+        {/* Botón de Instagram */}
         <a
-          href="https://www.instagram.com/newland_propiedades_/" 
+          href="https://www.instagram.com/newland_propiedades_/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600 transition duration-300 transform hover:scale-110"
+          className="flex items-center justify-center w-10 h-10 bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600 transition duration-300"
         >
-          <FaInstagram className="text-xl" />
+          <FaInstagram className="text-lg" />
         </a>
 
-        {/* Facebook Button */}
+        {/* Botón de Facebook */}
         <a
-          href="https://www.facebook.com/newland_propiedades" 
+          href="https://www.facebook.com/newland_propiedades"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-110"
+          className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
         >
-          <FaFacebookF className="text-xl" />
+          <FaFacebookF className="text-lg" />
+        </a>
+
+        {/* Botón de Messenger */}
+        <a
+          href="https://m.me/newland_propiedades"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-10 h-10 bg-blue-400 text-white rounded-full shadow-lg hover:bg-blue-500 transition duration-300"
+        >
+          <FaFacebookMessenger className="text-lg" />
+        </a>
+
+        {/* Botón de TikTok */}
+        <a
+          href="https://www.tiktok.com/@newland_propiedades"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-10 h-10 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition duration-300"
+        >
+          <FaTiktok className="text-lg" />
         </a>
       </div>
     </div>

@@ -8,6 +8,7 @@ body {
   font-family: 'Poppins', Arial, sans-serif;
   -webkit-font-smoothing: antialiased; /* Suaviza el texto */
   -moz-osx-font-smoothing: grayscale; /* Suaviza el texto en Firefox */
+  overflow-x: hidden;
 }
 
 /* Ocultar la barra de desplazamiento pero permitir el desplazamiento */
@@ -18,6 +19,7 @@ body {
 html {
   overflow: -moz-hidden; /* Para Firefox */
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 

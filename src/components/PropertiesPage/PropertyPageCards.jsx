@@ -35,6 +35,11 @@ const PropertyPageCard = ({ property }) => {
             {/* Información de la propiedad */}
             <div className="p-6">
                 <p className="text-[#175EA5] mb-2">Operación: <span className="font-medium">{property.tipo_operacion || 'Operación no disponible'}</span></p>
+                
+                {/* Mostrar comuna y ubicación de referencia */}
+                <p className="text-[#175EA5] mb-2">Comuna: <span className="font-medium">{property.comuna_detail?.nombre || 'Comuna no disponible'}</span></p>
+                <p className="text-[#175EA5] mb-2">Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'Ubicación de referencia no disponible'}</span></p>
+                
                 <p className="text-[#175EA5] mb-4">
                     Precio: <span className="font-bold">{property.precio_venta ? `$${formatPrice(property.precio_venta)}` : `$${formatPrice(property.precio_renta)}`}</span>
                 </p>
