@@ -428,11 +428,12 @@ const EditProperty = () => {
                   <input
                     type="text"
                     name="ubicacion_referencia"
-                    value={formData.ubicacion_referencia}
+                    value={formData.ubicacion_referencia}  // Muestra el valor actual de "Ubicación de Referencia"
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg p-2 mt-1"
                   />
                 </div>
+
                 <div>
                   <label className="block text-gray-700">Región</label>
                   <select
