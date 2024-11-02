@@ -4,6 +4,7 @@ import Navbar from '../../components/General/Navbar';
 import Footer from '../../components/General/Footer';
 import SecondaryHero from '../../components/General/SecundaryHero';
 import JoinUs from '../../components/General/JoinUsForm'; // Asegúrate de que la ruta sea correcta
+import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
 const Contact = () => {
 
@@ -36,6 +37,7 @@ const Contact = () => {
           buttonText="Enviar"
           onSubmit={handleFormSubmit}
       />
+      <FloatingSocialButtons />
 
       <Footer />
     </div>

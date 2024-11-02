@@ -5,6 +5,7 @@ import Navbar from '../../components/General/Navbar';
 import SecondaryHero from '../../components/General/SecundaryHero';
 import Footer from '../../components/General/Footer';
 import AboutUsComponent from '../../components/AboutUsPage/AboutUsComponent';
+import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
 const AboutUs = () => {
   return (
@@ -20,6 +21,7 @@ const AboutUs = () => {
       />
 
     <AboutUsComponent />
+    <FloatingSocialButtons/>
 
       {/* Footer */}
       <Footer />

@@ -7,6 +7,7 @@ import TopBar from '../../components/General/TopBar';
 import Navbar from '../../components/General/Navbar'; 
 import Footer from '../../components/General/Footer';
 import SecondaryHero from '../../components/General/SecundaryHero';
+import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
 const PropertiesPage = () => {
   const [properties, setProperties] = useState([]);
@@ -70,6 +71,7 @@ const PropertiesPage = () => {
         {/* Lista de propiedades */}
         <PropertyList properties={properties} />
       </div>
+      <FloatingSocialButtons />
       <Footer />
     </div>
   );

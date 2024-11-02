@@ -4,6 +4,7 @@ import Navbar from '../../components/General/Navbar';
 import Footer from '../../components/General/Footer';
 import SecondaryHero from '../../components/General/SecundaryHero';
 import JoinUs from '../../components/General/JoinUsForm';
+import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
 const EntreganosTuPropiedad = () => {
 
@@ -60,6 +61,7 @@ const EntreganosTuPropiedad = () => {
             messenger: "https://www.messenger.com/t/newland_propiedades",
           }}
       />
+      <FloatingSocialButtons />
       <Footer />
     </div>
   );
