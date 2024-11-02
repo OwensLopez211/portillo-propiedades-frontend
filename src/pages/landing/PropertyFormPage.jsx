@@ -7,12 +7,29 @@ import JoinUs from '../../components/General/JoinUsForm';
 
 const EntreganosTuPropiedad = () => {
 
-  // Función para manejar el envío del formulario
-  const handleFormSubmit = (formData) => {
-    console.log('Formulario enviado:', formData);
-    // Aquí puedes agregar lógica adicional para procesar los datos del formulario,
-    // como enviarlos a un servidor o una API.
-  };
+  const handleFormSubmit = async (formData) => {
+    try {
+        const response = await fetch('http://localhost:8000/contact/send-email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("Formulario enviado exitosamente. Nos pondremos en contacto contigo pronto.");
+        } else {
+            console.error("Error al enviar el formulario:", result.error);
+            alert("Hubo un problema al enviar el formulario. Inténtalo nuevamente.");
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("Hubo un problema de conexión. Por favor, intenta más tarde.");
+    }
+};
+
 
   return (
     <div>
