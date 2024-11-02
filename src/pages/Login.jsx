@@ -7,10 +7,10 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Si el usuario ya está autenticado, redirigir al panel de administración
+  // Verifica si el usuario ya está autenticado y lo redirige al dashboard
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate('/admin/inicio'); // Si ya está logueado, lo redirige automáticamente al panel
+      navigate('/admin/inicio');
     }
   }, [navigate]);
 
@@ -32,7 +32,7 @@ const Login = () => {
 
       const data = await response.json();
       // Guarda el token en localStorage
-      localStorage.setItem('authToken', data.access);  // Guardamos el token de acceso
+      localStorage.setItem('authToken', data.access); // Guardamos el token de acceso
 
       // Redirige al panel de administración
       navigate('/admin/inicio');
@@ -87,8 +87,18 @@ const Login = () => {
   );
 };
 
+// Verifica si el token es válido
 const isAuthenticated = () => {
-  return !!localStorage.getItem('authToken');
+  const token = localStorage.getItem('authToken');
+  if (!token) return false;
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    return decodedToken.exp > currentTime; // Verifica si el token aún es válido
+  } catch {
+    return false;
+  }
 };
 
 export default Login;
