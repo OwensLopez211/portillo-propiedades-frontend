@@ -301,7 +301,15 @@ const handleRegionChange = async (e) => {
                     <option value="casa">Casas</option>
                     <option value="oficina">Oficinas</option>
                     <option value="parcela">Parcelas</option>
-                    {/* Añadir más opciones si es necesario */}
+                    <option value="terreno">Terrenos</option>
+                    <option value="sitio">Sitios</option>
+                    <option value="bodega">Bodegas</option>
+                    <option value="industrial">Industriales</option>
+                    <option value="agricola">Agrícola</option>
+                    <option value="otros_inmuebles">Otros Inmuebles</option>
+                    <option value="estacionamiento">Estacionamientos</option>
+                    <option value="loteo">Loteos</option>
+                    <option value="lotes_de_cementerio">Lotes de Cementerio</option>
                   </select>
                 </div>
 
