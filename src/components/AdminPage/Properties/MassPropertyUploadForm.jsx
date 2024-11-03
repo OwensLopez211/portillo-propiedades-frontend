@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 
 const MassPropertyUploadForm = () => {
-  const [csvFile, setCsvFile] = useState(null);
+  const [excelFile, setExcelFile] = useState(null);
   const [message, setMessage] = useState('');
 
-  // Maneja el cambio de archivo CSV
+  // Maneja el cambio de archivo Excel
   const handleFileChange = (e) => {
-    setCsvFile(e.target.files[0]);
+    setExcelFile(e.target.files[0]);
   };
 
-  // Maneja la subida del archivo CSV
+  // Maneja la subida del archivo Excel
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!csvFile) {
-      setMessage('Por favor, selecciona un archivo CSV');
+    if (!excelFile) {
+      setMessage('Por favor, selecciona un archivo Excel');
       return;
     }
 
     const formData = new FormData();
-    formData.append('csv', csvFile);
+    formData.append('excel', excelFile);  // Cambia 'csv' a 'excel' para que coincida con el backend
 
     // Obtener el token del localStorage
     const token = localStorage.getItem('authToken');  // Asegúrate de que 'authToken' sea la clave correcta donde guardas el token
@@ -53,9 +53,9 @@ const MassPropertyUploadForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Selecciona un archivo CSV:
+            Selecciona un archivo Excel (.xlsx):
           </label>
-          <input type="file" accept=".csv" onChange={handleFileChange} />
+          <input type="file" accept=".xlsx" onChange={handleFileChange} />
         </div>
         <button
           type="submit"
