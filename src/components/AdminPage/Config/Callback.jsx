@@ -10,7 +10,7 @@ const Callback = () => {
 
     if (authorizationCode) {
       // Enviar el código al backend para intercambiarlo por el token
-      fetch('https://portillo-propiedades-backend.onrender.com/mercadolibre/get-token/', {
+      fetch('${API_BASE_URL}/mercadolibre/get-token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

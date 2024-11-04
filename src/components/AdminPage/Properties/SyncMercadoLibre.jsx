@@ -9,7 +9,7 @@ const MercadoLibreItems = () => {
     const fetchItems = async () => {
       const token = localStorage.getItem('authToken'); // Obtén el token del localStorage
       try {
-        const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/mercadolibre/items/', {
+        const response = await fetch('${API_BASE_URL}/api/mercadolibre/items/', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

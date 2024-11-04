@@ -38,7 +38,7 @@ const EditProperty = () => {
   const fetchProperty = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/properties/${id}/`, {
+      const response = await axios.get(`${API_BASE_URL}/api/properties/${id}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

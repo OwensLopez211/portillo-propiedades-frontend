@@ -11,7 +11,7 @@ const PropertyTable = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/property-list/');
+        const response = await axios.get('${API_BASE_URL}/api/property-list/');
         setProperties(response.data);
         setLoading(false);
       } catch (err) {
@@ -44,7 +44,7 @@ const PropertyTable = () => {
     if (confirmDelete) {
       try {
         const token = localStorage.getItem('authToken');
-        await axios.delete(`https://portillo-propiedades-backend.onrender.com/api/properties/${propertyId}/`, {
+        await axios.delete(`${API_BASE_URL}/api/properties/${propertyId}/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
