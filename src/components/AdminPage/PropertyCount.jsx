@@ -10,7 +10,7 @@ const PropertyCount = () => {
     const fetchPropertyCount = async () => {
       const token = localStorage.getItem('authToken'); // Obtener el token del localStorage
       try {
-        const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/count/', {
+        const response = await fetch('${API_BASE_URL}/api/count/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ const EntreganosTuPropiedad = () => {
 
   const handleFormSubmit = async (formData) => {
     try {
-        const response = await fetch('http://localhost:8000/contact/send-email/', {
+        const response = await fetch('${API_BASE_URL}/contact/send-email/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

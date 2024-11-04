@@ -24,7 +24,7 @@ const MassPropertyUploadForm = () => {
     const token = localStorage.getItem('authToken');  // Asegúrate de que 'authToken' sea la clave correcta donde guardas el token
 
     try {
-      const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/upload-mass-properties/', {
+      const response = await fetch('${API_BASE_URL}/api/upload-mass-properties/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,  // Enviar el token en el encabezado

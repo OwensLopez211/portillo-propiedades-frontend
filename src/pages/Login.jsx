@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/token/', {
+      const response = await fetch('${API_BASE_URL}api/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

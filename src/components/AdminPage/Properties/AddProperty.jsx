@@ -152,7 +152,7 @@ const handleRegionChange = async (e) => {
     const token = localStorage.getItem('authToken');
 
     try {
-      const response = await fetch('https://portillo-propiedades-backend.onrender.com/api/properties/', {
+      const response = await fetch('${API_BASE_URL}/api/properties/', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
