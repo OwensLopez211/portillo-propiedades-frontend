@@ -8,11 +8,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Verifica si el usuario ya está autenticado y lo redirige al dashboard
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate('/admin/inicio');
+      navigate('/administracion/inicio');
     }
   }, [navigate]);
 
@@ -20,7 +21,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('${API_BASE_URL}api/api/token/', {
+      const response = await fetch(`${API_BASE_URL}/api/token/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ const Login = () => {
       localStorage.setItem('authToken', data.access); // Guardamos el token de acceso
 
       // Redirige al panel de administración
-      navigate('/admin/inicio');
+      navigate('/administracion/inicio');
     } catch (err) {
       setError(err.message);
     }

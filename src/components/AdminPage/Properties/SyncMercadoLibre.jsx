@@ -4,12 +4,13 @@ import React, { useState, useEffect } from 'react';
 const MercadoLibreItems = () => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchItems = async () => {
       const token = localStorage.getItem('authToken'); // Obtén el token del localStorage
       try {
-        const response = await fetch('${API_BASE_URL}/api/mercadolibre/items/', {
+        const response = await fetch(`${API_BASE_URL}/api/mercadolibre/items/`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

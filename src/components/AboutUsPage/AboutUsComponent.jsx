@@ -55,7 +55,7 @@ const AboutUs = () => {
                         />
                         <h4 className="text-xl font-semibold text-[#175EA5]">Susana</h4>
                         <p className="text-justify text-[#175EA5] mt-2">
-                            Susana aporta una vasta experiencia en el sector inmobiliario y un compromiso profundo con la satisfacción del cliente. Su habilidad para comprender las necesidades de cada cliente le permite ofrecer soluciones efectivas y eficientes. Su enfoque en la transparencia y su ética de trabajo la destacan como una pieza clave de nuestro equipo.
+                            Susana Kornbluth Scherzer, arquitecta graduada de Pratt Institute en Nueva York y socia fundadora de Newland Propiedades, aporta más de 20 años de experiencia en el mercado inmobiliario. Su trayectoria abarca diseño de proyectos, remodelaciones y gestión de proyectos en áreas como telecomunicaciones, construcción y prefabricados de hormigón. Reconocida por su habilidad para establecer relaciones sólidas con clientes y expandir redes comerciales, Susana se distingue por un enfoque estratégico y personalizado en cada iniciativa.
                         </p>
                     </div>
                 </div>

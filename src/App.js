@@ -15,7 +15,7 @@ import Properties from './components/AdminPage/Properties';
 import AdminLayout from './components/AdminPage/AdminLayout';
 import AddProperty from './components/AdminPage/Properties/AddProperty';
 import EditProperty from './components/AdminPage/Properties/EditProperty';
-import Config from './components/AdminPage/Config';
+/* import Config from './components/AdminPage/Config'; */
 import Callback from './components/AdminPage/Config/Callback';
 /* import NewsPage from './pages/landing/NewsPage'; */
 import MassPropertyUploadForm from './components/AdminPage/Properties/MassPropertyUploadForm';
@@ -24,7 +24,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/quienes-somos" element={<AboutUs />} />
         <Route path="/propiedades" element={<PropertiesPage />} />
         <Route path="/servicios" element={<Services />} />
@@ -39,7 +39,7 @@ function App() {
         
         {/* Ruta protegida con AdminLayout */}
         <Route 
-          path="/admin" 
+          path="/administracion" 
           element={
             <PrivateRoute>
               <AdminLayout />
@@ -49,8 +49,8 @@ function App() {
           <Route path="inicio" element={<Home />} />
           <Route path="propiedades" element={<Properties />} />
           <Route path="propiedades/agregar" element={<AddProperty />} />
-          <Route path="propiedades/editar/:id" element={<EditProperty />} /> {/* Ruta corregida */}
-          <Route path="configuracion" element={<Config />} /> {/* Ruta corregida */}
+          <Route path="propiedades/editar/:id" element={<EditProperty />} /> 
+          {/* <Route path="configuracion" element={<Config />} */}
           <Route path="propiedades/subir-masivamente" element={<MassPropertyUploadForm />} /> {/* Nueva ruta */}
 
         </Route>

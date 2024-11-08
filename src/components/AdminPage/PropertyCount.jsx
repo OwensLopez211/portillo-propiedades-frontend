@@ -4,13 +4,14 @@ const PropertyCount = () => {
   const [propertyCount, setPropertyCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // Función para obtener el conteo de propiedades
     const fetchPropertyCount = async () => {
       const token = localStorage.getItem('authToken'); // Obtener el token del localStorage
       try {
-        const response = await fetch('${API_BASE_URL}/api/count/', {
+        const response = await fetch(`${API_BASE_URL}/api/count/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ const PropertyCount = () => {
 
     // Llamar a la función de conteo
     fetchPropertyCount();
-  }, []);
+  }, [API_BASE_URL]);
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;

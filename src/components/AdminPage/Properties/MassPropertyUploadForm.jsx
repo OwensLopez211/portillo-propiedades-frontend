@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const MassPropertyUploadForm = () => {
   const [excelFile, setExcelFile] = useState(null);
   const [message, setMessage] = useState('');
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Maneja el cambio de archivo Excel
   const handleFileChange = (e) => {
@@ -24,7 +25,7 @@ const MassPropertyUploadForm = () => {
     const token = localStorage.getItem('authToken');  // Asegúrate de que 'authToken' sea la clave correcta donde guardas el token
 
     try {
-      const response = await fetch('${API_BASE_URL}/api/upload-mass-properties/', {
+      const response = await fetch(`${API_BASE_URL}/api/upload-mass-properties/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,  // Enviar el token en el encabezado

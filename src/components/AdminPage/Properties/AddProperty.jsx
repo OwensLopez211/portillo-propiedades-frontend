@@ -35,13 +35,14 @@ const AddProperty = () => {
   const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Obtener la lista de agentes
   useEffect(() => {
     const fetchAgents = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/agents/', {
+        const response = await axios.get(`${API_BASE_URL}/api/agents/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +60,7 @@ const AddProperty = () => {
     const fetchRegions = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get('https://portillo-propiedades-backend.onrender.com/api/regions/', {
+        const response = await axios.get(`${API_BASE_URL}/api/regions/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,7 +80,7 @@ const handleRegionChange = async (e) => {
 
   const token = localStorage.getItem('authToken');
   try {
-    const response = await axios.get(`https://portillo-propiedades-backend.onrender.com/api/regions/${selectedRegionId}/comunas/`, {
+    const response = await axios.get(`${API_BASE_URL}/api/regions/${selectedRegionId}/comunas/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -152,7 +153,7 @@ const handleRegionChange = async (e) => {
     const token = localStorage.getItem('authToken');
 
     try {
-      const response = await fetch('${API_BASE_URL}/api/properties/', {
+      const response = await fetch(`${API_BASE_URL}/api/properties/`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -161,7 +162,7 @@ const handleRegionChange = async (e) => {
       });
 
       if (response.ok) {
-        navigate('/admin/propiedades');
+        navigate('/administracion/propiedades');
       } else {
         const errorData = await response.json();
         setError(errorData);

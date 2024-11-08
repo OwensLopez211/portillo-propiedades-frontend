@@ -1,16 +1,16 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { HomeIcon, BuildingOfficeIcon, Cog6ToothIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, BuildingOfficeIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'; // falta Cog6ToothIcon
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Inicio', href: '/admin/inicio', icon: HomeIcon },
-  { name: 'Propiedades', href: '/admin/propiedades', icon: BuildingOfficeIcon, subItems: [
-      { name: 'Agregar Propiedad', href: '/admin/propiedades/agregar' },
-      { name: 'Subir Masivamente', href: '/admin/propiedades/subir-masivamente', icon: ArrowUpOnSquareIcon }
+  { name: 'Inicio', href: '/administracion/inicio', icon: HomeIcon },
+  { name: 'Propiedades', href: '/administracion/propiedades', icon: BuildingOfficeIcon, subItems: [
+      { name: 'Agregar Propiedad', href: '/administracion/propiedades/agregar' },
+      { name: 'Subir Masivamente', href: '/administracion/propiedades/subir-masivamente', icon: ArrowUpOnSquareIcon }
     ]
   },
-  { name: 'Configuración', href: '/admin/configuracion', icon: Cog6ToothIcon },
+  /* { name: 'Configuración', href: '/administracion/configuracion', icon: Cog6ToothIcon }, */
 ];
 
 function classNames(...classes) {

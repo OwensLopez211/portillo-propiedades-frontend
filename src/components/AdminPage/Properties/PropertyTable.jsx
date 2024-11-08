@@ -7,11 +7,13 @@ const PropertyTable = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // Usar navigate para redirigir
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axios.get('${API_BASE_URL}/api/property-list/');
+        const response = await axios.get(`${API_BASE_URL}/api/property-list/`);
         setProperties(response.data);
         setLoading(false);
       } catch (err) {
@@ -22,7 +24,7 @@ const PropertyTable = () => {
     };
 
     fetchProperties();
-  }, []);
+  }, [API_BASE_URL]);
 
   if (loading) {
     return <p className="text-center text-gray-600">Cargando propiedades...</p>;
@@ -34,8 +36,9 @@ const PropertyTable = () => {
 
   // Función para redirigir al formulario de edición de propiedad
   const handleEdit = (propertyId) => {
-    navigate(`/admin/propiedades/editar/${propertyId}`); // Redirigir a la ruta de edición
+    navigate(`/administracion/propiedades/editar/${propertyId}`); // Redirigir a la ruta de edición
   };
+  
 
   // Función para eliminar una propiedad
   const handleDelete = async (propertyId) => {

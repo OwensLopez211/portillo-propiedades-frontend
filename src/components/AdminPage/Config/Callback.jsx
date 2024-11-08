@@ -7,10 +7,11 @@ const Callback = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     if (authorizationCode) {
       // Enviar el código al backend para intercambiarlo por el token
-      fetch('${API_BASE_URL}/mercadolibre/get-token/', {
+      fetch(`${API_BASE_URL}/mercadolibre/get-token/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ const Callback = () => {
             // Guardar el token en el localStorage o en un estado global
             localStorage.setItem('access_token', data.access_token);
             // Redirigir al panel de administración
-            navigate('/admin/inicio');
+            navigate('/administracion/inicio');
           } else {
             console.error('Error en la autenticación:', data);
           }
