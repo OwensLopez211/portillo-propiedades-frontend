@@ -68,6 +68,7 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 <option value="" className={selectTextClass}>Todas</option>
                 <option value="venta" className={selectTextClass}>Venta</option>
                 <option value="arriendo" className={selectTextClass}>Arriendo</option>
+                <option value="arriendo" className={selectTextClass}>Arriendo temporal</option>
             </select>
 
             <select 
@@ -77,9 +78,19 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 className={`p-1 border bg-white rounded-lg shadow-sm focus:outline-none ${selectTextClass} w-full lg:w-auto text-sm`}
             >
                 <option value="" className={selectTextClass}>Tipo de propiedad</option>
-                <option value="casa" className={selectTextClass}>Casa</option>
-                <option value="departamento" className={selectTextClass}>Departamento</option>
-                <option value="oficina" className={selectTextClass}>Oficina</option>
+                <option value="departamento">Departamentos</option>
+                <option value="casa">Casas</option>
+                <option value="oficina">Oficinas</option>
+                <option value="parcela">Parcelas</option>
+                <option value="terreno">Terrenos</option>
+                <option value="sitio">Sitios</option>
+                <option value="bodega">Bodegas</option>
+                <option value="industrial">Industriales</option>
+                <option value="agricola">Agrícola</option>
+                <option value="otros_inmuebles">Otros Inmuebles</option>
+                <option value="estacionamiento">Estacionamientos</option>
+                <option value="loteo">Loteos</option>
+                <option value="lotes_de_cementerio">Lotes de Cementerio</option>
             </select>
 
             {/* Select de precio (solo en propiedades) */}
