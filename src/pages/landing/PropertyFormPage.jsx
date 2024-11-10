@@ -6,13 +6,17 @@ import SecondaryHero from '../../components/General/SecundaryHero';
 import JoinUs from '../../components/General/JoinUsForm';
 import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
+
+
 const EntreganosTuPropiedad = () => {
+  const lockedSubject="Venta/arriendo de nueva propiedad"
 
   const handleFormSubmit = async (formData) => {
     const formattedData = new URLSearchParams();
-    formattedData.append("nombre", formData.name);
+    formattedData.append("nombre", formData.nombre);
     formattedData.append("email", formData.email);
-    formattedData.append("mensaje", formData.message);
+    formattedData.append("mensaje", formData.mensaje);
+    formattedData.append("asunto", lockedSubject); // Agregar el asunto fijo al envío de datos
 
     try {
         const response = await fetch('https://newlandpropiedades.cl/api/contact/enviar-correo/', {
@@ -36,10 +40,6 @@ const EntreganosTuPropiedad = () => {
     }
 };
 
-
-
-
-
   return (
     <div>
       <Topbar />
@@ -49,7 +49,6 @@ const EntreganosTuPropiedad = () => {
         backgroundImage="/BannerTuPropiedad.jpg"
       />
 
-      {/* Agregar el componente JoinUs aquí */}
       <JoinUs
           title="Entréganos tu propiedad"
           description={[
@@ -59,7 +58,7 @@ const EntreganosTuPropiedad = () => {
               "Solo necesitamos tu email o número de celular para poder comunicarnos."
           ]}
           emailText="contacto@newlandpropiedades.cl"
-          lockedSubject="Venta/arriendo de nueva propiedad"
+          lockedSubject={lockedSubject}
           buttonText="Contactar"
           onSubmit={handleFormSubmit}
           socialLinks={{

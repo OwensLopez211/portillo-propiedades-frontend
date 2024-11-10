@@ -33,26 +33,21 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Ajuste en el objeto enviado para que coincida con los nombres de campo esperados en el backend
         const formattedData = {
             nombre: formData.name,
             email: formData.email,
             mensaje: formData.message,
         };
-        onSubmit(formattedData);  // Envía solo los datos necesarios al backend
+        onSubmit(formattedData);
 
-        // Reinicia el formulario después del envío
         setFormData({ name: '', email: '', phone: '', subject: lockedSubject || '', message: '' });
         setMessageCharsLeft(200);
     };
 
     return (
         <div className="container mx-auto my-8 p-8 bg-gray-50 rounded-lg shadow-lg flex flex-col lg:flex-row items-center">
-            {/* Texto informativo */}
             <div className="lg:w-1/2 pr-8 text-center">
                 <h2 className="text-4xl font-bold mb-4 text-[#175EA5]">{title}</h2>
-                
-                {/* Renderizado de líneas con saltos */}
                 <p className="text-lg mb-6 text-[#175EA5]">
                     {Array.isArray(description) ? description.map((line, index) => (
                         <span key={index}>
@@ -61,16 +56,11 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                         </span>
                     )) : description}
                 </p>
-                
                 <h3 className="text-xl font-semibold text-[#175EA5]">Déjanos tus datos y te contactaremos de inmediato.</h3>
-                
-                {/* Sección de Correo electrónico */}
                 <div className="mt-4">
                     <h4 className="text-lg font-bold text-[#175EA5]">Correo electrónico</h4>
                     <p className="text-[#175EA5] font-semibold">{emailText}</p>
                 </div>
-                
-                {/* Sección de Redes sociales */}
                 <div className="mt-4">
                     <h4 className="text-lg font-bold text-[#175EA5]">Redes sociales</h4>
                     <div className="flex items-center justify-center space-x-4 mt-2">
@@ -103,7 +93,6 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                 </div>
             </div>
 
-            {/* Formulario */}
             <div className="lg:w-1/2 mt-6 lg:mt-0 flex justify-center">
                 <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md text-center">
                     <input 
@@ -150,7 +139,6 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                         />
                     )}
                     
-                    {/* Textarea con límite de caracteres y tamaño fijo */}
                     <div className="relative">
                         <textarea 
                             name="message" 
