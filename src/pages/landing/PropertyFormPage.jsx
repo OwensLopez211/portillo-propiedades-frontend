@@ -9,20 +9,18 @@ import FloatingSocialButtons from '../../components/General/FloatingSocialButton
 const EntreganosTuPropiedad = () => {
 
   const handleFormSubmit = async (formData) => {
-    // Transforma el objeto para coincidir con los campos del backend
-    const formattedData = {
-        nombre: formData.name,
-        email: formData.email,
-        mensaje: formData.message,
-    };
+    const formattedData = new URLSearchParams();
+    formattedData.append("nombre", formData.name);
+    formattedData.append("email", formData.email);
+    formattedData.append("mensaje", formData.message);
 
     try {
         const response = await fetch('https://newlandpropiedades.cl/api/contact/enviar-correo/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify(formattedData),
+            body: formattedData.toString(),
         });
         const result = await response.json();
 
@@ -37,6 +35,9 @@ const EntreganosTuPropiedad = () => {
         alert("Hubo un problema de conexión. Por favor, intenta más tarde.");
     }
 };
+
+
+
 
 
   return (
