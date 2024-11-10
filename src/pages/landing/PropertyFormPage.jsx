@@ -6,11 +6,12 @@ import SecondaryHero from '../../components/General/SecundaryHero';
 import JoinUs from '../../components/General/JoinUsForm';
 import FloatingSocialButtons from '../../components/General/FloatingSocialButtons';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 const EntreganosTuPropiedad = () => {
 
   const handleFormSubmit = async (formData) => {
     try {
-        const response = await fetch('${API_BASE_URL}/contact/send-email/', {
+        const response = await fetch(`${API_BASE_URL}/contact/enviar-correo/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
