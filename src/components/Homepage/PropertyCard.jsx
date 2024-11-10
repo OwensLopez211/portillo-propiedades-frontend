@@ -49,8 +49,8 @@ const PropertyCard = ({ property }) => {
   };
 
   // Verificación de datos del agente y comuna
-  const agent = property.agent_detail || {};  // Accede a los datos detallados del agente
-  const comuna = property.comuna_detail || {};  // Accede a los datos detallados de la comuna
+  const agent = property.agent_detail || {};
+  const comuna = property.comuna_detail || {};
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -95,11 +95,21 @@ const PropertyCard = ({ property }) => {
           Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'No disponible'}</span>
         </p>
 
-        <p className="text-[#175EA5] mb-4">
-          Precio: <span className="font-bold">
-            {property.precio_venta ? formatPrice(property.precio_venta) : formatPrice(property.precio_renta)}
-          </span>
-        </p>
+        {/* Lógica para mostrar los precios de venta y arriendo, excluyendo valores de 0 */}
+        <div className="text-[#175EA5] mb-4">
+          {property.precio_venta > 0 && property.precio_renta > 0 ? (
+            <>
+              <p>Precio Venta: <span className="font-bold">{formatPrice(property.precio_venta)}</span></p>
+              <p>Precio Arriendo: <span className="font-bold">{formatPrice(property.precio_renta)}</span></p>
+            </>
+          ) : property.precio_venta > 0 ? (
+            <p>Precio Venta: <span className="font-bold">{formatPrice(property.precio_venta)}</span></p>
+          ) : property.precio_renta > 0 ? (
+            <p>Precio Arriendo: <span className="font-bold">{formatPrice(property.precio_renta)}</span></p>
+          ) : (
+            <p className="font-bold">Precio no disponible</p>
+          )}
+        </div>
 
         <div className="flex items-center mt-4 justify-between">
           <div className="flex items-center">

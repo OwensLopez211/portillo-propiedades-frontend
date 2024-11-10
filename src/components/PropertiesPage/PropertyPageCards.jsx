@@ -40,9 +40,15 @@ const PropertyPageCard = ({ property }) => {
                 <p className="text-[#175EA5] mb-2">Comuna: <span className="font-medium">{property.comuna_detail?.nombre || 'Comuna no disponible'}</span></p>
                 <p className="text-[#175EA5] mb-2">Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'Ubicación de referencia no disponible'}</span></p>
                 
-                <p className="text-[#175EA5] mb-4">
-                    Precio: <span className="font-bold">{property.precio_venta ? `$${formatPrice(property.precio_venta)}` : `$${formatPrice(property.precio_renta)}`}</span>
-                </p>
+                <div className="text-[#175EA5] mb-4">
+                    {/* Mostrar solo los precios que no sean cero */}
+                    {property.precio_venta > 0 && (
+                        <p>Precio de Venta: <span className="font-bold">${formatPrice(property.precio_venta)}</span></p>
+                    )}
+                    {property.precio_renta > 0 && (
+                        <p>Precio de Arriendo: <span className="font-bold">${formatPrice(property.precio_renta)}</span></p>
+                    )}
+                </div>
 
                 {/* Información adicional del agente */}
                 <div className="flex items-center mt-4">
