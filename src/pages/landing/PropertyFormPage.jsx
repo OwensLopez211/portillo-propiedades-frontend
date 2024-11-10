@@ -9,13 +9,20 @@ import FloatingSocialButtons from '../../components/General/FloatingSocialButton
 const EntreganosTuPropiedad = () => {
 
   const handleFormSubmit = async (formData) => {
+    // Transforma el objeto para coincidir con los campos del backend
+    const formattedData = {
+        nombre: formData.name,
+        email: formData.email,
+        mensaje: formData.message,
+    };
+
     try {
         const response = await fetch('https://newlandpropiedades.cl/api/contact/enviar-correo/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formattedData),
         });
         const result = await response.json();
 

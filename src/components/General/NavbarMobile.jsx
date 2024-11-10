@@ -29,7 +29,7 @@ const NavbarMobile = () => {
       >
         <div className="p-6 space-y-6 mt-12">
           {/* Menús con bordes redondeados y sin outline */}
-          <a href="/" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
+          <a href="/home" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
             Inicio
           </a>
           <a href="/quienes-somos" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">

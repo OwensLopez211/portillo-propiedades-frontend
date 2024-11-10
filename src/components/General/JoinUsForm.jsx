@@ -33,7 +33,15 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        // Ajuste en el objeto enviado para que coincida con los nombres de campo esperados en el backend
+        const formattedData = {
+            nombre: formData.name,
+            email: formData.email,
+            mensaje: formData.message,
+        };
+        onSubmit(formattedData);  // Envía solo los datos necesarios al backend
+
+        // Reinicia el formulario después del envío
         setFormData({ name: '', email: '', phone: '', subject: lockedSubject || '', message: '' });
         setMessageCharsLeft(200);
     };
