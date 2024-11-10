@@ -4,9 +4,8 @@ import {
   FaPhoneAlt,
   FaInstagram,
   FaFacebookF,
-  FaTiktok,
   FaFacebookMessenger,
-} from 'react-icons/fa';
+} from 'react-icons/fa'; // comentado FaTiktok
 
 const Footer = () => {
   return (
@@ -42,7 +41,7 @@ const Footer = () => {
           {/* Redes Sociales */}
           <div className="flex justify-center lg:justify-end mt-4 space-x-4">
             <a
-              href="https://www.instagram.com/newland_propiedades_/"
+              href="https://www.instagram.com/newlandpropiedades/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-gray-300 transition duration-300"
@@ -50,23 +49,31 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a
-              href="https://www.facebook.com/newland_propiedades"
+              href="https://www.instagram.com/terrenosysitioschile/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl hover:text-gray-300 transition duration-300"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://www.facebook.com/newlandpropiedades"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-gray-300 transition duration-300"
             >
               <FaFacebookF />
             </a>
-            <a
+{/*             <a
               href="https://www.tiktok.com/@newland_propiedades"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-gray-300 transition duration-300"
             >
               <FaTiktok />
-            </a>
+            </a> */}
             <a
-              href="https://www.messenger.com/t/newland_propiedades"
+              href="https://m.me/newlandpropiedades"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:text-gray-300 transition duration-300"

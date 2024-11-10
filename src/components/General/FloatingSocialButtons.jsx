@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaWhatsapp, FaInstagram, FaFacebookF, FaFacebookMessenger, FaTiktok } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaFacebookF, FaFacebookMessenger} from 'react-icons/fa'; // comentado FaTiktok
 
 const FloatingSocialButtons = () => {
   return (
@@ -17,9 +17,9 @@ const FloatingSocialButtons = () => {
           <FaWhatsapp className="text-lg" />
         </a>
 
-        {/* Botón de Instagram */}
+        {/* Primer Instagram */}
         <a
-          href="https://www.instagram.com/newland_propiedades_/"
+          href="https://www.instagram.com/newlandpropiedades/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-10 h-10 bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600 transition duration-300"
@@ -27,9 +27,19 @@ const FloatingSocialButtons = () => {
           <FaInstagram className="text-lg" />
         </a>
 
+        {/* Segundo Instagram con color diferente y una pequeña etiqueta */}
+        <a
+          href="https://www.instagram.com/terrenosysitioschile/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-10 h-10 bg-purple-500 text-white rounded-full shadow-lg hover:bg-purple-600 transition duration-300"
+        >
+          <FaInstagram className="text-lg" />
+        </a>
+
         {/* Botón de Facebook */}
         <a
-          href="https://www.facebook.com/newland_propiedades"
+          href="https://www.facebook.com/newlandpropiedades"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
@@ -39,7 +49,7 @@ const FloatingSocialButtons = () => {
 
         {/* Botón de Messenger */}
         <a
-          href="https://m.me/newland_propiedades"
+          href="https://m.me/newlandpropiedades"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-10 h-10 bg-blue-400 text-white rounded-full shadow-lg hover:bg-blue-500 transition duration-300"
@@ -48,14 +58,14 @@ const FloatingSocialButtons = () => {
         </a>
 
         {/* Botón de TikTok */}
-        <a
+{/*         <a
           href="https://www.tiktok.com/@newland_propiedades"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-10 h-10 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition duration-300"
         >
           <FaTiktok className="text-lg" />
-        </a>
+        </a> */}
       </div>
     </div>
   );

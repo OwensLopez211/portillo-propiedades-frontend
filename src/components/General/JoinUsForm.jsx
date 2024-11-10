@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaInstagram, FaFacebookF, FaTiktok, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa';
 
 const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedSubject, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -67,24 +67,24 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                     <h4 className="text-lg font-bold text-[#175EA5]">Redes sociales</h4>
                     <div className="flex items-center justify-center space-x-4 mt-2">
                         <FaInstagram 
-                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
+                            className="text-[#175EA5] hover:text-purple-500 transition duration-300 cursor-pointer"
                             size={30} 
                             onClick={() => window.open('https://www.instagram.com/newland_propiedades_/', '_blank')}
+                        />
+                        <FaInstagram 
+                            className="text-[#175EA5] hover:text-orange-500 transition duration-300 cursor-pointer"
+                            size={30} 
+                            onClick={() => window.open('https://www.instagram.com/terrenosysitioschile/', '_blank')}
                         />
                         <FaFacebookF 
                             className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
                             size={30} 
-                            onClick={() => window.open('https://www.facebook.com/newland_propiedades', '_blank')}
-                        />
-                        <FaTiktok 
-                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://www.tiktok.com/@newland_propiedades', '_blank')}
+                            onClick={() => window.open('https://www.facebook.com/newlandpropiedades', '_blank')}
                         />
                         <FaFacebookMessenger 
-                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
+                            className="text-[#175EA5] hover:text-blue-500 transition duration-300 cursor-pointer"
                             size={30} 
-                            onClick={() => window.open('https://www.messenger.com/t/newland_propiedades', '_blank')}
+                            onClick={() => window.open('https://m.me/newlandpropiedades', '_blank')}
                         />
                         <FaWhatsapp 
                             className="text-[#175EA5] hover:text-green-600 transition duration-300 cursor-pointer"
