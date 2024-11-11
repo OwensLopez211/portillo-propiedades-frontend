@@ -15,11 +15,9 @@ const PropertyHeader = ({ property }) => {
         </div>
 
         <div className="flex space-x-2 text-sm">
+          <span className="text-gray-600"></span>
           <Link to="/propiedades" className="text-gray-600 hover:underline">Listado</Link>
-          <span className="text-gray-600">|</span>
-          <Link to="#" className="text-gray-600 hover:underline">Anterior</Link>
-          <span className="text-gray-600">|</span>
-          <Link to="#" className="text-gray-600 hover:underline">Siguiente</Link>
+
         </div>
       </div>
 

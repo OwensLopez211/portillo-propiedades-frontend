@@ -96,11 +96,11 @@ const PropertyCard = ({ property }) => {
         </p>
 
         {/* Lógica para mostrar los precios de venta y arriendo, excluyendo valores de 0 */}
-        <div className="text-[#175EA5] mb-4">
+        <div className="text-[#175EA5] mb-4 min-h-[60px]">
           {property.precio_venta > 0 && property.precio_renta > 0 ? (
             <>
-              <p>Precio Venta: <span className="font-bold">{formatPrice(property.precio_venta)}</span></p>
-              <p>Precio Arriendo: <span className="font-bold">{formatPrice(property.precio_renta)}</span></p>
+              <p className="mb-1">Precio Venta: <span className="font-bold">{formatPrice(property.precio_venta)}</span></p>
+              <p className="mb-1">Precio Arriendo: <span className="font-bold">{formatPrice(property.precio_renta)}</span></p>
             </>
           ) : property.precio_venta > 0 ? (
             <p>Precio Venta: <span className="font-bold">{formatPrice(property.precio_venta)}</span></p>

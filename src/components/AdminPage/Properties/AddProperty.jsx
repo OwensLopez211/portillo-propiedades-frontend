@@ -53,7 +53,7 @@ const AddProperty = () => {
       }
     };
     fetchAgents();
-  }, []);
+  }, [API_BASE_URL]);
 
   // Obtener la lista de regiones al cargar el componente
   useEffect(() => {
@@ -71,7 +71,7 @@ const AddProperty = () => {
       }
     };
     fetchRegions();
-  }, []);
+  }, [API_BASE_URL]);
 
 // Cargar comunas al seleccionar una región
 const handleRegionChange = async (e) => {

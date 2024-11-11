@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-
+import { isAuthenticated } from '.././utils/auth';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -88,20 +87,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
-
-// Verifica si el token es válido
-const isAuthenticated = () => {
-  const token = localStorage.getItem('authToken');
-  if (!token) return false;
-
-  try {
-    const decodedToken = jwtDecode(token);
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp > currentTime; // Verifica si el token aún es válido
-  } catch {
-    return false;
-  }
 };
 
 export default Login;

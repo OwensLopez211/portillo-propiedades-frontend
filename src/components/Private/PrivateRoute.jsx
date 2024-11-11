@@ -1,20 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-
-
-const isAuthenticated = () => {
-  const token = localStorage.getItem('authToken');
-  if (!token) return false;
-
-  try {
-    const decodedToken = jwtDecode(token);
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp > currentTime; // Verifica si el token aún es válido
-  } catch {
-    return false;
-  }
-};
+import { isAuthenticated } from '../../utils/auth'; // Asegúrate de ajustar la ruta si es necesario
 
 const PrivateRoute = ({ children }) => {
   if (!isAuthenticated()) {
