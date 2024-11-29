@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BasicInfo from './PropertyForm/BasicInfo';
+import PropertyDetails from './PropertyForm/PropertyDetails';
+import LocationInfo from './PropertyForm/LocationInfo';
+import MediaUpload from './PropertyForm/mediaUpload';
+import FormProgress from './PropertyForm/FormProgress';
 
 const AddProperty = () => {
   const navigate = useNavigate();
-
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     precio_venta: '',
     precio_renta: '',
     tipo_operacion: '',
-    tipo_propiedad: '', 
+    tipo_propiedad: '',
     habitaciones: '',
     baños: '',
     superficie_total: '',
@@ -37,60 +42,39 @@ const AddProperty = () => {
   const [isLoading, setIsLoading] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  // Obtener la lista de agentes
   useEffect(() => {
-    const fetchAgents = async () => {
+    const fetchInitialData = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/agents/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAgents(response.data);
+        const [agentsResponse, regionsResponse] = await Promise.all([
+          axios.get(`${API_BASE_URL}/api/agents/`, { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get(`${API_BASE_URL}/api/regions/`, { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        setAgents(agentsResponse.data);
+        setRegions(regionsResponse.data);
       } catch (err) {
-        console.error('Error al obtener los agentes:', err);
+        console.error('Error al cargar datos iniciales:', err);
+        setError('Error al cargar datos iniciales');
       }
     };
-    fetchAgents();
+    fetchInitialData();
   }, [API_BASE_URL]);
 
-  // Obtener la lista de regiones al cargar el componente
-  useEffect(() => {
-    const fetchRegions = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/regions/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setRegions(response.data);
-      } catch (err) {
-        console.error('Error al cargar regiones:', err);
-      }
-    };
-    fetchRegions();
-  }, [API_BASE_URL]);
+  const handleRegionChange = async (e) => {
+    const selectedRegionId = e.target.value;
+    setFormData({ ...formData, region: selectedRegionId, comuna: '' });
 
-// Cargar comunas al seleccionar una región
-const handleRegionChange = async (e) => {
-  const selectedRegionId = e.target.value;
-  setFormData({ ...formData, region: selectedRegionId, comuna: '' });
-
-  const token = localStorage.getItem('authToken');
-  try {
-    const response = await axios.get(`${API_BASE_URL}/api/regions/${selectedRegionId}/comunas/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setComunas(response.data);
-  } catch (err) {
-    console.error('Error al cargar comunas:', err);
-  }
-};
-
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/api/regions/${selectedRegionId}/comunas/`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setComunas(response.data);
+    } catch (err) {
+      console.error('Error al cargar comunas:', err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -100,24 +84,20 @@ const handleRegionChange = async (e) => {
     });
   };
 
-  const handleImageUpload = (e) => {
-    setFormData({
-      ...formData,
-      images: [...e.target.files],
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (currentStep !== 4) return; // Asegúrate de que solo se envíe el formulario en el último paso
+
     setIsLoading(true);
 
+    // Validación de campos requeridos
     if (!formData.title || !formData.description || !formData.direccion || !formData.habitaciones || !formData.baños) {
       setError({
         title: ['Este campo es requerido'],
-        description: ['Este campo es requerido'],
+        descripcion: ['Este campo es requerido'],
         direccion: ['Este campo es requerido'],
         habitaciones: ['Este campo es requerido'],
-        baños: ['Este campo es requerido']
+        baños: ['Este campo es requerido'],
       });
       setIsLoading(false);
       return;
@@ -146,8 +126,9 @@ const handleRegionChange = async (e) => {
     formDataToSend.append('is_featured', formData.is_featured);
     formDataToSend.append('agent', formData.agent);
 
-    for (let i = 0; i < formData.images.length; i++) {
-      formDataToSend.append('images', formData.images[i]);
+    // Agregar imágenes
+    if (formData.images && formData.images.length > 0) {
+      formData.images.forEach((image) => formDataToSend.append('images', image));
     }
 
     const token = localStorage.getItem('authToken');
@@ -169,356 +150,154 @@ const handleRegionChange = async (e) => {
       }
     } catch (error) {
       console.error('Error en la conexión:', error);
+      setError({ message: 'Error en la conexión con el servidor' });
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
+  };
+
+  // Validar el paso actual antes de avanzar
+const validateStep = () => {
+  let stepErrors = {};
+  if (currentStep === 1) {
+    if (!formData.title) stepErrors.title = 'El título es obligatorio.';
+    if (!formData.description) stepErrors.description = 'La descripción es obligatoria.';
+  } else if (currentStep === 2) {
+    if (!formData.tipo_operacion) stepErrors.tipo_operacion = 'Seleccione el tipo de operación.';
+    if (formData.tipo_operacion === 'venta' && !formData.precio_venta)
+      stepErrors.precio_venta = 'El precio de venta es obligatorio.';
+    if (formData.tipo_operacion === 'arriendo' && !formData.precio_renta)
+      stepErrors.precio_renta = 'El precio de arriendo es obligatorio.';
+  } else if (currentStep === 3) {
+    if (!formData.direccion) stepErrors.direccion = 'La dirección es obligatoria.';
+    if (!formData.region) stepErrors.region = 'Seleccione una región.';
+    if (!formData.comuna) stepErrors.comuna = 'Seleccione una comuna.';
+  }
+  setError(stepErrors);
+  return Object.keys(stepErrors).length === 0; // Devuelve true si no hay errores
+};
+
+// Avanzar al siguiente paso
+const handleNextStep = () => {
+  if (validateStep()) {
+    setError(null); // Limpiar errores al avanzar
+    if (currentStep < 4) {
+      setCurrentStep((step) => step + 1); // Avanzar solo si no estás en el último paso
+    }
+  }
+};
+
+
+// Retroceder al paso anterior
+const handlePreviousStep = () => {
+  setError(null); // Limpiar errores al retroceder
+  setCurrentStep((step) => step - 1);
+};
+
+const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <BasicInfo
+            formData={formData}
+            handleChange={handleChange}
+            agents={agents}
+          />
+        );
+      case 2:
+        return (
+          <PropertyDetails
+            formData={formData}
+            handleChange={handleChange}
+          />
+        );
+      case 3:
+        return (
+          <LocationInfo
+            formData={formData}
+            handleChange={handleChange}
+            handleRegionChange={handleRegionChange}
+            regions={regions}
+            comunas={comunas}
+          />
+        );
+      case 4:
+        return (
+          <MediaUpload
+            formData={formData}
+            setFormData={setFormData}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <div>
-      {isLoading ? (
-        <div className="flex justify-center items-center h-screen">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-500" role="status">
-            <span className="sr-only">Cargando...</span>
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="bg-white rounded-lg shadow-lg p-8">
+        {error && (
+          <div className="bg-red-50 text-red-800 p-4 rounded-md mb-6">
+            <p className="font-semibold">{error.message}</p>
+            {error.fields && (
+              <ul className="list-disc ml-4 mt-2">
+                {error.fields.map((field, index) => (
+                  <li key={index}>{field}</li>
+                ))}
+              </ul>
+            )}
+            {error.details && (
+              <p className="mt-2 text-sm">{JSON.stringify(error.details)}</p>
+            )}
           </div>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-lg">
-          {error && (
-            <div className="bg-red-100 text-red-800 p-4 rounded mb-4">
-              {Object.keys(error).map((key) => (
-                <p key={key}>
-                  {key}: {Array.isArray(error[key]) ? error[key].join(', ') : error[key]}
-                </p>
-              ))}
-            </div>
-          )}
+        )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Información básica */}
-            <div className="border-b border-gray-200 pb-4 mb-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Información básica</h2>
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-gray-700">Título</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Descripción</label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Precio Venta</label>
-                  <input
-                    type="number"
-                    name="precio_venta"
-                    value={formData.precio_venta}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                    step="0.01"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Precio Renta</label>
-                  <input
-                    type="number"
-                    name="precio_renta"
-                    value={formData.precio_renta}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                    step="0.01"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">¿Propiedad destacada?</label>
-                  <input
-                    type="checkbox"
-                    name="is_featured"
-                    checked={formData.is_featured}
-                    onChange={handleChange}
-                    className="w-5 h-5 border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
+        <FormProgress currentStep={currentStep} />
 
-                {/* Campo de selección de agente */}
-                <div>
-                  <label className="block text-gray-700">Agente</label>
-                  <select
-                    name="agent"
-                    value={formData.agent}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  >
-                    <option value="">Seleccione un agente</option>
-                    {agents.map((agent) => (
-                      <option key={agent.id} value={agent.id}>
-                        {agent.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault(); // Siempre prevenir el envío predeterminado
+            if (isReadyToSubmit && currentStep === 4) {
+              handleSubmit(e); // Enviar formulario solo si se cumple la condición
+            }
+          }}
+        >
+          {renderStep()}
 
-            {/* Detalles de la propiedad */}
-            <div className="border-b border-gray-200 pb-4 mb-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Detalles de la propiedad</h2>
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-gray-700">Tipo de operación</label>
-                  <select
-                    name="tipo_operacion"
-                    value={formData.tipo_operacion}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  >
-                    <option value="">Seleccione una operación</option>
-                    <option value="venta">Venta</option>
-                    <option value="arriendo">Arriendo</option>
-                    <option value="arriendo_temporal">Arriendo Temporal</option>
-                  </select>
-                </div>
+          <div className="mt-8 flex justify-between">
+            {currentStep > 1 && (
+              <button
+                type="button"
+                onClick={handlePreviousStep}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              >
+                Anterior
+              </button>
+            )}
+            {currentStep < 4 ? (
+              <button
+                type="button"
+                onClick={handleNextStep}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 ml-auto"
+              >
+                Siguiente
+              </button>
+            ) : (
+              <button
+                type="submit"
+                onClick={() => setIsReadyToSubmit(true)} // Permitir envío solo si se hace clic aquí
+                disabled={isLoading}
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 ml-auto disabled:opacity-50"
+              >
+                {isLoading ? 'Guardando...' : 'Guardar Propiedad'}
+              </button>
 
-                <div>
-                  <label className="block text-gray-700">Tipo de propiedad</label>
-                  <select
-                    name="tipo_propiedad"
-                    value={formData.tipo_propiedad}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  >
-                    <option value="">Seleccione un tipo de propiedad</option>
-                    <option value="departamento">Departamentos</option>
-                    <option value="casa">Casas</option>
-                    <option value="oficina">Oficinas</option>
-                    <option value="parcela">Parcelas</option>
-                    <option value="terreno">Terrenos</option>
-                    <option value="sitio">Sitios</option>
-                    <option value="bodega">Bodegas</option>
-                    <option value="industrial">Industriales</option>
-                    <option value="agricola">Agrícola</option>
-                    <option value="otros_inmuebles">Otros Inmuebles</option>
-                    <option value="estacionamiento">Estacionamientos</option>
-                    <option value="loteo">Loteos</option>
-                    <option value="lotes_de_cementerio">Lotes de Cementerio</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-gray-700">Habitaciones</label>
-                  <input
-                    type="number"
-                    name="habitaciones"
-                    value={formData.habitaciones}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Baños</label>
-                  <input
-                    type="number"
-                    name="baños"
-                    value={formData.baños}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Área Total (m²)</label>
-                  <input
-                    type="number"
-                    name="superficie_total"
-                    value={formData.superficie_total}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Superficie Cubierta (m²)</label>
-                  <input
-                    type="number"
-                    name="superficie_cubierta"
-                    value={formData.superficie_cubierta}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Gastos Comunes</label>
-                  <input
-                    type="number"
-                    name="gastos_comunes"
-                    value={formData.gastos_comunes}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-{/*                 <div>
-                  <label className="block text-gray-700">Contribuciones</label>
-                  <input
-                    type="number"
-                    name="contribuciones"
-                    value={formData.contribuciones}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-{/*                 <div>
-                  <label className="block text-gray-700">Expensas</label>
-                  <input
-                    type="number"
-                    name="expensas"
-                    value={formData.expensas}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-              </div>
-            </div>
-
-            {/* Ubicación */}
-            <div className="border-b border-gray-200 pb-4 mb-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Ubicación</h2>
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-gray-700">Dirección</label>
-                  <input
-                    type="text"
-                    name="direccion"
-                    value={formData.direccion}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Ubicación de referencia</label>
-                  <input
-                    type="text"
-                    name="ubicacion_referencia"
-                    value={formData.ubicacion_referencia}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-gray-700">Región</label>
-                  <select
-                    name="region"
-                    value={formData.region}
-                    onChange={handleRegionChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  >
-                    <option value="">Seleccione una región</option>
-                    {regions.map((region) => (
-                      <option key={region.id} value={region.id}>
-                        {region.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-gray-700">Comuna</label>
-                  <select
-                    name="comuna"
-                    value={formData.comuna}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                    disabled={!formData.region}
-                  >
-                    <option value="">Seleccione una comuna</option>
-                    {comunas.map((comuna) => (
-                      <option key={comuna.id} value={comuna.id}>
-                        {comuna.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-{/*                 <div>
-                  <label className="block text-gray-700">Ciudad</label>
-                  <input
-                    type="text"
-                    name="region"
-                    value={formData.region}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-{/*                 <div>
-                  <label className="block text-gray-700">Barrio</label>
-                  <input
-                    type="text"
-                    name="comuna"
-                    value={formData.comuna}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-{/*                 <div>
-                  <label className="block text-gray-700">Latitud</label>
-                  <input
-                    type="text"
-                    name="latitud"
-                    value={formData.latitud}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-{/*                 <div>
-                  <label className="block text-gray-700">Longitud</label>
-                  <input
-                    type="text"
-                    name="longitud"
-                    value={formData.longitud}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div> */}
-              </div>
-            </div>
-
-            {/* Multimedia */}
-            <div className="border-b border-gray-200 pb-4 mb-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Multimedia</h2>
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-gray-700">Imágenes de la propiedad</label>
-                  <input
-                    type="file"
-                    name="images"
-                    multiple
-                    onChange={handleImageUpload}
-                    className="w-full border border-gray-300 rounded-lg p-2 mt-1"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-right mt-6">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-blue-600"
-            >
-              Guardar Cambios
-            </button>
+            )}
           </div>
         </form>
-      )}
+      </div>
     </div>
   );
 };

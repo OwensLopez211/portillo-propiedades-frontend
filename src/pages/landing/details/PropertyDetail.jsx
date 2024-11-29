@@ -5,13 +5,12 @@ import TopBar from '../../../components/General/TopBar';
 import Navbar from '../../../components/General/Navbar';
 import PropertyHeader from '../../../components/PropertiesPage/PropertyDetail/PropertyHeader';
 import ImageGallery from '../../../components/PropertiesPage/PropertyDetail/ImageGallery';
-import ContactInfo from '../../../components/PropertiesPage/PropertyDetail/ContactInfo';
 import PropertyDescription from '../../../components/PropertiesPage/PropertyDetail/PropertyDescription';
 import PropertyDetails from '../../../components/PropertiesPage/PropertyDetail/PropertyDetails';
 import Footer from '../../../components/General/Footer';
 
 const PropertyDetail = () => {
-  const { id } = useParams();  
+  const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -55,20 +54,13 @@ const PropertyDetail = () => {
       <TopBar />
       <Navbar />
       
-      {/* Contenedor principal con layout flex */}
-      <div className="container mx-auto py-10 px-4 flex flex-col lg:flex-row gap-8">
-        
-        {/* Primera columna: Contenido principal */}
-        <div className="lg:w-2/3 space-y-8">
+      {/* Contenedor principal centrado */}
+      <div className="container mx-auto py-10 px-4 flex flex-col items-center space-y-8">
+        <div className="w-full lg:w-2/3 space-y-8">
           <PropertyHeader property={property} />
           <ImageGallery images={property.images} />
           <PropertyDescription descripcion={property.descripcion} />
           <PropertyDetails property={property} />
-        </div>
-        
-        {/* Segunda columna: Información de contacto (columna lateral derecha) */}
-        <div className="lg:w-1/3 lg:ml-8">
-          <ContactInfo agent={property.agent_detail} />
         </div>
       </div>
       
