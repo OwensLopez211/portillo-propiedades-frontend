@@ -9,10 +9,16 @@ const AboutUs = () => {
                 <div className="lg:w-1/2 p-6">
                     <h2 className="text-3xl font-bold mb-4 text-[#175EA5]">Tu camino inmobiliario, nuestra prioridad.</h2>
                     <p className="mb-4 text-justify text-[#175EA5]">
-                        Somos un equipo de profesionales con años de experiencia en el mercado dedicados a brindarte un servicio inmobiliario integral y personalizado. Más que un agente, somos tu aliado estratégico; confiando en nosotros podrás tomar las mejores decisiones. Te acompañamos en cada paso del proceso de compra, venta o arriendo, asegurando que encuentres la propiedad ideal para tus necesidades y objetivos.
+                    Somos un equipo de profesionales con años de experiencia en el mercado dedicados a brindarte un servicio inmobiliario
+                    integral y personalizado.
+                    Más que un agente, somos tu aliado estratégico; confiando en nosotros podrás tomar las mejores decisiones.
+                    Te acompañamos en cada paso del proceso de compra, venta o arriendo, asegurando que encuentres la propiedad ideal
+                    para tus necesidades y objetivos.
+                    
                     </p>
                     <p className="text-justify text-[#175EA5]">
-                        Nuestra experiencia y compromiso junto con soluciones a tu medida y objetivos reales te garantizan tranquilidad y satisfacción en cada etapa, desde la búsqueda de la propiedad ideal hasta la gestión de todos los trámites.
+                        Nuestra experiencia y compromiso junto con soluciones a tu medida y objetivos reales te garantizan tranquilidad y
+                        satisfacción en cada etapa, desde la búsqueda de la propiedad ideal hasta la gestión de todos los trámites.
                     </p>
                 </div>
 
@@ -22,7 +28,7 @@ const AboutUs = () => {
                         src="/Aboutimage.png" 
                         alt="About Us" 
                         className="rounded-lg shadow-md" 
-                        style={{ width: '369px', height: '432px' }}
+                        style={{ width: '300px', height: '350px' }} // Tamaño reducido
                     />
                 </div>
             </div>
@@ -33,29 +39,45 @@ const AboutUs = () => {
                 <div className="flex flex-col md:flex-row md:space-x-4">
                     {/* Carol */}
                     <div className="md:w-1/2 text-center p-4">
-                        <img 
-                            src="/carol_image.png" 
-                            alt="Carol" 
-                            className="rounded-full mx-auto mb-4 shadow-md" 
-                            style={{ width: '150px', height: '150px' }}
-                        />
+                    <img 
+                        src="Carol.jpg" 
+                        alt="Carol" 
+                        className="rounded-full mx-auto mb-4 shadow-md" 
+                        style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                    />
                         <h4 className="text-xl font-semibold text-[#175EA5]">Carol</h4>
                         <p className="text-justify text-[#175EA5] mt-2">
-                            Carol es una profesional dedicada y apasionada por el mercado inmobiliario. Con años de experiencia en la industria, se enfoca en proporcionar soluciones personalizadas y en construir relaciones de confianza con nuestros clientes. Su visión estratégica y atención al detalle hacen que cada transacción sea eficiente y satisfactoria.
+                        He trabajado en proyectos diversos, desde el diseño corporativo para grandes empresas hasta la creación de productos.
+                        Mi enfoque combina creatividad, funcionalidad y un profundo entendimiento del cliente.
+                        Apasionada por crear marcas, espacios que perduran y productos con alma.
+                        Con más de 17 años de experiencia en el sector inmobiliario y más de 35 como Diseñador he desarrollado una profunda
+                        comprensión de cómo el diseño de un espacio puede influir significativamente en la calidad de vida de las personas.
+                        Mi enfoque se centra en entender al cliente, construir relaciones sólidas y de confianza basadas en la transparencia, la
+                        comunicación abierta y la atención a los detalles, maximizando el potencial de cada propiedad; empleando una
+                        estrategia sólida y una meticulosa planificación para garantizar que cada transacción se cierre de manera exitosa y
+                        satisfactoria.
+                        En resumen, mi pasión por el diseño y mi experiencia en el sector inmobiliario me permiten ayudar a mis clientes a
+                        encontrar el hogar perfecto y a transformar los espacios en lugares donde puedan disfrutar plenamente de la vida.
                         </p>
                     </div>
                     
                     {/* Susana */}
                     <div className="md:w-1/2 text-center p-4">
-                        <img 
-                            src="/Susana.jpeg" 
-                            alt="Susana" 
-                            className="rounded-full mx-auto mb-4 shadow-md" 
-                            style={{ width: '150px', height: '150px' }}
-                        />
+                    <img 
+                        src="Susana.jpg" 
+                        alt="Susana" 
+                        className="rounded-full mx-auto mb-4 shadow-md" 
+                        style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                    />
                         <h4 className="text-xl font-semibold text-[#175EA5]">Susana</h4>
                         <p className="text-justify text-[#175EA5] mt-2">
-                            Susana Kornbluth Scherzer, arquitecta graduada de Pratt Institute en Nueva York y socia fundadora de Newland Propiedades, aporta más de 20 años de experiencia en el mercado inmobiliario. Su trayectoria abarca diseño de proyectos, remodelaciones y gestión de proyectos en áreas como telecomunicaciones, construcción y prefabricados de hormigón. Reconocida por su habilidad para establecer relaciones sólidas con clientes y expandir redes comerciales, Susana se distingue por un enfoque estratégico y personalizado en cada iniciativa.
+                        Susana aporta más de 35 años de experiencia en el mercado inmobiliario. A lolargo de su carrera, ha trabajado en el dise
+                        ño de proyectos arquitectónicos, remodelaciones y la gestión de proyectos ensectores como telecomunicaciones, constr
+                        ucción y prefabricados de hormigón. 
+                        Reconocida por su capacidad para construir relaciones duraderas con clientes y ampliar redes comerciales, se caracteriza
+                        por un enfoque estratégico y personalizado en cada proyecto. 
+                        Su habilidad para crear espacios funcionales y visualmente atractivos, junto con su dedicación al cliente, la posicionan co
+                        mo la profesional ideal para quienes buscan un hogar que se ajuste a su estilo de vida.
                         </p>
                     </div>
                 </div>

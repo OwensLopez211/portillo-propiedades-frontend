@@ -47,7 +47,7 @@ const Contact = () => {
       <Navbar />
       <SecondaryHero 
         title="Trabaja con Nosotros" 
-        subtitle="Nos encantaría saber de ti. ¡Ponte en contacto con nosotros!" 
+
         backgroundImage="/WorkWithUsBanner.jpg"
       />
 
@@ -55,10 +55,23 @@ const Contact = () => {
       <JoinUs
           title="¡Únete a nuestro equipo!"
           description={[
-              "No importa si tienes o no experiencia.",
-              "Lo que sí nos importa es que seas dinámico, proactivo, y apasionado."
+              "No importa si tienes o no experiencia tampoco nos importa tu edad,",
+              "lo que sí nos importa es que seas dinámico, proactivo, creativo, apasionado, positivo, colaborativo, flexible, con ganas de trabajar, emprendedor, optimista, alegre, entusiasta, constructivo, comprometido…",
+              "Nos encantaría saber de ti."
           ]}
           emailText="contacto@newlandpropiedades.cl"
+          additionalInfo={(
+            <div className="flex items-center space-x-2 mt-2">
+              <img 
+                src="estados-unidos.png" 
+                alt="American Flag" 
+                className="w-6 sm:w-8 h-auto object-contain"
+              />
+              <span className="text-sm sm:text-md font-medium text-[#175EA5]">
+                We speak English
+              </span>
+            </div>
+          )}
           lockedSubject={lockedSubject} // Pasa el asunto como propiedad
           buttonText="Enviar"
           onSubmit={handleFormSubmit}

@@ -5,7 +5,8 @@ import {
   FaInstagram,
   FaFacebookF,
   FaFacebookMessenger,
-} from 'react-icons/fa'; // comentado FaTiktok
+  FaWhatsapp,
+} from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -30,11 +31,24 @@ const Footer = () => {
                 Contacto@newlandpropiedades.cl
               </a>
             </li>
-            <li className="flex items-center">
-              <FaPhoneAlt className="text-xl" />
-              <a href="tel:+56 9 9847 2202" className="hover:underline hover:text-gray-300 transition duration-300 ml-2 text-lg">
-                +56 9 9847 2202
-              </a>
+            <li className="flex flex-col items-start lg:items-end">
+              <div className="flex items-center">
+                <FaPhoneAlt className="text-xl" />
+                <a href="tel:+56 9 9847 2202" className="hover:underline hover:text-gray-300 transition duration-300 ml-2 text-lg">
+                  +56 9 9847 2202
+                </a>
+              </div>
+              {/* We Speak English */}
+              <div className="flex items-center space-x-2 mt-2">
+                <img 
+                  src="estados-unidos.png" 
+                  alt="American Flag" 
+                  className="w-6 sm:w-8 h-auto object-contain"
+                />
+                <span className="text-xs sm:text-sm font-medium text-white">
+                  We speak English
+                </span>
+              </div>
             </li>
           </ul>
 
@@ -44,7 +58,7 @@ const Footer = () => {
               href="https://www.instagram.com/newlandpropiedades/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl hover:text-gray-300 transition duration-300"
+              className="text-xl text-pink-500 hover:text-gray-300 transition duration-300"
             >
               <FaInstagram />
             </a>
@@ -52,7 +66,7 @@ const Footer = () => {
               href="https://www.instagram.com/terrenosysitioschile/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl hover:text-gray-300 transition duration-300"
+              className="text-xl text-pink-500 hover:text-gray-300 transition duration-300"
             >
               <FaInstagram />
             </a>
@@ -60,25 +74,25 @@ const Footer = () => {
               href="https://www.facebook.com/newlandpropiedades"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl hover:text-gray-300 transition duration-300"
+              className="text-xl text-blue-600 hover:text-gray-300 transition duration-300"
             >
               <FaFacebookF />
             </a>
-{/*             <a
-              href="https://www.tiktok.com/@newland_propiedades"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xl hover:text-gray-300 transition duration-300"
-            >
-              <FaTiktok />
-            </a> */}
             <a
               href="https://m.me/newlandpropiedades"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl hover:text-gray-300 transition duration-300"
+              className="text-xl text-blue-500 hover:text-gray-300 transition duration-300"
             >
               <FaFacebookMessenger />
+            </a>
+            <a
+              href="https://wa.me/56998472202"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-green-500 hover:text-gray-300 transition duration-300"
+            >
+              <FaWhatsapp />
             </a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaInstagram, FaFacebookF, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaFacebookMessenger, FaWhatsapp} from 'react-icons/fa';
 
 const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedSubject, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -61,36 +61,65 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                     <h4 className="text-lg font-bold text-[#175EA5]">Correo electrónico</h4>
                     <p className="text-[#175EA5] font-semibold">{emailText}</p>
                 </div>
+                {/* Teléfono */}
+                <div className="flex items-center justify-center space-x-2 mt-4">
+                    <FaWhatsapp className="text-lg sm:text-xl text-[#175EA5]" />
+                    <a 
+                        href="https://wa.me/56998472202" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-sm sm:text-base font-medium text-[#175EA5]"
+                    >
+                        +56 9 9847 2202
+                    </a>
+                </div>
+
+
+                <div className="flex items-center justify-center space-x-2 mt-2">
+                    <img 
+                        src="estados-unidos.png" 
+                        alt="American Flag" 
+                        className="w-6 sm:w-8 h-auto object-contain"
+                    />
+                    <span className="text-sm sm:text-base font-medium text-[#175EA5]">
+                        We speak English
+                    </span>
+                </div>
                 <div className="mt-4">
                     <h4 className="text-lg font-bold text-[#175EA5]">Redes sociales</h4>
                     <div className="flex items-center justify-center space-x-4 mt-2">
+                        {/* Instagram */}
                         <FaInstagram 
-                            className="text-[#175EA5] hover:text-purple-500 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://www.instagram.com/newland_propiedades_/', '_blank')}
+                        className="text-pink-500 hover:text-pink-400 transition duration-300 cursor-pointer"
+                        size={30} 
+                        onClick={() => window.open('https://www.instagram.com/newland_propiedades_/', '_blank')}
                         />
                         <FaInstagram 
-                            className="text-[#175EA5] hover:text-orange-500 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://www.instagram.com/terrenosysitioschile/', '_blank')}
+                        className="text-pink-500 hover:text-pink-400 transition duration-300 cursor-pointer"
+                        size={30} 
+                        onClick={() => window.open('https://www.instagram.com/terrenosysitioschile/', '_blank')}
                         />
+                        {/* Facebook */}
                         <FaFacebookF 
-                            className="text-[#175EA5] hover:text-blue-700 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://www.facebook.com/newlandpropiedades', '_blank')}
+                        className="text-blue-600 hover:text-blue-500 transition duration-300 cursor-pointer"
+                        size={30} 
+                        onClick={() => window.open('https://www.facebook.com/newlandpropiedades', '_blank')}
                         />
+                        {/* Messenger */}
                         <FaFacebookMessenger 
-                            className="text-[#175EA5] hover:text-blue-500 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://m.me/newlandpropiedades', '_blank')}
+                        className="text-blue-500 hover:text-blue-400 transition duration-300 cursor-pointer"
+                        size={30} 
+                        onClick={() => window.open('https://m.me/newlandpropiedades', '_blank')}
                         />
+                        {/* WhatsApp */}
                         <FaWhatsapp 
-                            className="text-[#175EA5] hover:text-green-600 transition duration-300 cursor-pointer"
-                            size={30} 
-                            onClick={() => window.open('https://wa.me/56912345678', '_blank')}
+                        className="text-green-500 hover:text-green-400 transition duration-300 cursor-pointer"
+                        size={30} 
+                        onClick={() => window.open('https://wa.me/56912345678', '_blank')}
                         />
                     </div>
                 </div>
+
             </div>
 
             <div className="lg:w-1/2 mt-6 lg:mt-0 flex justify-center">
@@ -101,7 +130,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                         placeholder="Nombre" 
                         value={formData.name} 
                         onChange={handleChange} 
-                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#175EA5]"
                     />
                     <input 
                         type="email" 
@@ -109,7 +138,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                         placeholder="Correo electrónico" 
                         value={formData.email} 
                         onChange={handleChange} 
-                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#175EA5]"
                     />
                     <input 
                         type="tel" 
@@ -117,7 +146,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                         placeholder="Celular" 
                         value={formData.phone} 
                         onChange={handleChange} 
-                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#175EA5]"
                     />
                     
                     {lockedSubject ? (
@@ -126,7 +155,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                             name="subject" 
                             value={lockedSubject} 
                             readOnly 
-                            className="p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-200"
+                            className="p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-200 text-[#175EA5]"
                         />
                     ) : (
                         <input 
@@ -135,7 +164,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                             placeholder={extraField} 
                             value={formData.subject} 
                             onChange={handleChange} 
-                            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#175EA5]"
                         />
                     )}
                     
@@ -145,7 +174,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                             placeholder="Mensaje (max 200 caracteres)" 
                             value={formData.message} 
                             onChange={handleChange} 
-                            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#175EA5]"
                             rows="4"
                             maxLength={200}
                             style={{ width: '100%', height: '150px', resize: 'none' }}

@@ -16,7 +16,7 @@ const AboutUs = () => {
 
       {/* Secondary Hero Section */}
       <SecondaryHero 
-        title="Quiénes Somos"
+        title="Nosotros"
         backgroundImage="/aboutusBanner.jpg" // Cambia esto por la ruta de tu imagen
       />
 

@@ -39,10 +39,10 @@ const Topbar = () => {
             <div className="flex items-center space-x-2">
               <FaPhoneAlt className="text-lg sm:text-xl text-[#175EA5]" />
               <a 
-                href="tel:+56223456789" 
+                href="tel:+56998472202" 
                 className="text-xs sm:text-sm font-medium"
               >
-                +56 2 2345 6789
+                +56 9 9847 2202
               </a>
             </div>
 
@@ -56,6 +56,18 @@ const Topbar = () => {
                 contacto@newlandpropiedades.cl
               </a>
             </div>
+            <div className="flex items-center space-x-2">
+              <img 
+                src="estados-unidos.png" 
+                alt="American Flag" 
+                className="w-6 sm:w-8 h-auto object-contain"
+              />
+              <span className="text-xs sm:text-sm font-medium text-[#175EA5]">
+                We speak English
+              </span>
+            </div>
+
+
           </div>
 
           {/* Column 2 (Other Social Links) */}

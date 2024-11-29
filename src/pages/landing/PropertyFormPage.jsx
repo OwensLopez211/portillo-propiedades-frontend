@@ -50,9 +50,12 @@ const EntreganosTuPropiedad = () => {
       />
 
       <JoinUs
+    
           title="Entréganos tu propiedad"
           description={[
-              "Porque entendemos tus necesidades, VALORIZAMOS tu propiedad SIN COSTO y NOS ENCARGAMOS DEL RESTO.",
+            <>
+                Porque entendemos tus necesidades, <strong>VALORIZAMOS</strong> tu propiedad <strong>SIN COSTO</strong> y nos encargamos del resto. 
+            </>,
               "¡Vende o arrienda sin preocupaciones!",
               "Toda información que nos proporciones es absolutamente confidencial.",
               "Solo necesitamos tu email o número de celular para poder comunicarnos."
@@ -67,6 +70,7 @@ const EntreganosTuPropiedad = () => {
             tiktok: "https://www.tiktok.com/@newland_propiedades",
             messenger: "https://www.messenger.com/t/newland_propiedades",
           }}
+
       />
       <FloatingSocialButtons />
       <Footer />

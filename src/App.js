@@ -6,7 +6,7 @@ import Services from './pages/landing/Services';
 import WorkWithUs from './pages/landing/WorkWithUs';
 import PropertiesPage from './pages/landing/PropertiesPage';
 import PropertyFormPage from './pages/landing/PropertyFormPage';
-/* import FeePage from './pages/landing/FeePage'; */
+ import FeePage from './pages/landing/FeePage';
 import PropertyDetail from './pages/landing/details/PropertyDetail';
 import Login from './pages/Login';
 import PrivateRoute from './components/Private/PrivateRoute'; // Componente de rutas protegidas
@@ -31,7 +31,7 @@ function App() {
         <Route path="/contacto" element={<WorkWithUs />} />
         <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/entreganos-propiedad" element={<PropertyFormPage />} />
-        {/* <Route path="/honorarios" element={<FeePage />} /> */}
+         <Route path="/honorarios" element={<FeePage />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/callback" element={<Callback />} />
 {/*         <Route path="/News" element={<NewsPage />} /> */}

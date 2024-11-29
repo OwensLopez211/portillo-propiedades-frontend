@@ -61,14 +61,14 @@ const Navbar = () => {
               Entreganos tu propiedad
             </a>
             
-{/*             <a
+            <a
               href="/honorarios"
               className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive('/honorarios') ? 'bg-white text-[#175EA5]' : 'text-white hover:bg-white hover:text-[#175EA5]'
               }`}
             >
               Honorarios
-            </a> */}
+            </a>
             <a
               href="/servicios"
               className={`block lg:inline-block font-semibold py-1 px-3 lg:px-4 text-sm rounded transition-all duration-300 ease-in-out transform hover:scale-105 ${

@@ -41,9 +41,9 @@ const NavbarMobile = () => {
           <a href="/entreganos-propiedad" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
             Entreganos tu propiedad
           </a>
-{/*           <a href="/honorarios" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
+           <a href="/honorarios" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
             Honorarios
-          </a> */}
+          </a>
           <a href="/servicios" className="block text-white font-semibold hover:bg-white hover:text-[#175EA5] py-2 px-4 rounded-tl-md rounded-bl-md transition duration-300 text-center focus:outline-none">
             Servicios
           </a>
