@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import FormProgress from './PropertyForm/FormProgress'; // Reutilizamos el FormProgress
+import FormProgress from './PropertyForm/FormProgress';
 import BasicInfo from './PropertyForm/BasicInfo';
 import PropertyDetails from './PropertyForm/PropertyDetails';
 import LocationInfo from './PropertyForm/LocationInfo';
@@ -12,7 +12,6 @@ const EditProperty = () => {
   const navigate = useNavigate();
   const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -32,6 +31,7 @@ const EditProperty = () => {
     images: [],
     gastos_comunes: '',
     ubicacion_referencia: '',
+    moneda_precio: 'CLP',
   });
 
   const [agents, setAgents] = useState([]);
@@ -40,128 +40,58 @@ const EditProperty = () => {
   const [error, setError] = useState(null);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  // Función para cargar datos de la propiedad
-  const fetchPropertyData = async (token) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/properties/${id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-  
-      console.log('Datos recibidos de la propiedad:', response.data);
-      console.log('Region:', response.data.region);
-      console.log('Comuna:', response.data.comuna);
-  
-      const propertyData = response.data;
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        title: propertyData.title || '',
-        description: propertyData.descripcion || '',
-        precio_venta: propertyData.precio_venta || '',
-        precio_renta: propertyData.precio_renta || '',
-        tipo_operacion: propertyData.tipo_operacion || '',
-        tipo_propiedad: propertyData.tipo_propiedad || '',
-        habitaciones: propertyData.habitaciones || '',
-        baños: propertyData.baños || '',
-        superficie_total: propertyData.superficie_total || '',
-        superficie_cubierta: propertyData.superficie_cubierta || '',
-        direccion: propertyData.direccion || '',
-        region: propertyData.region || '', // Cambiar propertyData.region?.id por propertyData.region
-        comuna: propertyData.comuna || '',
-        is_featured: propertyData.is_featured || false,
-        agent: propertyData.agent || '',
-        images: propertyData.images.map((img) => ({
-          id: img.id,
-          image_url: img.image_url,
-        })),
-        imagesToDelete: [],
-        gastos_comunes: propertyData.gastos_comunes || '',
-        ubicacion_referencia: propertyData.ubicacion_referencia || '',
-        moneda_precio: propertyData.moneda_precio || 'CLP',
+  const handleCurrencyChange = (e) => {
+    const newCurrency = e.target.value;
+    setFormData(prevData => ({
+      ...prevData,
+      moneda_precio: newCurrency,
+      precio_venta: prevData.precio_venta ? '' : prevData.precio_venta,
+      precio_renta: prevData.precio_renta ? '' : prevData.precio_renta,
+    }));
+  };
+
+  const unformatNumber = (value) => {
+    if (!value) return '';
+    return value.replace(/\./g, '');
+  };
+
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    const unformattedValue = unformatNumber(value);
+    
+    if (unformattedValue === '' || /^\d*$/.test(unformattedValue)) {
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: unformattedValue,
+        // Mantener los otros valores sin modificar
+        precio_venta: name === 'precio_venta' ? unformattedValue : prevData.precio_venta,
+        precio_renta: name === 'precio_renta' ? unformattedValue : prevData.precio_renta
       }));
-
-      if (propertyData.region) {
-        await loadComunas(propertyData.region, token);
-      }
-  
-      return propertyData;
-    } catch (err) {
-      console.error('Error al cargar la propiedad:', err);
-      setError('Error al cargar los datos de la propiedad');
-      throw err;
     }
   };
 
-  // Función para cargar regiones
-  const fetchRegions = async (token) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/regions/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log('Regiones obtenidas:', response.data);
-      setRegions(response.data);
-    } catch (err) {
-      console.error('Error al cargar regiones:', err);
-    }
-  };
-
-  // Función para cargar agentes
-  const fetchAgents = async (token) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/agents/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log('Agentes obtenidos:', response.data);
-      setAgents(response.data);
-    } catch (err) {
-      console.error('Error al cargar agentes:', err);
-    }
-  };
-
-  // Función para cargar comunas según la región seleccionada
-  const loadComunas = async (regionId, token) => {
+  const loadComunas = useCallback(async (regionId, token) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/regions/${regionId}/comunas/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('Comunas para región ID:', regionId, response.data);
       setComunas(response.data);
     } catch (err) {
       console.error('Error al cargar comunas:', err);
     }
-  };
+  }, [API_BASE_URL]);
 
-  // Manejo del cambio de región
-  const handleRegionChange = async (e) => {
+  const handleRegionChange = useCallback(async (e) => {
     const selectedRegionId = e.target.value;
-    console.log('Región seleccionada:', selectedRegionId);
     setFormData((prevFormData) => ({
       ...prevFormData,
       region: selectedRegionId,
-      comuna: '', // Limpiar comuna al cambiar región
+      comuna: '',
     }));
 
     const token = localStorage.getItem('authToken');
     await loadComunas(selectedRegionId, token);
-  };
-
-
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        await Promise.all([
-          fetchPropertyData(token),
-          fetchRegions(token),
-          fetchAgents(token),
-        ]);
-      } catch (err) {
-        console.error('Error al cargar los datos iniciales:', err);
-        setError('Error al cargar los datos iniciales');
-      }
-    };
-  
-    fetchInitialData();
-  }, [API_BASE_URL, id, ]);
+  }, [loadComunas]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -183,13 +113,98 @@ const EditProperty = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchPropertyData = async (token) => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/properties/${id}/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const propertyData = response.data;
+        setFormData(prevData => ({
+          ...prevData,
+          title: propertyData.title || '',
+          description: propertyData.descripcion || '',
+          precio_venta: propertyData.precio_venta || '',
+          precio_renta: propertyData.precio_renta || '',
+          tipo_operacion: propertyData.tipo_operacion || '',
+          tipo_propiedad: propertyData.tipo_propiedad || '',
+          habitaciones: propertyData.habitaciones || '',
+          baños: propertyData.baños || '',
+          superficie_total: propertyData.superficie_total || '',
+          superficie_cubierta: propertyData.superficie_cubierta || '',
+          direccion: propertyData.direccion || '',
+          region: propertyData.region || '',
+          comuna: propertyData.comuna || '',
+          is_featured: propertyData.is_featured || false,
+          agent: propertyData.agent || '',
+          images: propertyData.images.map(img => ({
+            id: img.id,
+            image_url: img.image_url,
+          })),
+          imagesToDelete: [],
+          gastos_comunes: propertyData.gastos_comunes || '',
+          ubicacion_referencia: propertyData.ubicacion_referencia || '',
+          moneda_precio: propertyData.moneda_precio || 'CLP',
+        }));
+
+        if (propertyData.region) {
+          await loadComunas(propertyData.region, token);
+        }
+      } catch (err) {
+        console.error('Error al cargar la propiedad:', err);
+        setError('Error al cargar los datos de la propiedad');
+        throw err;
+      }
+    };
+
+    const fetchRegions = async (token) => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/regions/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setRegions(response.data);
+      } catch (err) {
+        console.error('Error al cargar regiones:', err);
+      }
+    };
+
+    const fetchAgents = async (token) => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/agents/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAgents(response.data);
+      } catch (err) {
+        console.error('Error al cargar agentes:', err);
+      }
+    };
+
+    const fetchInitialData = async () => {
+      const token = localStorage.getItem('authToken');
+      try {
+        await Promise.all([
+          fetchPropertyData(token),
+          fetchRegions(token),
+          fetchAgents(token),
+        ]);
+      } catch (err) {
+        console.error('Error al cargar los datos iniciales:', err);
+        setError('Error al cargar los datos iniciales');
+      }
+    };
+
+    fetchInitialData();
+  }, [API_BASE_URL, id, loadComunas]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isReadyToSubmit || currentStep !== 4) {
-      return; // Evitar envío si no es el último paso o no se presionó el botón de enviar
+      return;
     }
 
     const formDataToSend = new FormData();
+
     formDataToSend.append('title', formData.title);
     formDataToSend.append('descripcion', formData.description);
     formDataToSend.append('direccion', formData.direccion);
@@ -202,14 +217,20 @@ const EditProperty = () => {
     formDataToSend.append('is_featured', formData.is_featured);
     formDataToSend.append('agent', formData.agent);
 
-    // Agregar imágenes nuevas
+    formDataToSend.append('moneda_precio', formData.moneda_precio);
+    if (formData.precio_venta !== undefined && formData.precio_venta !== '') {
+      formDataToSend.append('precio_venta', unformatNumber(formData.precio_venta.toString()));
+    }
+    if (formData.precio_renta !== undefined && formData.precio_renta !== '') {
+      formDataToSend.append('precio_renta', unformatNumber(formData.precio_renta.toString()));
+    }
+
     formData.images.forEach((image) => {
       if (image instanceof File) {
         formDataToSend.append('images', image);
       }
     });
 
-    // Agregar IDs de imágenes a eliminar
     formDataToSend.append('imagesToDelete', JSON.stringify(formData.imagesToDelete || []));
 
     try {
@@ -241,7 +262,14 @@ const EditProperty = () => {
       case 1:
         return <BasicInfo formData={formData} handleChange={handleChange} agents={agents} />;
       case 2:
-        return <PropertyDetails formData={formData} handleChange={handleChange} />;
+        return (
+          <PropertyDetails
+            formData={formData}
+            handleChange={handleChange}
+            handleCurrencyChange={handleCurrencyChange}
+            handlePriceChange={handlePriceChange}
+          />
+        );
       case 3:
         return (
           <LocationInfo
@@ -258,7 +286,6 @@ const EditProperty = () => {
         return null;
     }
   };
-  
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -266,7 +293,14 @@ const EditProperty = () => {
         {error && <div className="bg-red-50 text-red-800 p-4 rounded-md">{error.message}</div>}
         <FormProgress currentStep={currentStep} />
         <form onSubmit={handleSubmit}>
-          {renderStep()}
+          {currentStep === 2 ? (
+            <PropertyDetails
+              formData={formData}
+              handleChange={handleChange}
+              handleCurrencyChange={handleCurrencyChange}
+              handlePriceChange={handlePriceChange}
+            />
+          ) : renderStep()}
 
           <div className="mt-8 flex justify-between">
             {currentStep > 1 && (
@@ -289,7 +323,7 @@ const EditProperty = () => {
             ) : (
               <button
                 type="submit"
-                onClick={() => setIsReadyToSubmit(true)} // Solo activa el envío en el último paso
+                onClick={() => setIsReadyToSubmit(true)}
                 className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 ml-auto"
               >
                 Guardar Cambios

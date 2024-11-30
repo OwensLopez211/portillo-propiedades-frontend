@@ -40,6 +40,51 @@ const PropertyPageCard = ({ property }) => {
     prevArrow: <PrevArrow />,
   };
 
+  const UF_VALUE = property.valor_uf_al_momento || 0;
+
+  const formatToCLP = (amount) => {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+  
+  const formatToUF = (amount) => {
+    return new Intl.NumberFormat('es-CL', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  };
+
+  const renderPrice = (priceInfo) => {
+    const { precio_clp, precio_uf, tipo } = priceInfo;
+  
+    if (precio_uf > 0) {
+      // Si el precio fue ingresado en UF
+      return (
+        <>
+          <p className="text-sm uppercase">Precio {tipo}:</p>
+          <p className="font-bold text-lg">{formatToCLP(precio_uf * UF_VALUE)}</p>
+          <p className="text-sm text-gray-500">UF {formatToUF(precio_uf)}</p>
+        </>
+      );
+    } else if (precio_clp > 0) {
+      // Si el precio fue ingresado en CLP
+      return (
+        <>
+          <p className="text-sm uppercase">Precio {tipo}:</p>
+          <p className="font-bold text-lg">{formatToCLP(precio_clp)}</p>
+          <p className="text-sm text-gray-500">UF {formatToUF(precio_clp / UF_VALUE)}</p>
+        </>
+      );
+    }
+    return null;
+  };
+  
+  
+
   return (
     <div
       key={property.id}
@@ -85,14 +130,32 @@ const PropertyPageCard = ({ property }) => {
         <p className="text-[#175EA5] mb-2">Ubicación de referencia: <span className="font-medium">{property.ubicacion_referencia || 'Ubicación de referencia no disponible'}</span></p>
         
         <div className="text-[#175EA5] mb-4 min-h-[60px]">
-          {/* Mostrar solo los precios que no sean cero */}
-          {property.precio_venta > 0 && (
-            <p>Precio de Venta: <span className="font-bold">${formatPrice(property.precio_venta)}</span></p>
+          {(property.precio_venta > 0 || property.precio_venta_uf > 0) && (
+            <div className="mb-2">
+              {renderPrice({
+                precio_clp: property.precio_venta,
+                precio_uf: property.precio_venta_uf,
+                tipo: 'Venta',
+              })}
+            </div>
           )}
-          {property.precio_renta > 0 && (
-            <p>Precio de Arriendo: <span className="font-bold">${formatPrice(property.precio_renta)}</span></p>
+          {(property.precio_renta > 0 || property.precio_renta_uf > 0) && (
+            <div className="mb-2">
+              {renderPrice({
+                precio_clp: property.precio_renta,
+                precio_uf: property.precio_renta_uf,
+                tipo: 'Arriendo',
+              })}
+            </div>
           )}
+          {!property.precio_venta &&
+            !property.precio_venta_uf &&
+            !property.precio_renta &&
+            !property.precio_renta_uf && (
+              <p className="font-bold">Precio no disponible</p>
+            )}
         </div>
+
 
         {/* Información adicional del agente */}
         <div className="flex items-center mt-4">

@@ -26,7 +26,10 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
 
   const formatNumber = (value) => {
     if (!value) return '';
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Formatea números con puntos para miles, millones, etc.
+    // Convertir a entero eliminando decimales y formatear con puntos
+    return Math.floor(Number(value))
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
   return (
@@ -70,8 +73,8 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
           {formData.precio_venta
             ? formatNumber(
                 formData.moneda_precio === 'CLP'
-                  ? Math.round(formData.precio_venta / valorUF) // CLP a UF
-                  : Math.round(formData.precio_venta * valorUF) // UF a CLP
+                  ? Math.floor(formData.precio_venta / valorUF) // CLP a UF
+                  : Math.floor(formData.precio_venta * valorUF) // UF a CLP
               )
             : '0'}
         </p>
@@ -91,23 +94,11 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
           {formData.precio_renta
             ? formatNumber(
                 formData.moneda_precio === 'CLP'
-                  ? Math.round(formData.precio_renta / valorUF)
-                  : Math.round(formData.precio_renta * valorUF)
+                  ? Math.floor(formData.precio_renta / valorUF)
+                  : Math.floor(formData.precio_renta * valorUF)
               )
             : '0'}
         </p>
-      </div>
-
-      {/* Otros campos */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Habitaciones</label>
-        <input
-          type="number"
-          name="habitaciones"
-          value={formData.habitaciones}
-          onChange={handleChange}
-          className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-        />
       </div>
 
       {/* Campos adicionales */}
