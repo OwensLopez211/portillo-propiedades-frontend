@@ -24,11 +24,9 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
     fetchUF();
   }, [API_BASE_URL]);
 
-  const calculateAlternativePrice = (precio, moneda) => {
-    if (!precio || !valorUF) return ''; // Si no hay precio o UF, no calcula
-    return moneda === 'UF'
-      ? (precio * valorUF).toFixed(2) // Convierte UF a CLP
-      : (precio / valorUF).toFixed(2); // Convierte CLP a UF
+  const formatNumber = (value) => {
+    if (!value) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Formatea números con puntos para miles, millones, etc.
   };
 
   return (
@@ -49,9 +47,10 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
         <select
           name="moneda_precio"
           value={formData.moneda_precio}
-          onChange={handleChange}
+          onChange={handleCurrencyChange} // Cambia esta línea
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
+
           <option value="CLP">CLP (Pesos Chilenos)</option>
           <option value="UF">UF</option>
         </select>
@@ -60,28 +59,42 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
       <div>
         <label className="block text-sm font-medium text-gray-700">Precio Venta</label>
         <input
-          type="number"
+          type="text" // Cambiar a text para permitir formateo
           name="precio_venta"
-          value={formData.precio_venta}
-          onChange={handleChange}
+          value={formatNumber(formData.precio_venta)} // Mostrar formateado
+          onChange={handlePriceChange} // Usar la nueva función
           className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
         />
         <p className="text-sm text-gray-500 mt-1">
-          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}: {calculateAlternativePrice(formData.precio_venta, formData.moneda_precio)}
+          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}:{' '}
+          {formData.precio_venta
+            ? formatNumber(
+                formData.moneda_precio === 'CLP'
+                  ? Math.round(formData.precio_venta / valorUF) // CLP a UF
+                  : Math.round(formData.precio_venta * valorUF) // UF a CLP
+              )
+            : '0'}
         </p>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">Precio Arriendo</label>
         <input
-          type="number"
+          type="text"
           name="precio_renta"
-          value={formData.precio_renta}
-          onChange={handleChange}
+          value={formatNumber(formData.precio_renta)}
+          onChange={handlePriceChange}
           className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
         />
         <p className="text-sm text-gray-500 mt-1">
-          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}: {calculateAlternativePrice(formData.precio_renta, formData.moneda_precio)}
+          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}:{' '}
+          {formData.precio_renta
+            ? formatNumber(
+                formData.moneda_precio === 'CLP'
+                  ? Math.round(formData.precio_renta / valorUF)
+                  : Math.round(formData.precio_renta * valorUF)
+              )
+            : '0'}
         </p>
       </div>
 

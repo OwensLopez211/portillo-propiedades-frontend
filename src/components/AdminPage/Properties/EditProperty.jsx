@@ -161,7 +161,7 @@ const EditProperty = () => {
     };
   
     fetchInitialData();
-  }, [API_BASE_URL, id]);
+  }, [API_BASE_URL, id, ]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

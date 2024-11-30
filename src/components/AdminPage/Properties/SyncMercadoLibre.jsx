@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const MercadoLibreItems = () => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
-    const API_BASE_URL = process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchItems = async () => {

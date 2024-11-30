@@ -84,6 +84,15 @@ const AddProperty = () => {
     });
   };
 
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    const unformattedValue = unformatNumber(value); // Eliminar puntos antes de formatear
+    const formattedValue = formatNumber(unformattedValue); // Formatear con puntos
+    setFormData({ ...formData, [name]: unformattedValue });
+    e.target.value = formattedValue; // Mostrar formateado en el input
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentStep !== 4) return; // Asegúrate de que solo se envíe el formulario en el último paso
@@ -178,6 +187,27 @@ const validateStep = () => {
   return Object.keys(stepErrors).length === 0; // Devuelve true si no hay errores
 };
 
+const formatNumber = (value) => {
+  if (!value) return '';
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Agregar puntos cada tres dígitos
+};
+
+const unformatNumber = (value) => {
+  if (!value) return '';
+  return value.replace(/\./g, ''); // Eliminar puntos para convertir a número
+};
+
+const handleCurrencyChange = (e) => {
+  const newCurrency = e.target.value;
+  setFormData((prevData) => ({
+    ...prevData,
+    moneda_precio: newCurrency,
+    precio_venta: '',
+    precio_renta: '',
+  }));
+};
+
+
 // Avanzar al siguiente paso
 const handleNextStep = () => {
   if (validateStep()) {
@@ -212,7 +242,10 @@ const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
           <PropertyDetails
             formData={formData}
             handleChange={handleChange}
+            handleCurrencyChange={handleCurrencyChange}
+            handlePriceChange={handlePriceChange}
           />
+
         );
       case 3:
         return (

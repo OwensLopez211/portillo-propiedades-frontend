@@ -52,6 +52,30 @@ const PropertyTable = () => {
     }
   };
 
+  const handlePublishToggle = async (propertyId, currentState) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      await axios.patch(
+        `${API_BASE_URL}/api/properties/${propertyId}/`,
+        { is_published: !currentState },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        }
+      );
+      
+      setProperties(properties.map(property => 
+        property.id === propertyId 
+          ? { ...property, is_published: !property.is_published }
+          : property
+      ));
+    } catch (err) {
+      console.error('Error al cambiar el estado de publicación:', err);
+      setError('Error al actualizar el estado de la propiedad');
+    }
+  };
+
   const filteredProperties = properties.filter(property =>
     property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     property.tipo_propiedad.toLowerCase().includes(searchTerm.toLowerCase())
@@ -105,6 +129,7 @@ const PropertyTable = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Habitaciones</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Baños</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
             </tr>
           </thead>
@@ -116,6 +141,22 @@ const PropertyTable = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{property.tipo_propiedad}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{property.habitaciones}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{property.baños}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        checked={property.is_published}
+                        onChange={() => handlePublishToggle(property.id, property.is_published)}
+                      />
+                      <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                    <span className="ml-2 text-sm text-gray-600">
+                      {property.is_published ? 'Publicada' : 'No publicada'}
+                    </span>
+                  </div>
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                   <button
                     onClick={() => handleEdit(property.id)}
@@ -136,7 +177,6 @@ const PropertyTable = () => {
         </table>
       </div>
 
-      {/* Paginación */}
       <div className="flex justify-between items-center mt-4 flex-col sm:flex-row space-y-4 sm:space-y-0">
         <div className="text-sm text-gray-700">
           Mostrando {indexOfFirstItem + 1} a {Math.min(indexOfLastItem, filteredProperties.length)} de {filteredProperties.length} propiedades
