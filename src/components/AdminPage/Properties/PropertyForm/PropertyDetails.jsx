@@ -10,7 +10,7 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
     // Llama al endpoint del backend para obtener el valor actual de la UF
     const fetchUF = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/uf/'); // Endpoint del backend
+        const response = await axios.get(`${API_BASE_URL}/api/uf/`); // Endpoint del backend
         setValorUF(response.data.valor_uf);
         setLoadingUF(false);
       } catch (error) {
