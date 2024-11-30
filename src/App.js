@@ -7,7 +7,7 @@ import WorkWithUs from './pages/landing/WorkWithUs';
 import PropertiesPage from './pages/landing/PropertiesPage';
 import PropertyFormPage from './pages/landing/PropertyFormPage';
  import FeePage from './pages/landing/FeePage';
-import PropertyDetail from './pages/landing/details/PropertyDetail';
+import PropertyDetail from './pages/landing/PropertyDetail';
 import Login from './pages/Login';
 import PrivateRoute from './components/Private/PrivateRoute'; // Componente de rutas protegidas
 import Home from './components/AdminPage/Home';
