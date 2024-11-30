@@ -5,12 +5,13 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
   const [valorUF, setValorUF] = useState(null); // Estado para el valor de la UF
   const [loadingUF, setLoadingUF] = useState(true); // Estado de carga
   const [errorUF, setErrorUF] = useState(false); // Estado de error
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // Llama al endpoint del backend para obtener el valor actual de la UF
     const fetchUF = async () => {
       try {
-        const response = await axios.get(`${REACT_APP_API_URL}/api/uf/`); // Endpoint del backend
+        const response = await axios.get(`${API_BASE_URL}/api/uf/`); // Endpoint del backend
         setValorUF(response.data.valor_uf);
         setLoadingUF(false);
       } catch (error) {
@@ -21,7 +22,7 @@ const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handleP
     };
 
     fetchUF();
-  }, []);
+  }, [API_BASE_URL]);
 
   const calculateAlternativePrice = (precio, moneda) => {
     if (!precio || !valorUF) return ''; // Si no hay precio o UF, no calcula
