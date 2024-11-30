@@ -1,23 +1,13 @@
 import React from 'react';
-import { formatNumber, parseFormNumber } from '../../../utils/validationUtils';
 
 const BasicInfo = ({ formData, handleChange, agents, errors }) => {
-  const handleNumberChange = (e) => {
-    const { name, value } = e.target;
-    const parsedValue = parseFormNumber(value);
-    handleChange({
-      target: {
-        name,
-        value: parsedValue
-      }
-    });
-  };
 
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold text-gray-800">Información Básica</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Campo: Título */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Título <span className="text-red-500">*</span>
@@ -37,6 +27,7 @@ const BasicInfo = ({ formData, handleChange, agents, errors }) => {
           )}
         </div>
 
+        {/* Campo: Tipo de operación */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Tipo de operación <span className="text-red-500">*</span>
@@ -59,58 +50,7 @@ const BasicInfo = ({ formData, handleChange, agents, errors }) => {
           )}
         </div>
 
-        {formData.tipo_operacion === 'venta' && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Precio de Venta <span className="text-red-500">*</span>
-            </label>
-            <div className="mt-1 relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500 sm:text-sm">$</span>
-              </div>
-              <input
-                type="text"
-                name="precio_venta"
-                value={formatNumber(formData.precio_venta)}
-                onChange={handleNumberChange}
-                className={`pl-7 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
-                  errors?.precio_venta ? 'border-red-300' : 'border-gray-300'
-                }`}
-                placeholder="Ej: 150.000.000"
-              />
-            </div>
-            {errors?.precio_venta && (
-              <p className="mt-1 text-sm text-red-600">{errors.precio_venta}</p>
-            )}
-          </div>
-        )}
-
-        {formData.tipo_operacion === 'arriendo' && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Precio de Arriendo <span className="text-red-500">*</span>
-            </label>
-            <div className="mt-1 relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500 sm:text-sm">$</span>
-              </div>
-              <input
-                type="text"
-                name="precio_renta"
-                value={formatNumber(formData.precio_renta)}
-                onChange={handleNumberChange}
-                className={`pl-7 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
-                  errors?.precio_renta ? 'border-red-300' : 'border-gray-300'
-                }`}
-                placeholder="Ej: 500.000"
-              />
-            </div>
-            {errors?.precio_renta && (
-              <p className="mt-1 text-sm text-red-600">{errors.precio_renta}</p>
-            )}
-          </div>
-        )}
-
+        {/* Campo: Descripción */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700">
             Descripción <span className="text-red-500">*</span>
@@ -130,6 +70,7 @@ const BasicInfo = ({ formData, handleChange, agents, errors }) => {
           )}
         </div>
 
+        {/* Campo: Agente */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Agente <span className="text-red-500">*</span>
@@ -154,6 +95,7 @@ const BasicInfo = ({ formData, handleChange, agents, errors }) => {
           )}
         </div>
 
+        {/* Campo: Propiedad destacada */}
         <div className="flex items-center space-x-2">
           <input
             type="checkbox"
@@ -162,15 +104,13 @@ const BasicInfo = ({ formData, handleChange, agents, errors }) => {
             onChange={handleChange}
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
-          <label className="text-sm text-gray-700">
-            Propiedad destacada
-          </label>
+          <label className="text-sm text-gray-700">Propiedad destacada</label>
         </div>
       </div>
 
+      {/* Nota de campos obligatorios */}
       <div className="text-xs text-gray-500 mt-4 border-t pt-4">
         <p>Los campos marcados con <span className="text-red-500">*</span> son obligatorios</p>
-        <p className="mt-1">Los precios deben ingresarse en pesos chilenos (CLP)</p>
       </div>
     </div>
   );

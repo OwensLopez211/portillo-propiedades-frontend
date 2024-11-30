@@ -125,6 +125,7 @@ const AddProperty = () => {
     formDataToSend.append('tipo_propiedad', formData.tipo_propiedad);
     formDataToSend.append('is_featured', formData.is_featured);
     formDataToSend.append('agent', formData.agent);
+    formDataToSend.append('moneda_precio', formData.moneda_precio);
 
     // Agregar imágenes
     if (formData.images && formData.images.length > 0) {

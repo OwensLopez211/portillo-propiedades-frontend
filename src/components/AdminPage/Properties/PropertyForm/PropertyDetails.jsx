@@ -1,126 +1,184 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const PropertyDetails = ({ formData, handleChange }) => {
+const PropertyDetails = ({ formData, handleChange, handleCurrencyChange, handlePriceChange }) => {
+  const [valorUF, setValorUF] = useState(null); // Estado para el valor de la UF
+  const [loadingUF, setLoadingUF] = useState(true); // Estado de carga
+  const [errorUF, setErrorUF] = useState(false); // Estado de error
+
+  useEffect(() => {
+    // Llama al endpoint del backend para obtener el valor actual de la UF
+    const fetchUF = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/uf/'); // Endpoint del backend
+        setValorUF(response.data.valor_uf);
+        setLoadingUF(false);
+      } catch (error) {
+        console.error('Error al obtener el valor de la UF:', error);
+        setErrorUF(true);
+        setLoadingUF(false);
+      }
+    };
+
+    fetchUF();
+  }, []);
+
+  const calculateAlternativePrice = (precio, moneda) => {
+    if (!precio || !valorUF) return ''; // Si no hay precio o UF, no calcula
+    return moneda === 'UF'
+      ? (precio * valorUF).toFixed(2) // Convierte UF a CLP
+      : (precio / valorUF).toFixed(2); // Convierte CLP a UF
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold text-gray-800">Detalles de la Propiedad</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Precio Venta</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="number"
-              name="precio_venta"
-              value={formData.precio_venta}
-              onChange={handleChange}
-              className="pl-7 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-            />
+
+      {loadingUF ? (
+        <p className="text-sm text-gray-500">Cargando valor de la UF...</p>
+      ) : errorUF ? (
+        <p className="text-sm text-red-500">Error al cargar el valor de la UF.</p>
+      ) : (
+        <p className="text-sm text-gray-500">Valor actual de la UF: {valorUF}</p>
+      )}
+
+      {/* Selector de moneda */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Moneda Principal</label>
+        <select
+          name="moneda_precio"
+          value={formData.moneda_precio}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        >
+          <option value="CLP">CLP (Pesos Chilenos)</option>
+          <option value="UF">UF</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Precio Venta</label>
+        <input
+          type="number"
+          name="precio_venta"
+          value={formData.precio_venta}
+          onChange={handleChange}
+          className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        />
+        <p className="text-sm text-gray-500 mt-1">
+          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}: {calculateAlternativePrice(formData.precio_venta, formData.moneda_precio)}
+        </p>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Precio Arriendo</label>
+        <input
+          type="number"
+          name="precio_renta"
+          value={formData.precio_renta}
+          onChange={handleChange}
+          className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        />
+        <p className="text-sm text-gray-500 mt-1">
+          Precio en {formData.moneda_precio === 'CLP' ? 'UF' : 'CLP'}: {calculateAlternativePrice(formData.precio_renta, formData.moneda_precio)}
+        </p>
+      </div>
+
+      {/* Otros campos */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Habitaciones</label>
+        <input
+          type="number"
+          name="habitaciones"
+          value={formData.habitaciones}
+          onChange={handleChange}
+          className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Campos adicionales */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Tipo de propiedad</label>
+        <select
+          name="tipo_propiedad"
+          value={formData.tipo_propiedad}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        >
+          <option value="">Seleccione un tipo de propiedad</option>
+          <option value="departamento">Departamentos</option>
+          <option value="casa">Casas</option>
+          <option value="oficina">Oficinas</option>
+          <option value="parcela">Parcelas</option>
+          <option value="terreno">Terrenos</option>
+          <option value="sitio">Sitios</option>
+          <option value="bodega">Bodegas</option>
+          <option value="industrial">Industriales</option>
+          <option value="agricola">Agrícola</option>
+          <option value="otros_inmuebles">Otros Inmuebles</option>
+          <option value="estacionamiento">Estacionamientos</option>
+          <option value="loteo">Loteos</option>
+          <option value="lotes_de_cementerio">Lotes de Cementerio</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Habitaciones</label>
+        <input
+          type="number"
+          name="habitaciones"
+          value={formData.habitaciones}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Baños</label>
+        <input
+          type="number"
+          name="baños"
+          value={formData.baños}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Superficie Total (m²)</label>
+        <input
+          type="number"
+          name="superficie_total"
+          value={formData.superficie_total}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Superficie Cubierta (m²)</label>
+        <input
+          type="number"
+          name="superficie_cubierta"
+          value={formData.superficie_cubierta}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Gastos Comunes</label>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span className="text-gray-500 sm:text-sm">$</span>
           </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Precio Arriendo</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="number"
-              name="precio_renta"
-              value={formData.precio_renta}
-              onChange={handleChange}
-              className="pl-7 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Tipo de propiedad</label>
-          <select
-            name="tipo_propiedad"
-            value={formData.tipo_propiedad}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="">Seleccione un tipo de propiedad</option>
-            <option value="departamento">Departamentos</option>
-            <option value="casa">Casas</option>
-            <option value="oficina">Oficinas</option>
-            <option value="parcela">Parcelas</option>
-            <option value="terreno">Terrenos</option>
-            <option value="sitio">Sitios</option>
-            <option value="bodega">Bodegas</option>
-            <option value="industrial">Industriales</option>
-            <option value="agricola">Agrícola</option>
-            <option value="otros_inmuebles">Otros Inmuebles</option>
-            <option value="estacionamiento">Estacionamientos</option>
-            <option value="loteo">Loteos</option>
-            <option value="lotes_de_cementerio">Lotes de Cementerio</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Habitaciones</label>
           <input
             type="number"
-            name="habitaciones"
-            value={formData.habitaciones}
+            name="gastos_comunes"
+            value={formData.gastos_comunes}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="pl-7 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Baños</label>
-          <input
-            type="number"
-            name="baños"
-            value={formData.baños}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Superficie Total (m²)</label>
-          <input
-            type="number"
-            name="superficie_total"
-            value={formData.superficie_total}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Superficie Cubierta (m²)</label>
-          <input
-            type="number"
-            name="superficie_cubierta"
-            value={formData.superficie_cubierta}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Gastos Comunes</label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="number"
-              name="gastos_comunes"
-              value={formData.gastos_comunes}
-              onChange={handleChange}
-              className="pl-7 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
         </div>
       </div>
     </div>

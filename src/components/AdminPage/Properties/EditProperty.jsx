@@ -76,6 +76,7 @@ const EditProperty = () => {
         imagesToDelete: [],
         gastos_comunes: propertyData.gastos_comunes || '',
         ubicacion_referencia: propertyData.ubicacion_referencia || '',
+        moneda_precio: propertyData.moneda_precio || 'CLP',
       }));
 
       if (propertyData.region) {
@@ -257,6 +258,7 @@ const EditProperty = () => {
         return null;
     }
   };
+  
 
   return (
     <div className="max-w-4xl mx-auto p-6">
