@@ -6,6 +6,14 @@ import PropertyDetails from './PropertyForm/PropertyDetails';
 import LocationInfo from './PropertyForm/LocationInfo';
 import MediaUpload from './PropertyForm/mediaUpload';
 import FormProgress from './PropertyForm/FormProgress';
+import { Card, CardContent } from '../../../components/ui/card';
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Save,
+  AlertCircle,
+  Loader
+} from 'lucide-react';
 
 const AddProperty = () => {
   const navigate = useNavigate();
@@ -33,6 +41,7 @@ const AddProperty = () => {
     is_featured: false,
     agent: '',
     images: [],
+    moneda_precio: '',
   });
 
   const [agents, setAgents] = useState([]);
@@ -40,6 +49,7 @@ const AddProperty = () => {
   const [comunas, setComunas] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -84,22 +94,59 @@ const AddProperty = () => {
     });
   };
 
+  const formatNumber = (value) => {
+    if (!value) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
+  const unformatNumber = (value) => {
+    if (!value) return '';
+    return value.replace(/\./g, '');
+  };
+
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
-    const unformattedValue = unformatNumber(value); // Eliminar puntos antes de formatear
-    const formattedValue = formatNumber(unformattedValue); // Formatear con puntos
+    const unformattedValue = unformatNumber(value);
+    const formattedValue = formatNumber(unformattedValue);
     setFormData({ ...formData, [name]: unformattedValue });
-    e.target.value = formattedValue; // Mostrar formateado en el input
+    e.target.value = formattedValue;
   };
-  
+
+  const handleCurrencyChange = (e) => {
+    const newCurrency = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      moneda_precio: newCurrency,
+      precio_venta: '',
+      precio_renta: '',
+    }));
+  };
+  const validateStep = () => {
+    let stepErrors = {};
+    if (currentStep === 1) {
+      if (!formData.title) stepErrors.title = 'El título es obligatorio.';
+      if (!formData.description) stepErrors.description = 'La descripción es obligatoria.';
+    } else if (currentStep === 2) {
+      if (!formData.tipo_operacion) stepErrors.tipo_operacion = 'Seleccione el tipo de operación.';
+      if (formData.tipo_operacion === 'venta' && !formData.precio_venta)
+        stepErrors.precio_venta = 'El precio de venta es obligatorio.';
+      if (formData.tipo_operacion === 'arriendo' && !formData.precio_renta)
+        stepErrors.precio_renta = 'El precio de arriendo es obligatorio.';
+    } else if (currentStep === 3) {
+      if (!formData.direccion) stepErrors.direccion = 'La dirección es obligatoria.';
+      if (!formData.region) stepErrors.region = 'Seleccione una región.';
+      if (!formData.comuna) stepErrors.comuna = 'Seleccione una comuna.';
+    }
+    setError(stepErrors);
+    return Object.keys(stepErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentStep !== 4) return; // Asegúrate de que solo se envíe el formulario en el último paso
+    if (currentStep !== 4) return;
 
     setIsLoading(true);
 
-    // Validación de campos requeridos
     if (!formData.title || !formData.description || !formData.direccion || !formData.habitaciones || !formData.baños) {
       setError({
         title: ['Este campo es requerido'],
@@ -136,7 +183,6 @@ const AddProperty = () => {
     formDataToSend.append('agent', formData.agent);
     formDataToSend.append('moneda_precio', formData.moneda_precio);
 
-    // Agregar imágenes
     if (formData.images && formData.images.length > 0) {
       formData.images.forEach((image) => formDataToSend.append('images', image));
     }
@@ -166,66 +212,34 @@ const AddProperty = () => {
     }
   };
 
-  // Validar el paso actual antes de avanzar
-const validateStep = () => {
-  let stepErrors = {};
-  if (currentStep === 1) {
-    if (!formData.title) stepErrors.title = 'El título es obligatorio.';
-    if (!formData.description) stepErrors.description = 'La descripción es obligatoria.';
-  } else if (currentStep === 2) {
-    if (!formData.tipo_operacion) stepErrors.tipo_operacion = 'Seleccione el tipo de operación.';
-    if (formData.tipo_operacion === 'venta' && !formData.precio_venta)
-      stepErrors.precio_venta = 'El precio de venta es obligatorio.';
-    if (formData.tipo_operacion === 'arriendo' && !formData.precio_renta)
-      stepErrors.precio_renta = 'El precio de arriendo es obligatorio.';
-  } else if (currentStep === 3) {
-    if (!formData.direccion) stepErrors.direccion = 'La dirección es obligatoria.';
-    if (!formData.region) stepErrors.region = 'Seleccione una región.';
-    if (!formData.comuna) stepErrors.comuna = 'Seleccione una comuna.';
-  }
-  setError(stepErrors);
-  return Object.keys(stepErrors).length === 0; // Devuelve true si no hay errores
-};
-
-const formatNumber = (value) => {
-  if (!value) return '';
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Agregar puntos cada tres dígitos
-};
-
-const unformatNumber = (value) => {
-  if (!value) return '';
-  return value.replace(/\./g, ''); // Eliminar puntos para convertir a número
-};
-
-const handleCurrencyChange = (e) => {
-  const newCurrency = e.target.value;
-  setFormData((prevData) => ({
-    ...prevData,
-    moneda_precio: newCurrency,
-    precio_venta: '',
-    precio_renta: '',
-  }));
-};
-
-
-// Avanzar al siguiente paso
-const handleNextStep = () => {
-  if (validateStep()) {
-    setError(null); // Limpiar errores al avanzar
-    if (currentStep < 4) {
-      setCurrentStep((step) => step + 1); // Avanzar solo si no estás en el último paso
+  const handleNextStep = () => {
+    if (validateStep()) {
+      setError(null);
+      if (currentStep < 4) {
+        setCurrentStep((step) => step + 1);
+      }
     }
-  }
-};
+  };
 
+  const handlePreviousStep = () => {
+    setError(null);
+    setCurrentStep((step) => step - 1);
+  };
 
-// Retroceder al paso anterior
-const handlePreviousStep = () => {
-  setError(null); // Limpiar errores al retroceder
-  setCurrentStep((step) => step - 1);
-};
-
-const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
+  const getStepTitle = () => {
+    switch (currentStep) {
+      case 1:
+        return "Información Básica";
+      case 2:
+        return "Detalles de la Propiedad";
+      case 3:
+        return "Ubicación";
+      case 4:
+        return "Multimedia";
+      default:
+        return "";
+    }
+  };
 
   const renderStep = () => {
     switch (currentStep) {
@@ -235,6 +249,7 @@ const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
             formData={formData}
             handleChange={handleChange}
             agents={agents}
+            error={error}
           />
         );
       case 2:
@@ -244,8 +259,8 @@ const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
             handleChange={handleChange}
             handleCurrencyChange={handleCurrencyChange}
             handlePriceChange={handlePriceChange}
+            error={error}
           />
-
         );
       case 3:
         return (
@@ -255,6 +270,7 @@ const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
             handleRegionChange={handleRegionChange}
             regions={regions}
             comunas={comunas}
+            error={error}
           />
         );
       case 4:
@@ -262,76 +278,119 @@ const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
           <MediaUpload
             formData={formData}
             setFormData={setFormData}
+            error={error}
           />
         );
       default:
         return null;
     }
   };
-
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-white rounded-lg shadow-lg p-8">
-        {error && (
-          <div className="bg-red-50 text-red-800 p-4 rounded-md mb-6">
-            <p className="font-semibold">{error.message}</p>
-            {error.fields && (
-              <ul className="list-disc ml-4 mt-2">
-                {error.fields.map((field, index) => (
-                  <li key={index}>{field}</li>
-                ))}
-              </ul>
-            )}
-            {error.details && (
-              <p className="mt-2 text-sm">{JSON.stringify(error.details)}</p>
-            )}
+      <Card className="bg-white rounded-2xl shadow-neumorph">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 rounded-t-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-white">Nueva Propiedad</h1>
+              <p className="text-blue-100 mt-1">{getStepTitle()}</p>
+            </div>
+            <span className="px-3 py-1 bg-blue-500/30 text-white rounded-full text-sm font-medium backdrop-blur-sm">
+              Paso {currentStep} de 4
+            </span>
           </div>
-        )}
+        </div>
 
-        <FormProgress currentStep={currentStep} />
+        <CardContent className="p-6">
+          {error && typeof error === 'object' && Object.keys(error).length > 0 && (
+            <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+              <div className="flex">
+                <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
+                <div className="text-red-700">
+                  {error.message ? (
+                    <p className="font-medium">{error.message}</p>
+                  ) : (
+                    <ul className="list-disc list-inside">
+                      {Object.entries(error).map(([key, value]) => (
+                        <li key={key} className="text-sm">
+                          {Array.isArray(value) ? value[0] : value}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault(); // Siempre prevenir el envío predeterminado
+          <FormProgress currentStep={currentStep} />
+
+          <form onSubmit={(e) => {
+            e.preventDefault();
             if (isReadyToSubmit && currentStep === 4) {
-              handleSubmit(e); // Enviar formulario solo si se cumple la condición
+              handleSubmit(e);
             }
-          }}
-        >
-          {renderStep()}
+          }}>
+            <div className="mt-6">
+              {renderStep()}
+            </div>
 
-          <div className="mt-8 flex justify-between">
-            {currentStep > 1 && (
-              <button
-                type="button"
-                onClick={handlePreviousStep}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-              >
-                Anterior
-              </button>
-            )}
-            {currentStep < 4 ? (
-              <button
-                type="button"
-                onClick={handleNextStep}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 ml-auto"
-              >
-                Siguiente
-              </button>
-            ) : (
-              <button
-                type="submit"
-                onClick={() => setIsReadyToSubmit(true)} // Permitir envío solo si se hace clic aquí
-                disabled={isLoading}
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 ml-auto disabled:opacity-50"
-              >
-                {isLoading ? 'Guardando...' : 'Guardar Propiedad'}
-              </button>
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="flex justify-between items-center">
+                <div>
+                  {currentStep > 1 && (
+                    <button
+                      type="button"
+                      onClick={handlePreviousStep}
+                      className="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-200"
+                    >
+                      <ChevronLeft className="w-5 h-5 mr-2" />
+                      Anterior
+                    </button>
+                  )}
+                </div>
 
-            )}
-          </div>
-        </form>
-      </div>
+                <div>
+                  {currentStep < 4 ? (
+                    <button
+                      type="button"
+                      onClick={handleNextStep}
+                      className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200"
+                    >
+                      Siguiente
+                      <ChevronRight className="w-5 h-5 ml-2" />
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      onClick={() => setIsReadyToSubmit(true)}
+                      disabled={isLoading}
+                      className={`
+                        flex items-center px-6 py-2 rounded-lg transition-all duration-200
+                        ${isLoading 
+                          ? 'bg-gray-400 cursor-not-allowed' 
+                          : 'bg-green-600 hover:bg-green-700 text-white'
+                        }
+                      `}
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader className="w-5 h-5 mr-2 animate-spin" />
+                          Guardando...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-5 h-5 mr-2" />
+                          Guardar Propiedad
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
