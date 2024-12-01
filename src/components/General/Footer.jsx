@@ -41,7 +41,7 @@ const Footer = () => {
               {/* We Speak English */}
               <div className="flex items-center space-x-2 mt-2">
                 <img 
-                  src="estados-unidos.png" 
+                  src="/estados-unidos.png" 
                   alt="American Flag" 
                   className="w-6 sm:w-8 h-auto object-contain"
                 />
