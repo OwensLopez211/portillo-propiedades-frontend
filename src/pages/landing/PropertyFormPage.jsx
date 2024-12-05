@@ -22,13 +22,13 @@ const EntreganosTuPropiedad = () => {
         title="Entréganos tu propiedad"
         description={[
           <>
-            Porque entendemos tus necesidades, <strong>VALORIZAMOS</strong> tu propiedad <strong>SIN COSTO</strong> y nos encargamos del resto.
+            Porque entendemos tus necesidades, <strong>valorizamos</strong> tu propiedad <strong>sin costo</strong> y nos encargamos del resto.
           </>,
           "¡Vende o arrienda sin preocupaciones!",
           "Toda información que nos proporciones es absolutamente confidencial.",
           "Solo necesitamos tu email o número de celular para poder comunicarnos."
         ]}
-        emailText="contacto@newlandpropiedades.cl"
+        emailText="Contacto@newlandpropiedades.cl"
         lockedSubject={lockedSubject}
         buttonText="Contactar"
       />

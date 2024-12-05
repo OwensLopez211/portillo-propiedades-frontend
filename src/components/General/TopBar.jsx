@@ -60,7 +60,7 @@ const Topbar = () => {
               <img 
                 src="/estados-unidos.png" 
                 alt="American Flag" 
-                className="w-6 sm:w-8 h-auto object-contain"
+                className="w-5 sm:w-6 h-auto object-contain"
               />
               <span className="text-xs sm:text-sm font-medium text-[#175EA5]">
                 We speak English

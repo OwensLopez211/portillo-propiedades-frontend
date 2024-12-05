@@ -7,7 +7,8 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
         propertyType: '',
         comuna: '',
         priceMin: '',
-        priceMax: ''
+        priceMax: '',
+        currency: 'CLP' 
     });
 
     // Sincroniza los filtros iniciales al cargar el componente
@@ -30,7 +31,8 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
         const validatedFilters = {
             ...localFilters,
             priceMin: localFilters.priceMin !== '' ? parseFloat(localFilters.priceMin) : '',
-            priceMax: localFilters.priceMax !== '' ? parseFloat(localFilters.priceMax) : ''
+            priceMax: localFilters.priceMax !== '' ? parseFloat(localFilters.priceMax) : '',
+            currency: localFilters.currency
         };
         
         setFilters(validatedFilters);
@@ -93,27 +95,15 @@ const PropertySearchBar = ({ setFilters, page, initialFilters }) => {
                 <option value="lotes_de_cementerio">Lotes de Cementerio</option>
             </select>
 
-            {/* Select de precio (solo en propiedades) */}
-            {page === 'properties' && (
-                <div className="flex items-center gap-2 w-full lg:w-auto">
-                    <input 
-                        type="number" 
-                        name="priceMin" 
-                        placeholder="Precio mínimo" 
-                        onChange={handleChange} 
-                        value={localFilters.priceMin}
-                        className="p-1 border rounded-lg focus:outline-none w-full lg:w-20 text-sm"
-                    />
-                    <input 
-                        type="number" 
-                        name="priceMax" 
-                        placeholder="Precio máximo" 
-                        onChange={handleChange} 
-                        value={localFilters.priceMax}
-                        className="p-1 border rounded-lg focus:outline-none w-full lg:w-20 text-sm"
-                    />
-                </div>
-            )}
+            <select 
+                name="currency" 
+                onChange={handleChange} 
+                value={localFilters.currency}
+                className={`p-1 border bg-white rounded-lg shadow-sm focus:outline-none ${selectTextClass} w-full lg:w-auto text-sm`}
+            >
+                <option value="CLP">CLP</option>
+                <option value="UF">UF</option>
+            </select>
 
             {/* Botón de aplicar filtros */}
             <button 

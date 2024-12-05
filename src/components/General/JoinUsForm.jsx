@@ -98,8 +98,12 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                 </p>
                 <h3 className="text-xl font-semibold text-[#175EA5]">Déjanos tus datos y te contactaremos de inmediato.</h3>
                 <div className="mt-4">
-                    <h4 className="text-lg font-bold text-[#175EA5]">Correo electrónico</h4>
-                    <p className="text-[#175EA5] font-semibold">{emailText}</p>
+                <a 
+                    href={`mailto:${emailText}`} 
+                    className="text-[#175EA5] font-semibold hover:underline"
+                >
+                    {emailText}
+                </a>
                 </div>
                 <div className="flex items-center justify-center space-x-2 mt-4">
                     <FaWhatsapp className="text-lg sm:text-xl text-[#175EA5]" />
@@ -117,7 +121,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                     <img 
                         src="/estados-unidos.png"
                         alt="American Flag" 
-                        className="w-6 sm:w-8 h-auto object-contain"
+                        className="w-5 sm:w-6 h-auto object-contain"
                     />
                     <span className="text-sm sm:text-base font-medium text-[#175EA5]">
                         We speak English
@@ -132,7 +136,7 @@ const JoinUs = ({ title, description, emailText, extraField, buttonText, lockedS
                             onClick={() => window.open('https://www.instagram.com/newland_propiedades_/', '_blank')}
                         />
                         <FaInstagram 
-                            className="text-pink-500 hover:text-pink-400 transition duration-300 cursor-pointer"
+                            className="text-purple-500 hover:text-pink-400 transition duration-300 cursor-pointer"
                             size={30} 
                             onClick={() => window.open('https://www.instagram.com/terrenosysitioschile/', '_blank')}
                         />

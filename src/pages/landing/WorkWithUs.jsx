@@ -25,7 +25,7 @@ const Contact = () => {
           "lo que sí nos importa es que seas dinámico, proactivo, creativo, apasionado, positivo, colaborativo, flexible, con ganas de trabajar, emprendedor, optimista, alegre, entusiasta, constructivo, comprometido…",
           "Nos encantaría saber de ti."
         ]}
-        emailText="contacto@newlandpropiedades.cl"
+        emailText="Contacto@newlandpropiedades.cl"
         lockedSubject={lockedSubject}
         buttonText="Enviar"
       />

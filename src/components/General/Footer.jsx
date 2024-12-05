@@ -43,7 +43,7 @@ const Footer = () => {
                 <img 
                   src="/estados-unidos.png" 
                   alt="American Flag" 
-                  className="w-6 sm:w-8 h-auto object-contain"
+                  className="w-5 sm:w-6 h-auto object-contain"
                 />
                 <span className="text-xs sm:text-sm font-medium text-white">
                   We speak English
@@ -66,7 +66,7 @@ const Footer = () => {
               href="https://www.instagram.com/terrenosysitioschile/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl text-pink-500 hover:text-gray-300 transition duration-300"
+              className="text-xl text-purple-500 hover:text-gray-300 transition duration-300"
             >
               <FaInstagram />
             </a>
@@ -74,7 +74,7 @@ const Footer = () => {
               href="https://www.facebook.com/newlandpropiedades"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xl text-blue-600 hover:text-gray-300 transition duration-300"
+              className="text-xl text-white-500 hover:text-blue-500 transition duration-300"
             >
               <FaFacebookF />
             </a>

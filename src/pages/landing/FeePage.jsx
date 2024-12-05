@@ -11,7 +11,7 @@ const FeePage = () => {
       <Topbar />
       <Navbar />
       <SecondaryHero
-        title="Nuestros Honorarios"
+        title="Honorarios"
         subtitle=""
         backgroundImage="Fees.jpg"
       />
@@ -19,7 +19,9 @@ const FeePage = () => {
       <div className="container mx-auto px-4 py-16 max-w-6xl text-[#175EA5]"> {/* Aplicado text-[#175EA5] al contenedor */}
         <div className="text-center mb-16 space-y-4">
           <p className="text-lg md:text-xl max-w-3xl mx-auto">
-            Conozca los detalles de nuestros honorarios, diseñados para brindar un servicio profesional y confiable en cada paso del proceso.
+          Los honorarios en el corretaje de propiedades son el pago que realiza el cliente al corredor por sus servicios de
+          intermediación en una transacción inmobiliaria.
+          Este pago corresponde a un porcentaje del valor de la propiedad o del monto del arriendo.
           </p>
         </div>
 
